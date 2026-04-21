@@ -97,7 +97,9 @@ void displayUserRewards(int userID);
 void displayMainMenu();
 void displayAdminMenu();
 void displayUserMenu();
-int loginUser();      
+int loginUser();  
+
+//MAIN FUNCTION----------------------------------------
 int main() {
 
     //LOAD DATA FROM FILES AT STARTUP
