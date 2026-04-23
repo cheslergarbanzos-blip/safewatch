@@ -52,14 +52,106 @@ int transactionCount = 0;
 //FUNCTIONS----------------------------------------
 
 // Storage Module
-void saveIncidentsToFile();
-void saveSuspectsToFile();
-void saveUsersToFile();
-void saveTransactionsToFile();
-void loadIncidentsFromFile();
-void loadSuspectsFromFile();
-void loadUsersFromFile();
-void loadTransactionsFromFile();
+void saveIncidentsToFile() {
+    ofstream outfile ("incidents.txt");
+    if (outfile.is_open()) {
+        for (int i = 0; i < incidentCount; i++) {
+            outfile << incidentID[i] << "," 
+                    << incidentCrime[i] << "," 
+                    << incidentLocation[i] << "," 
+                    << incidentDate[i] << "," 
+                    << incidentStatus[i] << endl;
+        } 
+    }
+    outfile.close();
+}
+
+void saveSuspectsToFile(){
+    ofstream outfile ("suspects.txt");
+    if (outfile.is_open()) {
+        for (int i = 0; i < suspectCount; i++) {
+            outfile << suspectID[i] << "," 
+                    << suspectIncidentID[i] << "," 
+                    << suspectName[i] << "," 
+                    << suspectHeight[i] << "," 
+                    << suspectBuild[i] << "," 
+                    << suspectClothing[i] << "," 
+                    << suspectLastLocation[i] << endl;
+        } 
+    }
+}
+
+void saveUsersToFile(){\
+    ofstream outfile ("users.txt");
+    if (outfile.is_open()) {
+        for (int i = 0; i < userCount; i++) {
+            outfile << userID[i] << "," 
+                    << userName[i] << "," 
+                    << userPassword[i] << "," 
+                    << userArea[i] << "," 
+                    << userRole[i] << "," 
+                    << userRewardPoints[i] << endl;
+        } 
+    }
+
+}
+
+void saveTransactionsToFile(){
+    ofstream outfile ("transactions.txt");
+    if (outfile.is_open()) {
+        for (int i = 0; i < transactionCount; i++) {
+            outfile << transactionID[i] << ","
+                    << transactionUserID[i] << ","
+                    << transactionIncidentID[i] << ","
+                    << transactionTimestamp[i] << ","
+                    << transactionTipType[i] << ","
+                    << transactionStatus[i] << endl;
+        }
+    }
+    outfile.close();
+}
+
+void loadIncidentsFromFile(){
+    ifstream infile ("incidents.txt");
+    if (infile.is_open()) {
+        string line;
+        while (getline(infile, line)) {
+            incidentCount++;
+        }
+        
+    }
+}
+
+void loadSuspectsFromFile(){
+    ifstream infile ("suspects.txt");
+    if (infile.is_open()) {
+        string line;
+        while (getline(infile, line)) {
+            suspectCount++;
+        }
+        
+    }
+}
+
+void loadUsersFromFile(){
+    ifstream infile ("users.txt");
+    if (infile.is_open()) {
+        string line;
+        while (getline(infile, line)) {
+            userCount++;
+        }
+    }
+}
+
+void loadTransactionsFromFile(){
+    ifstream infile ("transactions.txt");
+    if (infile.is_open()) {
+        string line;
+        while (getline(infile, line)) {
+            transactionCount++;
+        }
+    }
+}
 
 // Input Module
 void addIncident() {
