@@ -189,7 +189,8 @@ void displayUserRewards(int userID);
 void displayMainMenu();
 void displayAdminMenu();
 void displayUserMenu();
-int loginUser();  
+int loginUser() {
+    cout << "test";
 
 //MAIN FUNCTION----------------------------------------
 int main() {
