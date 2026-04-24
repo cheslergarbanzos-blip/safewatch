@@ -189,8 +189,44 @@ void displayUserRewards(int userID);
 void displayMainMenu();
 void displayAdminMenu();
 void displayUserMenu();
+
 int loginUser() {
-    cout << "test";
+    string inputUser, inputPass;
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                               ██\n";
+    cout << "██  ▄▄     ▄▄▄   ▄▄▄▄ ▄▄ ▄▄  ▄▄  ██\n";
+    cout << "██  ██    ██▀██ ██ ▄▄ ██ ███▄██  ██\n";
+    cout << "██  ██▄▄▄ ▀███▀ ▀███▀ ██ ██ ▀██  ██\n";
+    cout << "██                               ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+
+    cout << "Username: ";
+    getline (cin, inputUser);
+
+    cout << "Password: ";
+    getline (cin, inputPass);
+    }
+
+int registerUser() {
+
+     cout <<"▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                                             ██\n";
+    cout << "██    █████▄  ██████  ▄████  ██ ▄█████ ██████ ██████ █████▄    ██\n";
+    cout << "██    ██▄▄██▄ ██▄▄   ██  ▄▄▄ ██ ▀▀▀▄▄▄   ██   ██▄▄   ██▄▄██    ██\n";
+    cout << "██    ██   ██ ██▄▄▄▄  ▀███▀  ██ █████▀   ██   ██▄▄▄▄ ██   ██   ██\n";
+    cout << "██                                                             ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+
+    cout << "Username: ";
+
+    cout << "Full Name:";
+
+    cout << "Password: ";
+
+    cout << "Address: ";
+}
 
 //MAIN FUNCTION----------------------------------------
 int main() {
