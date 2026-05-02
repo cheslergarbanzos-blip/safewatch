@@ -186,9 +186,26 @@ void approveReward(int transactionID);
 void displayUserRewards(int userID);
 
 // UI Module
-void displayMainMenu();
-void displayAdminMenu();
-void displayUserMenu();
+void displayAdminMenu() {
+    // manage reports
+    // rewards
+    // profile
+
+    // list of incidents
+}
+
+
+
+
+
+void displayUserMenu() {
+    // report
+    // incidents/suspects
+    // reward
+    // profile
+
+    // list of incidents   
+}
 
 void startMenu() {
 
