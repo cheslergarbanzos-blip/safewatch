@@ -3,7 +3,7 @@
 #include <fstream>
 using namespace std;
 
-//CONSTANTS----------------------------------
+//CONSTANTS===========================================
 
 //Constant array sizes for storing data
 const int MAX_INCIDENTS    = 100;
@@ -49,9 +49,9 @@ int suspectCount     = 0;
 int userCount        = 0;
 int transactionCount = 0;
 
-//FUNCTIONS----------------------------------------
+//FUNCTIONS===========================================
 
-// Storage Module
+// Storage Module-----------------------------------------
 void saveIncidentsToFile() {
     ofstream outfile ("incidents.txt");
     if (outfile.is_open()) {
@@ -153,7 +153,7 @@ void loadTransactionsFromFile(){
     }
 }
 
-// Input Module
+// Input Module-------------------------------------------------
 void addIncident() {
 
     // Save data right away
@@ -161,13 +161,48 @@ void addIncident() {
 }
 void addSuspect();
 void addUser();
+int loginUser();
+int registerUser();
 
-// Processing Module
-bool isValidIncidentID(int id);   
-bool isValidUserID(int id);       
-bool isAdminUser(int userID);     
+// Processing Module---------------------------------------------
+bool isValidIncidentID(int id) {
+    for (int i = 0; i < incidentCount; i++) {
+        if (incidentID[i] == id) {
+            return true;
+        }
+    }
+    return false;
+}
 
-// Sorting & Searching
+bool isValidUserID(int id) {
+    for (int i = 0; i < userCount; i++) {
+        if (userID[i] == id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isDuplicateUser(string username) {
+    for (int i = 0; i < userCount; i++) {
+        if (userName[i] == username) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isAdminUser(int id) {
+    for (int i = 0; i < userCount; i++) {
+        if (userID[i] == id && userRole[i] == "admin") {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+// Sorting & Searching-------------------------------------------------
 void sortIncidentsByID();
 void sortIncidentsByLocation();
 int  searchIncidentByID(int id);           
@@ -175,17 +210,17 @@ int  searchIncidentByLocation(string area);
 int  searchUserByUsername(string username);
 int  searchSuspectByIncidentID(int id);
 
-// Notification Module
+// Notification Module-------------------------------------------------
 void displayAllAlerts();
 void displayAlertsByLocation(string area);
 void displaySuspectDetails(int incidentID);
 
-// Reward Module
+// Reward Module------------------------------------------------------
 void submitTip(int userID, int incidentID);
 void approveReward(int transactionID);
 void displayUserRewards(int userID);
 
-// UI Module
+// UI Module---------------------------------------------------------
 void displayAdminMenu() {
     // manage reports
     // rewards
@@ -193,9 +228,6 @@ void displayAdminMenu() {
 
     // list of incidents
 }
-
-
-
 
 
 void displayUserMenu() {
@@ -238,7 +270,9 @@ void startMenu() {
     cout << "\n";
 
         cout << "__" << " ";
+        cin >> choice;
         cout << "__";
+    
 
         switch(choice) {
             case 1:
@@ -264,11 +298,13 @@ int loginUser() {
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
 
-    cout << "Username: ";
+    cout << "Username: " << endl;
     getline (cin, inputUser);
 
-    cout << "Password: ";
+    cout << "Password: " << endl;
     getline (cin, inputPass);
+    
+    return 0;
     }
 
 int registerUser() {
@@ -289,23 +325,24 @@ int registerUser() {
     cout << "Password: ";
 
     cout << "Address: ";
+    
+    return 0;
 }
 
-//MAIN FUNCTION----------------------------------------
+//MAIN FUNCTION===========================================
 int main() {
-
     //LOAD DATA FROM FILES AT STARTUP
     loadIncidentsFromFile();
     loadSuspectsFromFile();
     loadUsersFromFile();
     loadTransactionsFromFile();
 
-
-
     //SAVE DATA TO FILES BEFORE EXITING
     saveIncidentsToFile();
     saveSuspectsToFile();
     saveUsersToFile();
     saveTransactionsToFile();
+
+    startMenu();
     return 0;
 }
