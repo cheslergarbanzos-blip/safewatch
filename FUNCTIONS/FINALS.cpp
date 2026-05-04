@@ -81,7 +81,7 @@ void saveSuspectsToFile(){
     }
 }
 
-void saveUsersToFile(){\
+void saveUsersToFile(){
     ofstream outfile ("users.txt");
     if (outfile.is_open()) {
         for (int i = 0; i < userCount; i++) {
@@ -93,7 +93,6 @@ void saveUsersToFile(){\
                     << userRewardPoints[i] << endl;
         } 
     }
-
 }
 
 void saveTransactionsToFile(){
@@ -153,14 +152,25 @@ void loadTransactionsFromFile(){
     }
 }
 
-// Input Module-------------------------------------------------
+// Input Module---------------------------------------------------
 void addIncident() {
 
     // Save data right away
     saveIncidentsToFile();
+
+
 }
-void addSuspect();
-void addUser();
+void addSuspect() {
+
+    // Save data right away
+    saveSuspectsToFile();
+
+}
+void addUser(){
+    // Save data right away
+    saveUsersToFile();
+}
+
 int loginUser();
 int registerUser();
 
@@ -211,7 +221,10 @@ int  searchUserByUsername(string username);
 int  searchSuspectByIncidentID(int id);
 
 // Notification Module-------------------------------------------------
-void displayAllAlerts();
+void displayAllAlerts() {
+        cout << "" << endl;
+
+}
 void displayAlertsByLocation(string area);
 void displaySuspectDetails(int incidentID);
 
