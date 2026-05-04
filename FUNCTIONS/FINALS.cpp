@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <windows.h>
 using namespace std;
 
 //CONSTANTS========================================================================================
@@ -30,6 +31,7 @@ string suspectLastLocation[MAX_SUSPECTS];
 // USERS 
 int    userID[MAX_USERS];
 string userName[MAX_USERS];
+string userFullName[MAX_USERS];
 string userPassword[MAX_USERS];
 string userArea[MAX_USERS];
 string userRole[MAX_USERS];         
@@ -66,7 +68,7 @@ void saveIncidentsToFile() {
     outfile.close();
 }
 
-void saveSuspectsToFile(){
+void saveSuspectsToFile() {
     ofstream outfile ("suspects.txt");
     if (outfile.is_open()) {
         for (int i = 0; i < suspectCount; i++) {
@@ -81,7 +83,7 @@ void saveSuspectsToFile(){
     }
 }
 
-void saveUsersToFile(){
+void saveUsersToFile() {
     ofstream outfile ("users.txt");
     if (outfile.is_open()) {
         for (int i = 0; i < userCount; i++) {
@@ -93,6 +95,7 @@ void saveUsersToFile(){
                     << userRewardPoints[i] << endl;
         } 
     }
+
 }
 
 void saveTransactionsToFile(){
@@ -152,25 +155,14 @@ void loadTransactionsFromFile(){
     }
 }
 
-// Input Module---------------------------------------------------
+// Input Module-------------------------------------------------
 void addIncident() {
 
     // Save data right away
     saveIncidentsToFile();
-
-
 }
-void addSuspect() {
-
-    // Save data right away
-    saveSuspectsToFile();
-
-}
-void addUser(){
-    // Save data right away
-    saveUsersToFile();
-}
-
+void addSuspect();
+void addUser();
 int loginUser();
 int registerUser();
 
@@ -221,10 +213,7 @@ int  searchUserByUsername(string username);
 int  searchSuspectByIncidentID(int id);
 
 // Notification Module-------------------------------------------------
-void displayAllAlerts() {
-        cout << "" << endl;
-
-}
+void displayAllAlerts();
 void displayAlertsByLocation(string area);
 void displaySuspectDetails(int incidentID);
 
@@ -254,8 +243,7 @@ void displayUserMenu() {
 }
 
 void startMenu() {
-
-    int choice;
+       int choice;
 
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██                                                                        ██\n";
@@ -263,43 +251,40 @@ void startMenu() {
     cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
     cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
     cout << "██                                                                        ██\n";
+    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██    [1] Login                                                           ██\n";
+    cout << "██    [2] Register                                                        ██\n";
+    cout << "██    [3] Exit                                                            ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██                                                                        ██\n";
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
-
     cout << "\n";
-
-        cout << "██▀▀▀▀▀▀▀▀▀▀██                             \n";
-        cout << "██   ▄██    ██  ▄▄     ▄▄▄   ▄▄▄▄ ▄▄ ▄▄  ▄▄\n";
-        cout << "██    ██    ██  ██    ██▀██ ██ ▄▄ ██ ███▄██\n";
-        cout << "██    ██    ██  ██▄▄▄ ▀███▀ ▀███▀ ██ ██ ▀██\n";
-        cout << "██▄▄▄▄▄▄▄▄▄▄██                             \n";
-
-    cout << "\n";
-
-        cout << "██▀▀▀▀▀▀▀▀▀▀██                                                \n";
-        cout << "██  ▄████▄  ██  ▄▄▄▄  ▄▄▄▄▄  ▄▄▄▄ ▄▄  ▄▄▄▄ ▄▄▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄  \n";
-        cout << "██    ▄█▀   ██  ██▄█▄ ██▄▄  ██ ▄▄ ██ ███▄▄   ██   ██▄▄  ██▄█▄ \n";
-        cout << "██  ██████  ██  ██ ██ ██▄▄▄ ▀███▀ ██ ▄▄██▀   ██   ██▄▄▄ ██ ██ \n";
-        cout << "██▄▄▄▄▄▄▄▄▄▄██                                                \n";
-
-    cout << "\n";
-
-        cout << "__" << " ";
-        cin >> choice;
-        cout << "__";
+    cout << "Choice:";
+    cin >> choice;
     
+    switch (choice) {
+        case 1:
+            loginUser();
+            break;
+        case 2:
+            registerUser();
+            break;
+        case 3:
+            cout << "Exiting...\n";
+            exit(0);
+        default:
+            cout << "Invalid choice. Please try again.\n";
+            startMenu();
+    }
 
-        switch(choice) {
-            case 1:
-                loginUser();
-                break;
-            case 2:
-                registerUser();
-                break;
-            default:
-                cout << "Invalid choice. Please try again.\n";
-                startMenu();
-        }
+
+
 }
+
+ 
+
+
 
 int loginUser() {
     string inputUser, inputPass;
@@ -333,12 +318,16 @@ int registerUser() {
     cout << "\n";
 
     cout << "Username: ";
+    cin >> userName[userCount];
 
     cout << "Full Name:";
+    cin >> userFullName[userCount];
 
     cout << "Password: ";
+    cin >> userPassword[userCount];
 
     cout << "Address: ";
+    cin >> userArea[userCount];
     
     return 0;
 }
