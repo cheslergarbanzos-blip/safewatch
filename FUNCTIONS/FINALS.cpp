@@ -3,7 +3,7 @@
 #include <fstream>
 using namespace std;
 
-//CONSTANTS===========================================
+//CONSTANTS========================================================================================
 
 //Constant array sizes for storing data
 const int MAX_INCIDENTS    = 100;
@@ -49,7 +49,7 @@ int suspectCount     = 0;
 int userCount        = 0;
 int transactionCount = 0;
 
-//FUNCTIONS===========================================
+//FUNCTIONS=========================================================================================
 
 // Storage Module-----------------------------------------
 void saveIncidentsToFile() {
@@ -223,6 +223,7 @@ void displayUserRewards(int userID);
 // UI Module---------------------------------------------------------
 void displayAdminMenu() {
     // manage reports
+    
     // rewards
     // profile
 
@@ -329,7 +330,7 @@ int registerUser() {
     return 0;
 }
 
-//MAIN FUNCTION===========================================
+//MAIN FUNCTION===================================================================================
 int main() {
     //LOAD DATA FROM FILES AT STARTUP
     loadIncidentsFromFile();
