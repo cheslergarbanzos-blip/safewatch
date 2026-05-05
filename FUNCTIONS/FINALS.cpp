@@ -43,13 +43,19 @@ int    transactionUserID[MAX_TRANSACTIONS];
 int    transactionIncidentID[MAX_TRANSACTIONS];
 string transactionTimestamp[MAX_TRANSACTIONS];
 string transactionTipType[MAX_TRANSACTIONS];
-string transactionStatus[MAX_TRANSACTIONS];;
+string transactionStatus[MAX_TRANSACTIONS];
 
 // counters
 int incidentCount    = 0;
 int suspectCount     = 0;
 int userCount        = 0;
 int transactionCount = 0;
+
+// Function prototypes
+bool isDuplicateUser(string username);
+bool isValidIncidentID(int id);
+void displayAdminMenu();
+void displayUserMenu(int loggedInUserID);
 
 //FUNCTIONS=========================================================================================
 
@@ -157,14 +163,184 @@ void loadTransactionsFromFile(){
 
 // Input Module-------------------------------------------------
 void addIncident() {
+    if (incidentCount >= MAX_INCIDENTS) {
+        cout << "Maximum incident limit reached. Cannot add more incidents.\n";
+        return;
+    }
+
+    cout << "===== ADD INCIDENT =====\n";
+
+    cout << "Incident ID: ";
+    cin >> incidentID[incidentCount];
+    cin.ignore(); // Clear newline from input buffer
+
+    cout << "Crime Type: ";
+    getline(cin, incidentCrime[incidentCount]);
+
+    cout << "Location: ";
+    getline(cin, incidentLocation[incidentCount]);
+
+    cout << "Date (YYYY-MM-DD): ";
+    getline(cin, incidentDate[incidentCount]);
+
+    cout << "Status: ";
+    getline(cin, incidentStatus[incidentCount]);
+
+    incidentCount++;
+
+    cout << "\nIncident added successfully!\n";
+
 
     // Save data right away
     saveIncidentsToFile();
 }
-void addSuspect();
-void addUser();
-int loginUser();
-int registerUser();
+void addSuspect(){
+    if (suspectCount >= MAX_SUSPECTS) {
+        cout << "Maximum suspect limit reached. Cannot add more suspects.\n";
+        return;
+    }
+
+    cout << "===== ADD SUSPECT =====\n";
+
+    cout << "Suspect ID: ";
+    cin >> suspectID[suspectCount];
+    cin.ignore();
+
+    cout << "Related Incident ID: ";
+    cin >> suspectIncidentID[suspectCount];
+    cin.ignore(); 
+
+    cout << "Name: (type Unknown if not identified) ";
+    getline(cin, suspectName[suspectCount]);
+
+    cout << "Height: ";
+    getline(cin, suspectHeight[suspectCount]);
+
+    cout << "Build: ";
+    getline(cin, suspectBuild[suspectCount]);
+
+    cout << "Clothing: ";
+    getline(cin, suspectClothing[suspectCount]);
+
+    cout << "Last Known Location: ";
+    getline(cin, suspectLastLocation[suspectCount]);
+
+    suspectCount++;
+
+    cout << "\nSuspect added successfully!\n";
+
+     // Save data right away
+     saveSuspectsToFile();
+}
+void addUser(){
+    if (userCount >= MAX_USERS) {
+        cout << "Maximum user limit reached. Cannot add more users.\n";
+        return;
+    }
+
+      userID[userCount] = userCount + 1;
+
+    cout << "Username: ";
+    cin >> userName[userCount];
+
+    if (isDuplicateUser(userName[userCount])) {
+        cout << "Username already exists. Please choose a different username.\n";
+        return;
+    }
+
+    cout << "===== ADD USER =====\n";
+
+    cin.ignore();
+
+    cout << "Full Name: ";
+    getline(cin, userFullName[userCount]);
+
+    cout << "Password: ";
+    getline(cin, userPassword[userCount]);
+
+    cout << "Address: ";
+    getline(cin, userArea[userCount]);
+
+    cout << "Role (admin/user): ";
+    getline(cin, userRole[userCount]);
+
+    userRewardPoints[userCount] = 0;
+
+    userCount++;
+
+    cout << "\nUser registered successfully!\n";
+
+     // Save data right away
+     saveUsersToFile();
+
+
+}
+int loginUser(){
+    string inputUser;
+    string inputPass;
+
+    cin.ignore();
+
+    cout << "===== LOGIN =====\n";
+
+    cout << "Username: ";
+    getline(cin, inputUser);
+
+    cout << "Password: ";
+    getline(cin, inputPass);
+
+    for (int i = 0; i < userCount; i++) {
+        if (userName[i] == inputUser && userPassword[i] == inputPass) {
+            cout << "\nLogin successful! Welcome, " << userFullName[i] << "!\n";
+            if (userRole[i] == "admin") {
+                displayAdminMenu();
+            } else {
+                displayUserMenu(userID[i]);
+            }
+            return userID[i];
+        }
+    }
+    cout << "\nInvalid username or password. Please try again.\n";
+    return -1;
+}
+int registerUser(){
+    if (userCount >= MAX_USERS) {
+        cout << "Maximum user limit reached. Cannot add more users.\n";
+        return -1;
+    }
+
+    userID[userCount] = userCount + 1;
+
+    cout << "===== REGISTER USER =====\n";
+
+    cout << "Username: ";
+    cin >> userName[userCount];
+    if (isDuplicateUser(userName[userCount])) {
+        cout << "Username already exists. Please choose a different username.\n";
+        return -1;
+    }
+    cin.ignore();
+
+    cout << "Full Name: ";
+    getline(cin, userFullName[userCount]);
+
+    cout << "Password: ";
+    getline(cin, userPassword[userCount]);
+
+    cout << "Address: ";
+    getline(cin, userArea[userCount]);
+
+    userRewardPoints[userCount] = 0;
+
+    userCount++;
+
+    cout << "\nUser registered successfully!\n";
+
+     // Save data right away
+     saveUsersToFile();
+
+    return userID[userCount - 1];
+}
 
 // Processing Module---------------------------------------------
 bool isValidIncidentID(int id) {
