@@ -5,6 +5,7 @@
 using namespace std;
 
 //CONSTANTS========================================================================================
+int choice;
 
 //Constant array sizes for storing data
 const int MAX_INCIDENTS    = 100;
@@ -168,23 +169,35 @@ void addIncident() {
         return;
     }
 
-    cout << "===== ADD INCIDENT =====\n";
+
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██   ▄▄▄   ▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄▄   ▄▄▄▄▄▄   ██    \n";
+    cout << "██   ██▄█▄ ██▄▄  ██▄█▀ ██▀██ ██▄█▄   ██     ██\n";
+    cout << "██   ██ ██ ██▄▄▄ ██    ▀███▀ ██ ██   ██     ██ \n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+    cout << "\n";
 
     cout << "Incident ID: ";
     cin >> incidentID[incidentCount];
-    cin.ignore(); // Clear newline from input buffer
+    cin.ignore(); 
+    cout << "\n";
 
     cout << "Crime Type: ";
     getline(cin, incidentCrime[incidentCount]);
+    cout << "\n";
 
     cout << "Location: ";
     getline(cin, incidentLocation[incidentCount]);
+    cout << "\n";
 
     cout << "Date (YYYY-MM-DD): ";
     getline(cin, incidentDate[incidentCount]);
+    cout << "\n";
+    cout << "\n";
 
     cout << "Status: ";
     getline(cin, incidentStatus[incidentCount]);
+    cout << "\n";
 
     incidentCount++;
 
@@ -200,30 +213,42 @@ void addSuspect(){
         return;
     }
 
-    cout << "===== ADD SUSPECT =====\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██   ▄▄▄   ▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄▄   ▄▄▄▄▄▄   ██    \n";
+    cout << "██   ██▄█▄ ██▄▄  ██▄█▀ ██▀██ ██▄█▄   ██     ██\n";
+    cout << "██   ██ ██ ██▄▄▄ ██    ▀███▀ ██ ██   ██     ██ \n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+    cout << "\n";
 
     cout << "Suspect ID: ";
     cin >> suspectID[suspectCount];
     cin.ignore();
+    cout << "\n";
 
     cout << "Related Incident ID: ";
     cin >> suspectIncidentID[suspectCount];
     cin.ignore(); 
+    cout << "\n";
 
-    cout << "Name: (type Unknown if not identified) ";
+    cout << "Name: (type N/A if not identified) ";
     getline(cin, suspectName[suspectCount]);
+    cout << "\n";
 
     cout << "Height: ";
     getline(cin, suspectHeight[suspectCount]);
+    cout << "\n";
 
     cout << "Build: ";
     getline(cin, suspectBuild[suspectCount]);
+    cout << "\n";
 
     cout << "Clothing: ";
     getline(cin, suspectClothing[suspectCount]);
+    cout << "\n";
 
     cout << "Last Known Location: ";
     getline(cin, suspectLastLocation[suspectCount]);
+    cout << "\n";
 
     suspectCount++;
 
@@ -275,34 +300,7 @@ void addUser(){
 
 
 }
-int loginUser(){
-    string inputUser;
-    string inputPass;
 
-    cin.ignore();
-
-    cout << "===== LOGIN =====\n";
-
-    cout << "Username: ";
-    getline(cin, inputUser);
-
-    cout << "Password: ";
-    getline(cin, inputPass);
-
-    for (int i = 0; i < userCount; i++) {
-        if (userName[i] == inputUser && userPassword[i] == inputPass) {
-            cout << "\nLogin successful! Welcome, " << userFullName[i] << "!\n";
-            if (userRole[i] == "admin") {
-                displayAdminMenu();
-            } else {
-                displayUserMenu(userID[i]);
-            }
-            return userID[i];
-        }
-    }
-    cout << "\nInvalid username or password. Please try again.\n";
-    return -1;
-}
 int registerUser(){
     if (userCount >= MAX_USERS) {
         cout << "Maximum user limit reached. Cannot add more users.\n";
@@ -406,6 +404,25 @@ void displayAdminMenu() {
     // profile
 
     // list of incidents
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                                                        ██\n";
+    cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
+    cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
+    cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██    [1] Report                                                          ██\n";
+    cout << "██    [2] List of Incidents                                               ██\n";
+    cout << "██    [3] Reward                                                          ██\n";
+    cout << "██    [4] Profile                                                         ██\n";
+    cout << "██    [5] Logout                                                          ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+    cout << "Choice: ";
+    cin >> choice;
 }
 
 
@@ -415,11 +432,30 @@ void displayUserMenu() {
     // reward
     // profile
 
-    // list of incidents   
+    // recent incidents   
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                                                        ██\n";
+    cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
+    cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
+    cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██    [1] Report                                                          ██\n";
+    cout << "██    [2] List of Incidents                                               ██\n";
+    cout << "██    [3] Reward                                                          ██\n";
+    cout << "██    [4] Profile                                                         ██\n";
+    cout << "██    [5] Logout                                                          ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+    cout << "Choice: ";
+    cin >> choice;
+    cout << "\n";
 }
 
 void startMenu() {
-       int choice;
 
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██                                                                        ██\n";
@@ -479,6 +515,18 @@ int loginUser() {
     cout << "Password: " << endl;
     getline (cin, inputPass);
     
+    for (int i = 0; i < userCount; i++) {
+        if (userName[i] == inputUser && userPassword[i] == inputPass) {
+            cout << "\nLogin successful! Welcome, " << userFullName[i] << "!\n";
+            if (userRole[i] == "admin") {
+                displayAdminMenu();
+            } else {
+                displayUserMenu(userID[i]);
+            }
+            return userID[i];
+        }
+    }
+    cout << "\nInvalid username or password. Please try again.\n";
     return 0;
     }
 
@@ -495,21 +543,39 @@ int registerUser() {
 
     cout << "Username: ";
     cin >> userName[userCount];
+    if (isDuplicateUser(userName[userCount])) {
+        cout << "Username already exists. Please choose a different username.\n";
+        return -1;
+    }
+    cin.ignore();
 
-    cout << "Full Name:";
-    cin >> userFullName[userCount];
+    cout << "Full Name: ";
+    getline(cin, userFullName[userCount]);
 
     cout << "Password: ";
-    cin >> userPassword[userCount];
+    getline(cin, userPassword[userCount]);
 
     cout << "Address: ";
-    cin >> userArea[userCount];
-    
-    return 0;
+    getline(cin, userArea[userCount]);
+
+    userRewardPoints[userCount] = 0;
+
+    userCount++;
+
+    cout << "\nUser registered successfully!\n";
+
+     // Save data right away
+     saveUsersToFile();
+
+    return userID[userCount - 1];
 }
+
+    
+
 
 //MAIN FUNCTION===================================================================================
 int main() {
+
     //LOAD DATA FROM FILES AT STARTUP
     loadIncidentsFromFile();
     loadSuspectsFromFile();
