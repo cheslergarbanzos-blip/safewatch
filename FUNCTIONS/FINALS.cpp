@@ -2,10 +2,17 @@
 #include <string>
 #include <fstream>
 #include <windows.h>
+#include <sstream>
 using namespace std;
 
 //CONSTANTS========================================================================================
 int choice;
+
+const string INCIDENTS_FILE    = "DATA/incidents.csv";
+const string SUSPECTS_FILE     = "DATA/suspects.csv";
+const string USERS_FILE        = "DATA/users.txt";
+const string TRANSACTIONS_FILE = "DATA/transactions.txt";
+
 
 //Constant array sizes for storing data
 const int MAX_INCIDENTS    = 100;
@@ -62,7 +69,7 @@ void displayUserMenu(int loggedInUserID);
 
 // Storage Module-----------------------------------------
 void saveIncidentsToFile() {
-    ofstream outfile ("incidents.txt");
+    ofstream outfile (INCIDENTS_FILE);
     if (outfile.is_open()) {
         for (int i = 0; i < incidentCount; i++) {
             outfile << incidentID[i] << "," 
@@ -76,7 +83,7 @@ void saveIncidentsToFile() {
 }
 
 void saveSuspectsToFile() {
-    ofstream outfile ("suspects.txt");
+    ofstream outfile (SUSPECTS_FILE);
     if (outfile.is_open()) {
         for (int i = 0; i < suspectCount; i++) {
             outfile << suspectID[i] << "," 
@@ -87,26 +94,29 @@ void saveSuspectsToFile() {
                     << suspectClothing[i] << "," 
                     << suspectLastLocation[i] << endl;
         } 
+        outfile.close();
     }
 }
 
 void saveUsersToFile() {
-    ofstream outfile ("users.txt");
+    ofstream outfile (USERS_FILE);
     if (outfile.is_open()) {
         for (int i = 0; i < userCount; i++) {
             outfile << userID[i] << "," 
                     << userName[i] << "," 
+                    << userFullName[i] << ","
                     << userPassword[i] << "," 
                     << userArea[i] << "," 
                     << userRole[i] << "," 
                     << userRewardPoints[i] << endl;
         } 
+        outfile.close();
     }
 
 }
 
 void saveTransactionsToFile(){
-    ofstream outfile ("transactions.txt");
+    ofstream outfile (TRANSACTIONS_FILE);
     if (outfile.is_open()) {
         for (int i = 0; i < transactionCount; i++) {
             outfile << transactionID[i] << ","
@@ -121,44 +131,79 @@ void saveTransactionsToFile(){
 }
 
 void loadIncidentsFromFile(){
-    ifstream infile ("incidents.txt");
+    ifstream infile (INCIDENTS_FILE);
     if (infile.is_open()) {
         string line;
-        while (getline(infile, line)) {
+        while (getline(infile, line) && incidentCount < MAX_INCIDENTS) {
+            stringstream ss(line);
+            string temp;
+            getline(ss, temp, ','); incidentID[incidentCount] = stoi(temp);
+            getline(ss, incidentCrime[incidentCount], ',');
+            getline(ss, incidentLocation[incidentCount], ',');
+            getline(ss, incidentDate[incidentCount], ',');
+            getline(ss, incidentStatus[incidentCount], ',');
             incidentCount++;
         }
-        
+        infile.close();
     }
 }
 
 void loadSuspectsFromFile(){
-    ifstream infile ("suspects.txt");
+    ifstream infile (SUSPECTS_FILE);
     if (infile.is_open()) {
         string line;
-        while (getline(infile, line)) {
+        while (getline(infile, line) && suspectCount < MAX_SUSPECTS) {
+            stringstream ss(line);
+            string temp;
+            getline(ss, temp, ','); suspectID[suspectCount] = stoi(temp);
+            getline(ss, temp, ','); suspectIncidentID[suspectCount] = stoi(temp);
+            getline(ss, suspectName[suspectCount], ',');
+            getline(ss, suspectHeight[suspectCount], ',');
+            getline(ss, suspectBuild[suspectCount], ',');
+            getline(ss, suspectClothing[suspectCount], ',');
+            getline(ss, suspectLastLocation[suspectCount], ',');
             suspectCount++;
         }
-        
+        infile.close();
     }
 }
 
 void loadUsersFromFile(){
-    ifstream infile ("users.txt");
+    ifstream infile (USERS_FILE);
     if (infile.is_open()) {
         string line;
-        while (getline(infile, line)) {
+        while (getline(infile, line) && userCount < MAX_USERS) {
+            stringstream ss(line);
+            string temp;
+            getline(ss, temp, ','); userID[userCount] = stoi(temp);
+            getline(ss, userName[userCount], ',');
+            getline(ss, userFullName[userCount], ',');
+            getline(ss, userPassword[userCount], ',');
+            getline(ss, userArea[userCount], ',');
+            getline(ss, userRole[userCount], ',');
+            getline(ss, temp, ','); userRewardPoints[userCount] = stoi(temp);
             userCount++;
         }
+        infile.close();
     }
 }
 
 void loadTransactionsFromFile(){
-    ifstream infile ("transactions.txt");
+    ifstream infile (TRANSACTIONS_FILE);
     if (infile.is_open()) {
         string line;
-        while (getline(infile, line)) {
+        while (getline(infile, line) && transactionCount < MAX_TRANSACTIONS) {
+            stringstream ss(line);
+            string temp;
+            getline(ss, temp, ','); transactionID[transactionCount] = stoi(temp);
+            getline(ss, temp, ','); transactionUserID[transactionCount] = stoi(temp);
+            getline(ss, temp, ','); transactionIncidentID[transactionCount] = stoi(temp);
+            getline(ss, transactionTimestamp[transactionCount], ',');
+            getline(ss, transactionTipType[transactionCount], ',');
+            getline(ss, transactionStatus[transactionCount], ',');
             transactionCount++;
         }
+        infile.close();
     }
 }
 
@@ -169,7 +214,7 @@ void addIncident() {
         return;
     }
 
-
+    cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██   ▄▄▄   ▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄▄   ▄▄▄▄▄▄   ██    \n";
     cout << "██   ██▄█▄ ██▄▄  ██▄█▀ ██▀██ ██▄█▄   ██     ██\n";
@@ -213,6 +258,7 @@ void addSuspect(){
         return;
     }
 
+    cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██   ▄▄▄   ▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄▄   ▄▄▄▄▄▄   ██    \n";
     cout << "██   ██▄█▄ ██▄▄  ██▄█▀ ██▀██ ██▄█▄   ██     ██\n";
@@ -301,45 +347,6 @@ void addUser(){
 
 }
 
-int registerUser(){
-    if (userCount >= MAX_USERS) {
-        cout << "Maximum user limit reached. Cannot add more users.\n";
-        return -1;
-    }
-
-    userID[userCount] = userCount + 1;
-
-    cout << "===== REGISTER USER =====\n";
-
-    cout << "Username: ";
-    cin >> userName[userCount];
-    if (isDuplicateUser(userName[userCount])) {
-        cout << "Username already exists. Please choose a different username.\n";
-        return -1;
-    }
-    cin.ignore();
-
-    cout << "Full Name: ";
-    getline(cin, userFullName[userCount]);
-
-    cout << "Password: ";
-    getline(cin, userPassword[userCount]);
-
-    cout << "Address: ";
-    getline(cin, userArea[userCount]);
-
-    userRewardPoints[userCount] = 0;
-
-    userCount++;
-
-    cout << "\nUser registered successfully!\n";
-
-     // Save data right away
-     saveUsersToFile();
-
-    return userID[userCount - 1];
-}
-
 // Processing Module---------------------------------------------
 bool isValidIncidentID(int id) {
     for (int i = 0; i < incidentCount; i++) {
@@ -404,6 +411,7 @@ void displayAdminMenu() {
     // profile
 
     // list of incidents
+    cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██                                                                        ██\n";
     cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
@@ -426,7 +434,7 @@ void displayAdminMenu() {
 }
 
 
-void displayUserMenu() {
+void displayUserMenu(int loggedInUserID) {
     // report
     // incidents/suspects
     // reward
@@ -453,53 +461,12 @@ void displayUserMenu() {
     cout << "Choice: ";
     cin >> choice;
     cout << "\n";
-}
-
-void startMenu() {
-
-    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
-    cout << "██                                                                        ██\n";
-    cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
-    cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
-    cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██    [1] Login                                                           ██\n";
-    cout << "██    [2] Register                                                        ██\n";
-    cout << "██    [3] Exit                                                            ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
-    cout << "Choice:";
-    cin >> choice;
-    
-    switch (choice) {
-        case 1:
-            loginUser();
-            break;
-        case 2:
-            registerUser();
-            break;
-        case 3:
-            cout << "Exiting...\n";
-            exit(0);
-        default:
-            cout << "Invalid choice. Please try again.\n";
-            startMenu();
-    }
-
-
-
 }
-
- 
-
-
 
 int loginUser() {
     string inputUser, inputPass;
+    cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██                               ██\n";
     cout << "██  ▄▄     ▄▄▄   ▄▄▄▄ ▄▄ ▄▄  ▄▄  ██\n";
@@ -509,11 +476,14 @@ int loginUser() {
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
 
-    cout << "Username: " << endl;
+    cout << "Username: ";
     getline (cin, inputUser);
+    cout << "\n";
 
-    cout << "Password: " << endl;
+    cout << "Password: ";
     getline (cin, inputPass);
+    cout << "\n";
+  
     
     for (int i = 0; i < userCount; i++) {
         if (userName[i] == inputUser && userPassword[i] == inputPass) {
@@ -532,6 +502,7 @@ int loginUser() {
 
 int registerUser() {
 
+    cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██                                                             ██\n";
     cout << "██    █████▄  ██████  ▄████  ██ ▄█████ ██████ ██████ █████▄    ██\n";
@@ -544,6 +515,7 @@ int registerUser() {
     cout << "Username: ";
     cin >> userName[userCount];
     if (isDuplicateUser(userName[userCount])) {
+        cin.ignore();
         cout << "Username already exists. Please choose a different username.\n";
         return -1;
     }
@@ -558,7 +530,9 @@ int registerUser() {
     cout << "Address: ";
     getline(cin, userArea[userCount]);
 
+    userRole[userCount] = "user";
     userRewardPoints[userCount] = 0;
+    userID[userCount] = userCount + 1;
 
     userCount++;
 
@@ -570,8 +544,46 @@ int registerUser() {
     return userID[userCount - 1];
 }
 
-    
+void startMenu() {
 
+    cout << "\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                                                        ██\n";
+    cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
+    cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
+    cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██    [1] Login                                                           ██\n";
+    cout << "██    [2] Register                                                        ██\n";
+    cout << "██    [3] Exit                                                            ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+    cout << "Choice:";
+    cin >> choice;
+    cin.ignore(); // Essential to clear buffer for next getline
+    
+    switch (choice) {
+        case 1:
+             loginUser();
+            break;
+        case 2:
+            registerUser();
+            break;
+        case 3:
+            cout << "Exiting...\n";
+            exit(0);
+        default:
+            cout << "Invalid choice. Please try again.\n";
+            startMenu();
+    }
+
+
+
+}
 
 //MAIN FUNCTION===================================================================================
 int main() {
@@ -582,12 +594,9 @@ int main() {
     loadUsersFromFile();
     loadTransactionsFromFile();
 
-    //SAVE DATA TO FILES BEFORE EXITING
-    saveIncidentsToFile();
-    saveSuspectsToFile();
-    saveUsersToFile();
-    saveTransactionsToFile();
+    while (true) {
+        startMenu();
+    }
 
-    startMenu();
     return 0;
 }
