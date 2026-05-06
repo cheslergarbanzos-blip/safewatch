@@ -53,6 +53,12 @@ string transactionTimestamp[MAX_TRANSACTIONS];
 string transactionTipType[MAX_TRANSACTIONS];
 string transactionStatus[MAX_TRANSACTIONS];
 
+// SEARCHING AND SORTING TARGETS
+int targetID;
+string keyCrime;
+string keyLocation;
+string keyUsername;
+
 // counters
 int incidentCount    = 0;
 int suspectCount     = 0;
@@ -386,12 +392,110 @@ bool isAdminUser(int id) {
 
 
 // Sorting & Searching-------------------------------------------------
-void sortIncidentsByID();
-void sortIncidentsByLocation();
-int  searchIncidentByID(int id);           
-int  searchIncidentByLocation(string area);
-int  searchUserByUsername(string username);
-int  searchSuspectByIncidentID(int id);
+void sortIncidentsByID() {
+      
+    for (int i = 1; i < incidentCount; i++) {
+        int key = incidentID[i];
+        int j = i - 1;
+
+        while (j >= 0 && incidentID[j] > key) {
+            incidentID[j + 1] = incidentID[j];
+            j--;
+        }
+    }     
+}
+
+void sortIncidentsByLocation() {
+
+    for (int i = 1; i < incidentCount; i++) {
+        string key = incidentLocation[i];
+        int j = i - 1;
+
+        while (j >= 0 && incidentLocation[j] > key) {
+            incidentLocation[j + 1] = incidentLocation[j];
+            j--;
+        }
+    }
+
+     
+}
+int  searchIncidentByID(int id) {
+
+    int low = 0;
+    int high = incidentCount - 1;
+
+    while (low <= high) {
+        int mid = low + high / 2;
+        if (incidentID[mid] == targetID) {
+            return mid; //found
+        } else if (incidentID[mid] < targetID) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        } 
+    }
+
+    return -1; //not found
+}           
+int  searchIncidentByLocation(string area) {
+    // Implementation for searching incident by location
+
+    int low = 0;
+    int high = incidentCount - 1;
+
+    while (low <= high) {
+
+        int mid = low + high / 2;
+        if (incidentLocation[mid] == keyLocation) {
+            return mid;
+        } else if (incidentLocation[mid] < keyLocation) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }        
+    }
+    
+   return -1; //not found 
+}
+int  searchUserByUsername(string username) {
+    // Implementation for searching user by username
+
+    int low = 0;
+    int high = userCount - 1;
+
+    for (int i = 0; i < userCount; i++) {
+        
+        int mid = low + high / 2;
+        if (userName[mid] == keyUsername) {
+            return mid;
+        } else if (userName[mid] < keyUsername) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+        }
+        return -1; // not found
+}
+
+int  searchSuspectByIncidentID(int id) {
+    // Implementation for searching suspect by incident ID
+
+    int low = 0;
+    int high = suspectCount - 1;
+
+    for (int i = 0; i < suspectCount; i++) {
+
+        int mid = low + high / 2;
+        if (suspectIncidentID[mid] == targetID) {
+            return mid;
+        } else if (suspectIncidentID[mid] < targetID) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return -1; // not found
+}
 
 // Notification Module-------------------------------------------------
 void displayAllAlerts();
