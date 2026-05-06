@@ -70,6 +70,8 @@ bool isDuplicateUser(string username);
 bool isValidIncidentID(int id);
 void displayAdminMenu();
 void displayUserMenu(int loggedInUserID);
+int loginUser();
+int registerUser();
 
 //FUNCTIONS=========================================================================================
 
@@ -215,6 +217,7 @@ void loadTransactionsFromFile(){
 
 // Input Module-------------------------------------------------
 void addIncident() {
+     system("cls");
     if (incidentCount >= MAX_INCIDENTS) {
         cout << "Maximum incident limit reached. Cannot add more incidents.\n";
         return;
@@ -259,6 +262,7 @@ void addIncident() {
     saveIncidentsToFile();
 }
 void addSuspect(){
+     system("cls");
     if (suspectCount >= MAX_SUSPECTS) {
         cout << "Maximum suspect limit reached. Cannot add more suspects.\n";
         return;
@@ -508,7 +512,52 @@ void approveReward(int transactionID);
 void displayUserRewards(int userID);
 
 // UI Module---------------------------------------------------------
+
+void startMenu() {
+    system("cls");
+    cout << "\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                                                        ██\n";
+    cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
+    cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
+    cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██    [1] Login                                                           ██\n";
+    cout << "██    [2] Register                                                        ██\n";
+    cout << "██    [3] Exit                                                            ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+    cout << "Choice: ";
+    cin >> choice;
+    cin.ignore(); // Essential to clear buffer for next getline
+    
+    switch (choice) {
+        case 1:
+            loginUser();
+            break;
+        case 2:
+            registerUser();
+            break;
+        case 3:
+            cout << "Exiting...\n";
+            exit(0);
+        default:
+            cout << "Invalid choice. Please try again.\n";
+            Sleep(5000);
+            startMenu();
+    }
+
+
+
+}
+
+
 void displayAdminMenu() {
+     system("cls");
     // manage reports
     
     // rewards
@@ -522,10 +571,10 @@ void displayAdminMenu() {
     cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
     cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
     cout << "██                                                                        ██\n";
-    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   A D M I N   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
     cout << "██                                                                        ██\n";
-    cout << "██    [1] Report                                                          ██\n";
-    cout << "██    [2] List of Incidents                                               ██\n";
+    cout << "██    [1] Users                                                           ██\n";
+    cout << "██    [2] Incidents                                                       ██\n";
     cout << "██    [3] Reward                                                          ██\n";
     cout << "██    [4] Profile                                                         ██\n";
     cout << "██    [5] Logout                                                          ██\n";
@@ -534,11 +583,36 @@ void displayAdminMenu() {
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
     cout << "Choice: ";
-    cin >> choice;
+    
+    switch (choice) {
+        case 1:
+             addUser();
+            break;
+        case 2:
+            addIncident();
+            addSuspect();
+            break;
+        case 3:
+            cout << "Reward management coming soon...\n";
+            break;
+        case 4:
+            cout << "Profile management coming soon...\n";
+            break;
+        case 5:
+            cout << "Logging out...\n";
+            Sleep(5000);
+            startMenu();
+            break;
+        default:
+            cout << "Invalid choice. Please try again.\n";
+            Sleep(5000);
+            displayAdminMenu();
+    }
 }
 
 
 void displayUserMenu(int loggedInUserID) {
+     system("cls");
     // report
     // incidents/suspects
     // reward
@@ -569,6 +643,7 @@ void displayUserMenu(int loggedInUserID) {
 }
 
 int loginUser() {
+     system("cls");
     string inputUser, inputPass;
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
@@ -601,11 +676,12 @@ int loginUser() {
         }
     }
     cout << "\nInvalid username or password. Please try again.\n";
+    Sleep(5000);
     return 0;
     }
 
 int registerUser() {
-
+     system("cls");
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██                                                             ██\n";
@@ -648,49 +724,12 @@ int registerUser() {
     return userID[userCount - 1];
 }
 
-void startMenu() {
-
-    cout << "\n";
-    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
-    cout << "██                                                                        ██\n";
-    cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
-    cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
-    cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██    [1] Login                                                           ██\n";
-    cout << "██    [2] Register                                                        ██\n";
-    cout << "██    [3] Exit                                                            ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
-    cout << "\n";
-    cout << "Choice:";
-    cin >> choice;
-    cin.ignore(); // Essential to clear buffer for next getline
-    
-    switch (choice) {
-        case 1:
-             loginUser();
-            break;
-        case 2:
-            registerUser();
-            break;
-        case 3:
-            cout << "Exiting...\n";
-            exit(0);
-        default:
-            cout << "Invalid choice. Please try again.\n";
-            startMenu();
-    }
-
-
-
-}
 
 //MAIN FUNCTION===================================================================================
 int main() {
+
+    // TEXT FORMATTING
+    SetConsoleOutputCP(CP_UTF8);
 
     //LOAD DATA FROM FILES AT STARTUP
     loadIncidentsFromFile();
