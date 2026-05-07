@@ -2,7 +2,6 @@
 
 void displayUserMenu(int loggedInUserID) {
      system("cls");
-     ofstream outfile (USERS_FILE); 
     // report
     // incidents/suspects
     // reward
@@ -37,7 +36,6 @@ void displayUserMenu(int loggedInUserID) {
 int loginUser() {
     system("cls");
     string inputUser, inputPass;
-    ofstream outfile (USERS_FILE); 
 
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
@@ -79,7 +77,12 @@ int loginUser() {
 
 int registerUser() {
     system("cls");
-    ofstream outfile (USERS_FILE); 
+
+    if (userCount >= MAX_USERS) {
+        cout << "Error: Maximum user limit reached. Please contact an administrator.\n";
+        Sleep(2000);
+        return -1;
+    }
 
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
@@ -92,13 +95,13 @@ int registerUser() {
     cout << "\n";
 
     cout << "Username: ";
-    cin >> userName[userCount];
+    getline(cin, userName[userCount]);
+
     if (isDuplicateUser(userName[userCount])) {
-        cin.ignore();
         cout << "Username already exists. Please choose a different username.\n";
+        Sleep(2000);
         return -1;
     }
-    cin.ignore();
 
     cout << "Full Name: ";
     getline(cin, userFullName[userCount]);

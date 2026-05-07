@@ -1,12 +1,42 @@
 #include "UNIVERSAL.h"
+#include <filesystem>
+
+namespace fs = std::filesystem;
+
+static string resolveDataFile(const string& filename) {
+    fs::path cwd = fs::current_path();
+    fs::path candidate1 = cwd / "DATA" / filename;
+    if (fs::exists(candidate1.parent_path()) || fs::exists(candidate1)) {
+        return candidate1.string();
+    }
+
+    fs::path candidate2 = cwd / ".." / "DATA" / filename;
+    if (fs::exists(candidate2.parent_path()) || fs::exists(candidate2)) {
+        return candidate2.string();
+    }
+
+    // Fallback to local DATA path if the folder exists in the current directory.
+    fs::path fallback1 = fs::path("DATA") / filename;
+    if (fs::exists(fallback1.parent_path())) {
+        return fallback1.string();
+    }
+
+    // Fallback to parent directory DATA path.
+    fs::path fallback2 = fs::path("..") / "DATA" / filename;
+    if (fs::exists(fallback2.parent_path())) {
+        return fallback2.string();
+    }
+
+    return fallback1.string();
+}
 
 //CONSTANTS========================================================================================
 int choice;
 
-const string INCIDENTS_FILE    = "DATA/incidents.csv";
-const string SUSPECTS_FILE     = "DATA/suspects.csv";
-const string USERS_FILE        = "DATA/users.txt";
-const string TRANSACTIONS_FILE = "DATA/transactions.txt";
+const string INCIDENTS_FILE    = resolveDataFile("incidents.csv");
+const string SUSPECTS_FILE     = resolveDataFile("suspects.csv");
+const string USERS_FILE        = resolveDataFile("users.csv");
+const string TRANSACTIONS_FILE = resolveDataFile("transactions.csv");
 
 //Constant array sizes for storing data
 const int MAX_INCIDENTS    = 100;
@@ -73,11 +103,19 @@ void saveIncidentsToFile() {
                     << incidentDate[i] << "," 
                     << incidentStatus[i] << endl;
         } 
+        outfile.close();
+    } else {
+        cout << "CRITICAL ERROR: Could not save to " << INCIDENTS_FILE << ". Ensure 'DATA' folder exists.\n";
+        Sleep(2000);
     }
-    outfile.close();
 }
 
 void saveSuspectsToFile() {
+    fs::path suspectsPath = SUSPECTS_FILE;
+    if (!suspectsPath.parent_path().empty() && !fs::exists(suspectsPath.parent_path())) {
+        fs::create_directories(suspectsPath.parent_path());
+    }
+
     ofstream outfile (SUSPECTS_FILE);
     if (outfile.is_open()) {
         for (int i = 0; i < suspectCount; i++) {
@@ -90,10 +128,18 @@ void saveSuspectsToFile() {
                     << suspectLastLocation[i] << endl;
         } 
         outfile.close();
+    } else {
+        cout << "CRITICAL ERROR: Could not save to " << SUSPECTS_FILE << ". Ensure 'DATA' folder exists.\n";
+        Sleep(2000);
     }
 }
 
 void saveUsersToFile() {
+    fs::path usersPath = USERS_FILE;
+    if (!usersPath.parent_path().empty() && !fs::exists(usersPath.parent_path())) {
+        fs::create_directories(usersPath.parent_path());
+    }
+
     ofstream outfile (USERS_FILE);
     if (outfile.is_open()) {
         for (int i = 0; i < userCount; i++) {
@@ -106,8 +152,10 @@ void saveUsersToFile() {
                     << userRewardPoints[i] << endl;
         } 
         outfile.close();
+    } else {
+        cout << "CRITICAL ERROR: Could not save to " << USERS_FILE << ". Ensure 'DATA' folder exists.\n";
+        Sleep(2000);
     }
-
 }
 
 void saveTransactionsToFile(){
@@ -121,8 +169,11 @@ void saveTransactionsToFile(){
                     << transactionTipType[i] << ","
                     << transactionStatus[i] << endl;
         }
+        outfile.close();
+    } else {
+        cout << "CRITICAL ERROR: Could not save to " << TRANSACTIONS_FILE << ". Ensure 'DATA' folder exists.\n";
+        Sleep(2000);
     }
-    outfile.close();
 }
 
 void loadIncidentsFromFile(){
@@ -130,9 +181,11 @@ void loadIncidentsFromFile(){
     if (infile.is_open()) {
         string line;
         while (getline(infile, line) && incidentCount < MAX_INCIDENTS) {
+            if (line.empty()) continue;
             stringstream ss(line);
             string temp;
-            getline(ss, temp, ','); incidentID[incidentCount] = stoi(temp);
+            if (!getline(ss, temp, ',')) continue;
+            incidentID[incidentCount] = stoi(temp);
             getline(ss, incidentCrime[incidentCount], ',');
             getline(ss, incidentLocation[incidentCount], ',');
             getline(ss, incidentDate[incidentCount], ',');
@@ -148,6 +201,7 @@ void loadSuspectsFromFile(){
     if (infile.is_open()) {
         string line;
         while (getline(infile, line) && suspectCount < MAX_SUSPECTS) {
+            if (line.empty()) continue;
             stringstream ss(line);
             string temp;
             getline(ss, temp, ','); suspectID[suspectCount] = stoi(temp);
@@ -168,6 +222,7 @@ void loadUsersFromFile(){
     if (infile.is_open()) {
         string line;
         while (getline(infile, line) && userCount < MAX_USERS) {
+            if (line.empty()) continue;
             stringstream ss(line);
             string temp;
             getline(ss, temp, ','); userID[userCount] = stoi(temp);
@@ -188,6 +243,7 @@ void loadTransactionsFromFile(){
     if (infile.is_open()) {
         string line;
         while (getline(infile, line) && transactionCount < MAX_TRANSACTIONS) {
+            if (line.empty()) continue;
             stringstream ss(line);
             string temp;
             getline(ss, temp, ','); transactionID[transactionCount] = stoi(temp);
@@ -355,14 +411,148 @@ void displayAlertsByLocation(string area);
 void displaySuspectDetails(int incidentID);
 
 // Reward Module------------------------------------------------------
-void submitTip(int userID, int incidentID) {
-    
-}
-void approveReward(int transactionID) {
 
-}
-void displayUserRewards(int userID){
+void submitTip(int tipUserID, int tipIncidentID) {
 
+    // check if the incident actually exists first
+    if (!isValidIncidentID(tipIncidentID)) {
+        cout << "Error: Incident ID " << tipIncidentID << " does not exist." << endl;
+        return;
+    }
+
+    // check if the user actually exists
+    if (!isValidUserID(tipUserID)) {
+        cout << "Error: User ID " << tipUserID << " does not exist." << endl;
+        return;
+    }
+
+    // check if transaction storage is full
+    if (transactionCount >= MAX_TRANSACTIONS) {
+        cout << "Error: Transaction storage is full." << endl;
+        return;
+    }
+
+    // ask for tip details
+    string tipType, reportedLocation;
+
+    cout << "\n--- Submit a Tip ---" << endl;
+    cout << "Tip Type (sighting / photo / information): ";
+    getline(cin, tipType);
+
+    cout << "Reported Location: ";
+    getline(cin, reportedLocation);
+
+    // get current timestamp (simple version)
+    string timestamp;
+    cout << "Enter date and time (e.g. 2025-04-21 14:30): ";
+    getline(cin, timestamp);
+
+    // store into transaction arrays
+    transactionID[transactionCount]         = transactionCount + 1;
+    transactionUserID[transactionCount]     = tipUserID;
+    transactionIncidentID[transactionCount] = tipIncidentID;
+    transactionTimestamp[transactionCount]  = timestamp;
+    transactionTipType[transactionCount]    = tipType;
+    transactionStatus[transactionCount]     = "pending";
+
+    transactionCount++;
+
+    // save immediately so data isnt lost
+    saveTransactionsToFile();
+
+    cout << "\nTip submitted successfully! Status: PENDING" << endl;
+    cout << "Transaction ID: " << transactionCount << endl;
+}
+
+void approveReward(int tid) {
+
+    // find the transaction
+    int index = -1;
+    for (int i = 0; i < transactionCount; i++) {
+        if (transactionID[i] == tid) {
+            index = i;
+            break;
+        }
+    }
+
+    // transaction not found
+    if (index == -1) {
+        cout << "Error: Transaction ID " << tid << " not found." << endl;
+        return;
+    }
+
+    // check if already approved
+    if (transactionStatus[index] == "reward-approved") {
+        cout << "Error: Transaction " << tid << " is already approved." << endl;
+        return;
+    }
+
+    // approve the transaction
+    transactionStatus[index] = "reward-approved";
+
+    // find the user and add reward points
+    int pointsAwarded = 100; // flat reward points per approved tip
+    for (int i = 0; i < userCount; i++) {
+        if (userID[i] == transactionUserID[index]) {
+            userRewardPoints[i] += pointsAwarded;
+            cout << "\nReward approved for User ID: " << userID[i] << endl;
+            cout << "Points awarded: "  << pointsAwarded           << endl;
+            cout << "Total points now: " << userRewardPoints[i]    << endl;
+            break;
+        }
+    }
+
+    // save both since both arrays changed
+    saveTransactionsToFile();
+    saveUsersToFile();
+}
+
+void displayUserRewards(int uid) {
+
+    // check if user exists
+    if (!isValidUserID(uid)) {
+        cout << "Error: User ID " << uid << " does not exist." << endl;
+        return;
+    }
+
+    cout << "\n--- Reward Summary for User ID: " << uid << " ---" << endl;
+
+    // find and display all tips by this user
+    int totalPoints  = 0;
+    int tipCount     = 0;
+    bool found       = false;
+
+    for (int i = 0; i < transactionCount; i++) {
+        if (transactionUserID[i] == uid) {
+            found = true;
+            tipCount++;
+
+            cout << "\nTip #"         << tipCount                      << endl;
+            cout << "Transaction ID: " << transactionID[i]             << endl;
+            cout << "Incident ID:    " << transactionIncidentID[i]     << endl;
+            cout << "Tip Type:       " << transactionTipType[i]        << endl;
+            cout << "Submitted:      " << transactionTimestamp[i]      << endl;
+            cout << "Status:         " << transactionStatus[i]         << endl;
+
+            if (transactionStatus[i] == "reward-approved") {
+                cout << "Points Earned:  100"                          << endl;
+            } else {
+                cout << "Points Earned:  0 (still pending)"           << endl;
+            }
+        }
+    }
+
+    if (!found) {
+        cout << "No tips submitted yet." << endl;
+    }
+
+    // show total points from user array
+    for (int i = 0; i < userCount; i++) {
+        if (userID[i] == uid) {
+            cout << "\n--- Total Reward Points: " << userRewardPoints[i] << " ---" << endl;
+            break;
+        }
+    }
 }
 
 // UI Module---------------------------------------------------------

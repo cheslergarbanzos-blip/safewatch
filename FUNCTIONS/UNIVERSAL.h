@@ -1,4 +1,4 @@
-#ifndef UNIERSAL_H
+#ifndef UNIVERSAL_H
 #define UNIVERSAL_H
 
 #include <iostream>
@@ -95,4 +95,4 @@ void displayUserRewards(int userID);
 
 void startMenu();
 
-#endif // FINALS_H
+#endif 

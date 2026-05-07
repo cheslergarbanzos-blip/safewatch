@@ -108,17 +108,15 @@ void addUser(){
       userID[userCount] = userCount + 1;
 
     cout << "Username: ";
-    cin >> userName[userCount];
+    getline(cin, userName[userCount]);
 
     if (isDuplicateUser(userName[userCount])) {
         cout << "Username already exists. Please choose a different username.\n";
+        Sleep(2000);
         return;
     }
 
     cout << "===== ADD USER =====\n";
-
-    cin.ignore();
-
     cout << "Full Name: ";
     getline(cin, userFullName[userCount]);
 
@@ -142,9 +140,9 @@ void addUser(){
 }
 
 void displayAdminMenu() {
-     system("cls");
-     ofstream outfile (USERS_FILE); 
-     
+    bool stay = true;
+    while (stay) {
+        system("cls");
     // manage reports
     
     // rewards
@@ -170,7 +168,9 @@ void displayAdminMenu() {
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
     cout << "Choice: ";
-    
+    cin >> choice;
+    cin.ignore();
+
     switch (choice) {
         case 1:
              addUser();
@@ -181,18 +181,20 @@ void displayAdminMenu() {
             break;
         case 3:
             cout << "Reward management coming soon...\n";
+            Sleep(2000);
             break;
         case 4:
             cout << "Profile management coming soon...\n";
+            Sleep(2000);
             break;
         case 5:
             cout << "Logging out...\n";
-            Sleep(5000);
-            startMenu();
+            Sleep(2000);
+            stay = false;
             break;
         default:
             cout << "Invalid choice. Please try again.\n";
-            Sleep(5000);
-            displayAdminMenu();
+            Sleep(2000);
+    }
     }
 }
