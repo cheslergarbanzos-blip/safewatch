@@ -42,6 +42,9 @@ extern string userArea[];
 extern string userRole[];
 extern int userRewardPoints[];
 
+extern string userAuthorityType[];
+extern string userStation[];
+
 extern int transactionID[];
 extern int transactionUserID[];
 extern int transactionIncidentID[];
@@ -64,6 +67,8 @@ bool isDuplicateUser(string username);
 bool isValidIncidentID(int id);
 bool isValidUserID(int id);
 bool isAdminUser(int id);
+bool isAuthorized(int userID);
+int loginAdmin();
 void displayAdminMenu();
 void displayUserMenu(int loggedInUserID);
 int loginUser();
@@ -93,6 +98,7 @@ void submitTip(int userID, int incidentID);
 void approveReward(int transactionID);
 void displayUserRewards(int userID);
 
+void roleSelectionScreen();
 void startMenu();
 
 #endif 

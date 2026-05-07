@@ -7,10 +7,10 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "FUNCTIONS/FINALS.cpp",
+                "FUNCTIONS/MAIN.cpp",
                 "FUNCTIONS/ADMIN.cpp",
                 "FUNCTIONS/USER.cpp",
-                "FUNCTIONS/notification.cpp",
+                "FUNCTIONS/NOTIFICATION.cpp",
                 "-luser32",
                 "-o",
                 "FUNCTIONS/SafeWatch.exe"

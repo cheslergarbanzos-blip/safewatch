@@ -1,5 +1,74 @@
 #include "UNIVERSAL.h"
 
+int loginAdmin() {
+    system("cls");
+    string inputUser, inputPass;
+
+    cout << "\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                                                        ██\n";
+    cout << "██                   ADMIN AUTHORITY LOGIN PORTAL                        ██\n";
+    cout << "██                   (FOR LAW ENFORCEMENT ONLY)                          ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "\n";
+
+    cout << "Employee Username: ";
+    getline(cin, inputUser);
+    cout << "\n";
+
+    cout << "Password: ";
+    getline(cin, inputPass);
+    cout << "\n";
+
+    for (int i = 0; i < userCount; i++) {
+        if (userName[i] == inputUser && userPassword[i] == inputPass) {
+            // Check if user is an authority
+            if (userAuthorityType[i].empty() || userAuthorityType[i] == "none") {
+                system("cls");
+                cout << "\n";
+                cout << "█████████████████████████████████████████████████████████████████████████████████████\n";
+                cout << "██                           ⚠ ACCESS DENIED ⚠                                  ██\n";
+                cout << "██                                                                            ██\n";
+                cout << "██  You do not have the required authorization to access the admin portal.   ██\n";
+                cout << "██  Only law enforcement personnel are permitted access.                    ██\n";
+                cout << "██                                                                            ██\n";
+                cout << "██  Your account credentials have been logged for security purposes.         ██\n";
+                cout << "█████████████████████████████████████████████████████████████████████████████████████\n";
+                cout << "\n";
+                Sleep(5000);
+                return 0;
+            }
+
+            loggedInUserID = userID[i];
+            system("cls");
+            cout << "\n";
+            cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+            cout << "██     ✓ LOGIN SUCCESSFUL ✓                                                  ██\n";
+            cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+            cout << "██                                                                        ██\n";
+            cout << "██  Welcome, " << userFullName[i] << "\n";
+            cout << "██  Badge/Position: " << userAuthorityType[i] << "\n";
+            cout << "██  Station: " << userStation[i] << "\n";
+            cout << "██                                                                        ██\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "\n";
+            Sleep(3000);
+            displayAdminMenu();
+            return userID[i];
+        }
+    }
+    system("cls");
+    cout << "\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██  ✗ INVALID CREDENTIALS ✗                                              ██\n";
+    cout << "██  Username or password is incorrect.                                   ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+    Sleep(5000);
+    return 0;
+}
+
 void displayUserMenu(int loggedInUserID) {
      system("cls");
     // report
@@ -115,6 +184,8 @@ int registerUser() {
     userRole[userCount] = "user";
     userRewardPoints[userCount] = 0;
     userID[userCount] = userCount + 1;
+    userAuthorityType[userCount] = "none";
+    userStation[userCount] = "none";
 
     userCount++;
 

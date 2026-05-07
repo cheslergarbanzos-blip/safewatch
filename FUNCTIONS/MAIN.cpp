@@ -69,6 +69,10 @@ string userArea[MAX_USERS];
 string userRole[MAX_USERS];         
 int    userRewardPoints[MAX_USERS];
 
+// ADMIN SECURITY
+string userAuthorityType[MAX_USERS];  // Type of authority: police_officer, detective, captain, etc.
+string userStation[MAX_USERS];        // Station assignment for authorities
+
 // TRANSACTIONS 
 int    transactionID[MAX_TRANSACTIONS];
 int    transactionUserID[MAX_TRANSACTIONS];
@@ -149,7 +153,9 @@ void saveUsersToFile() {
                     << userPassword[i] << "," 
                     << userArea[i] << "," 
                     << userRole[i] << "," 
-                    << userRewardPoints[i] << endl;
+                    << userRewardPoints[i] << ","
+                    << userAuthorityType[i] << ","
+                    << userStation[i] << endl;
         } 
         outfile.close();
     } else {
@@ -232,6 +238,8 @@ void loadUsersFromFile(){
             getline(ss, userArea[userCount], ',');
             getline(ss, userRole[userCount], ',');
             getline(ss, temp, ','); userRewardPoints[userCount] = stoi(temp);
+            getline(ss, userAuthorityType[userCount], ',');
+            getline(ss, userStation[userCount], ',');
             userCount++;
         }
         infile.close();
@@ -257,9 +265,6 @@ void loadTransactionsFromFile(){
         infile.close();
     }
 }
-
-// Input Module-------------------------------------------------
-
 
 // Processing Module---------------------------------------------
 bool isValidIncidentID(int id) {
@@ -292,6 +297,15 @@ bool isDuplicateUser(string username) {
 bool isAdminUser(int id) {
     for (int i = 0; i < userCount; i++) {
         if (userID[i] == id && userRole[i] == "admin") {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isAuthorized(int id) {
+    for (int i = 0; i < userCount; i++) {
+        if (id == userID[i] && !userAuthorityType[i].empty() && userAuthorityType[i] != "none") {
             return true;
         }
     }
@@ -404,11 +418,6 @@ int  searchSuspectByIncidentID(int id) {
     }
     return -1;
 }
-
-// Notification Module-------------------------------------------------
-void displayAllAlerts();
-void displayAlertsByLocation(string area);
-void displaySuspectDetails(int incidentID);
 
 // Reward Module------------------------------------------------------
 
@@ -557,6 +566,114 @@ void displayUserRewards(int uid) {
 
 // UI Module---------------------------------------------------------
 
+void roleSelectionScreen() {
+    system("cls");
+    cout << "\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                                                        ██\n";
+    cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
+    cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
+    cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██         SELECT YOUR ROLE:                                              ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██    [1] Admin                                                           ██\n";
+    cout << "██    [2] User                                                            ██\n";
+    cout << "██    [3] Back to Main Menu                                               ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+    cout << "Choice: ";
+    cin >> choice;
+    cin.ignore(); // Essential to clear buffer for next getline
+    
+    switch (choice) {
+        case 1:
+            // Admin login/register path
+            system("cls");
+            cout << "\n";
+            cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+            cout << "██                                                                        ██\n";
+            cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
+            cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
+            cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
+            cout << "██                                                                        ██\n";
+            cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+            cout << "██                          ADMIN PORTAL                                  ██\n";
+            cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+            cout << "██                                                                        ██\n";
+            cout << "██    [1] Login as Admin                                                  ██\n";
+            cout << "██    [2] Back to Role Selection                                          ██\n";
+            cout << "██                                                                        ██\n";
+            cout << "██                                                                        ██\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "\n";
+            cout << "Choice: ";
+            cin >> choice;
+            cin.ignore();
+            
+            if (choice == 1) {
+                loginAdmin();
+            } else {
+                roleSelectionScreen();
+            }
+            break;
+            
+        case 2:
+            // User login/register path
+            system("cls");
+            cout << "\n";
+            cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+            cout << "██                                                                        ██\n";
+            cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
+            cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
+            cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
+            cout << "██                                                                        ██\n";
+            cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+            cout << "██                                                                        ██\n";
+            cout << "██    [1] Login                                                           ██\n";
+            cout << "██    [2] Register                                                        ██\n";
+            cout << "██    [3] Back to Role Selection                                          ██\n";
+            cout << "██                                                                        ██\n";
+            cout << "██                                                                        ██\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "\n";
+            cout << "Choice: ";
+            cin >> choice;
+            cin.ignore(); // Essential to clear buffer for next getline
+            
+            switch (choice) {
+                case 1:
+                    loginUser();
+                    break;
+                case 2:
+                    registerUser();
+                    break;
+                case 3:
+                    roleSelectionScreen();
+                    break;
+                default:
+                    cout << "Invalid choice. Please try again.\n";
+                    Sleep(5000);
+                    roleSelectionScreen();
+            }
+            break;
+            
+        case 3:
+            cout << "Exiting...\n";
+            exit(0);
+            break;
+            
+        default:
+            cout << "Invalid choice. Please try again.\n";
+            Sleep(5000);
+            roleSelectionScreen();
+    }
+}
+
 void startMenu() {
     system("cls");
     cout << "\n";
@@ -568,9 +685,8 @@ void startMenu() {
     cout << "██                                                                        ██\n";
     cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
     cout << "██                                                                        ██\n";
-    cout << "██    [1] Login                                                           ██\n";
-    cout << "██    [2] Register                                                        ██\n";
-    cout << "██    [3] Exit                                                            ██\n";
+    cout << "██    [1] Select User Type                                                ██\n";
+    cout << "██    [2] Exit                                                            ██\n";
     cout << "██                                                                        ██\n";
     cout << "██                                                                        ██\n";
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
@@ -581,12 +697,9 @@ void startMenu() {
     
     switch (choice) {
         case 1:
-            loginUser();
+            roleSelectionScreen();
             break;
         case 2:
-            registerUser();
-            break;
-        case 3:
             cout << "Exiting...\n";
             exit(0);
         default:
@@ -614,7 +727,7 @@ int main() {
     loadNotifications();
 
     while (true) {
-        startMenu();
+        roleSelectionScreen();
     }
 
     return 0;

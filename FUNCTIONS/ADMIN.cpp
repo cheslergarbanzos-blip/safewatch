@@ -112,7 +112,7 @@ void addUser(){
 
     if (isDuplicateUser(userName[userCount])) {
         cout << "Username already exists. Please choose a different username.\n";
-        Sleep(2000);
+        Sleep(1000);
         return;
     }
 
@@ -128,6 +128,19 @@ void addUser(){
 
     cout << "Role (admin/user): ";
     getline(cin, userRole[userCount]);
+
+    // If adding an admin user, require authority type and station
+    if (userRole[userCount] == "admin") {
+        cout << "\n--- AUTHORITY INFORMATION ---\n";
+        cout << "Authority Type (police_officer/detective/captain/commissioner/none): ";
+        getline(cin, userAuthorityType[userCount]);
+        
+        cout << "Station Assignment (e.g., Baluarte, Villa, etc.): ";
+        getline(cin, userStation[userCount]);
+    } else {
+        userAuthorityType[userCount] = "none";
+        userStation[userCount] = "none";
+    }
 
     userRewardPoints[userCount] = 0;
 
@@ -157,6 +170,15 @@ void displayAdminMenu() {
     cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
     cout << "██                                                                        ██\n";
     cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   A D M I N   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    
+    // Display logged in admin info
+    for (int i = 0; i < userCount; i++) {
+        if (userID[i] == loggedInUserID) {
+            cout << "██  Logged In: " << userFullName[i] << " | Badge: " << userAuthorityType[i] << " | Station: " << userStation[i] << "\n";
+            break;
+        }
+    }
+    
     cout << "██                                                                        ██\n";
     cout << "██    [1] Users                                                           ██\n";
     cout << "██    [2] Incidents                                                       ██\n";
@@ -181,20 +203,20 @@ void displayAdminMenu() {
             break;
         case 3:
             cout << "Reward management coming soon...\n";
-            Sleep(2000);
+            Sleep(1000);
             break;
         case 4:
             cout << "Profile management coming soon...\n";
-            Sleep(2000);
+            Sleep(1000);
             break;
         case 5:
             cout << "Logging out...\n";
-            Sleep(2000);
+            Sleep(1000);
             stay = false;
             break;
         default:
             cout << "Invalid choice. Please try again.\n";
-            Sleep(2000);
+            Sleep(1000);
     }
     }
 }
