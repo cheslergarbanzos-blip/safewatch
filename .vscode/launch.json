@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch SafeWatch",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}\\FUNCTIONS\\SafeWatch.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}\\FUNCTIONS",
+            "preLaunchTask": "C/C++: g++.exe build SafeWatch",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        }
+    ]
+}
