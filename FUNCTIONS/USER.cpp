@@ -93,7 +93,7 @@ void displayUserMenu(int loggedInUserID) {
     cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
     cout << "██                                                                        ██\n";
     cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-    cout << "██    Logged in as USER ID: " << loggedInUserID << "                      ██\n";
+    cout << "██    Logged in as USER ID: " << loggedInUserID << "                                           ██\n";
     cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
     cout << "██                                                                        ██\n";
     cout << "██    [1] Report                                                          ██\n";
