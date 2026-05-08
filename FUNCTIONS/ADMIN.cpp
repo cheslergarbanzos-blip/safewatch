@@ -41,6 +41,8 @@ void addIncident() {
 
     cout << "\nIncident added successfully!\n";
 
+    
+
 
     // Save data right away
     saveIncidentsToFile();

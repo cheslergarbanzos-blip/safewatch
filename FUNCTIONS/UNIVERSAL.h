@@ -94,6 +94,7 @@ void displayAllAlerts();
 void displayAlertsByLocation(string area);
 void displaySuspectDetails(int incidentID);
 
+void rewardMenu();
 void submitTip(int userID, int incidentID);
 void approveReward(int transactionID);
 void displayUserRewards(int userID);

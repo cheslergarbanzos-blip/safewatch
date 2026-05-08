@@ -93,6 +93,8 @@ void displayUserMenu(int loggedInUserID) {
     cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
     cout << "██                                                                        ██\n";
     cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "██    Logged in as USER ID: " << loggedInUserID << "                      ██\n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
     cout << "██                                                                        ██\n";
     cout << "██    [1] Report                                                          ██\n";
     cout << "██    [2] List of Incidents                                               ██\n";
@@ -105,24 +107,21 @@ void displayUserMenu(int loggedInUserID) {
     cout << "\n";
     cout << "Choice: ";
     cin >> choice;
+     cin.ignore(); 
     cout << "\n";
     cout << "\n";
     switch (choice) {
         case 1:
             addIncident();
-            Sleep(1000);
             break;
         case 2:
             displayAllAlerts();
-            Sleep(1000);
             break;
         case 3:
-            submitTip(loggedInUserID, targetID);
-            Sleep(1000);
+            rewardMenu();
             break;
         case 4:
             profileScreen();
-            Sleep(1000);
             break;
         case 5:
             cout << "Logging out...\n";

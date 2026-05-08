@@ -564,6 +564,46 @@ void displayUserRewards(int uid) {
     }
 }
 
+void rewardMenu() {
+    while (true) {
+        system("cls");
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "██                                               ██\n";
+        cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
+        cout << "██     ██▄█▄ ██▄▄  ██ ▄ ██ ██▀██ ██▄█▄ ██▀██     ██\n";
+        cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
+        cout << "██                                               ██\n";
+        cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+        cout << "██                                               ██\n";
+        cout << "██    [1] Submit Tip                             ██\n";
+        cout << "██    [2] View Rewards                           ██\n";
+        cout << "██    [3] Back                                   ██\n";
+        cout << "██                                               ██\n";
+        cout << "██                                               ██\n";
+        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        cout << "\nChoice: ";
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice) {
+            case 1:
+                submitTip(loggedInUserID, targetID);
+                Sleep(2000);
+                break;
+            case 2:
+                displayUserRewards(loggedInUserID);
+                Sleep(2000);
+                break;
+            case 3:
+                displayUserMenu(loggedInUserID);
+                return;
+            default:
+                cout << "Invalid choice. Try Again!" << endl;
+                Sleep(2000);
+        }
+    }
+}
+
 void displayAllAlerts() {
     system("cls");
     cout << "\n--- Current Alerts ---" << endl;
@@ -657,7 +697,7 @@ void roleSelectionScreen() {
             cout << "██                                                                        ██\n";
             cout << "██    [1] Login                                                           ██\n";
             cout << "██    [2] Register                                                        ██\n";
-            cout << "██    [3] Back to Role Selection                                          ██\n";
+            cout << "██    [3] Back                                                            ██\n";
             cout << "██                                                                        ██\n";
             cout << "██                                                                        ██\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
@@ -732,6 +772,8 @@ void startMenu() {
 
 
 }
+
+// PROFILE MODULE
 
 void profileScreen() {
     system("cls");
@@ -820,7 +862,6 @@ void profileScreen() {
             }
 
             case 2:
-                system("cls");
                 displayUserMenu(loggedInUserID);
                 break;
 
