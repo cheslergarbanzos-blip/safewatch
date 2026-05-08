@@ -564,6 +564,29 @@ void displayUserRewards(int uid) {
     }
 }
 
+void displayAllAlerts() {
+    system("cls");
+    cout << "\n--- Current Alerts ---" << endl;
+
+    if (incidentCount == 0) {
+        cout << "No incidents available at this time." << endl;
+        Sleep(3000);
+        return;
+    }
+
+    for (int i = 0; i < incidentCount; i++) {
+        cout << "\nIncident ID: " << incidentID[i] << endl;
+        cout << "Crime:       " << incidentCrime[i] << endl;
+        cout << "Location:    " << incidentLocation[i] << endl;
+        cout << "Date:        " << incidentDate[i] << endl;
+        cout << "Status:      " << incidentStatus[i] << endl;
+    }
+
+    cout << "\nPress any key to continue..." << endl;
+    cin.ignore(1000, '\n');
+    cin.get();
+}
+
 // UI Module---------------------------------------------------------
 
 void roleSelectionScreen() {
@@ -601,9 +624,7 @@ void roleSelectionScreen() {
             cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
             cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
             cout << "██                                                                        ██\n";
-            cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-            cout << "██                          ADMIN PORTAL                                  ██\n";
-            cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+            cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ADMIN PORTAL    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
             cout << "██                                                                        ██\n";
             cout << "██    [1] Login as Admin                                                  ██\n";
             cout << "██    [2] Back to Role Selection                                          ██\n";
@@ -710,6 +731,105 @@ void startMenu() {
 
 
 
+}
+
+void profileScreen() {
+    system("cls");
+    cout << "\n";
+     int idx = -1;
+    for (int i = 0; i < userCount; i++) {
+        if (userID[i] == loggedInUserID) {
+            idx = i;
+            break;
+        }
+    }
+
+    if (idx == -1) {
+        cout << "Error: Could not load profile. Please log in again.\n";
+        Sleep(2000);
+        return;
+    }
+
+    while (true) {
+        system("cls");
+        cout << "\n";
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "██                                                                        ██\n";
+        cout << "██               ▄▄▄▄  ▄▄▄▄   ▄▄▄  ▄▄▄▄▄ ▄▄ ▄▄    ▄▄▄▄▄                   ██\n";
+        cout << "██               ██▄█▀ ██▄█▄ ██▀██ ██▄▄  ██ ██    ██▄▄                    ██\n";
+        cout << "██               ██    ██ ██ ▀███▀ ██    ██ ██▄▄▄ ██▄▄▄                   ██\n";
+        cout << "██                                                                        ██\n";
+        cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+        cout << "██                                                                        ██\n";
+        cout << "██   User ID      : " << left << setw(52) << userID[idx]           << "   ██\n";
+        cout << "██   Username     : " << left << setw(52) << userName[idx]         << "   ██\n";
+        cout << "██   Full Name    : " << left << setw(52) << userFullName[idx]     << "   ██\n";
+        cout << "██   Area / Address: " << left << setw(51) << userArea[idx]        << "   ██\n";
+        cout << "██   Role         : " << left << setw(52) << userRole[idx]         << "   ██\n";
+
+        // Only show authority fields if they are set
+        if (!userAuthorityType[idx].empty() && userAuthorityType[idx] != "none") {
+        cout << "██   Authority    : " << left << setw(52) << userAuthorityType[idx] << "  ██\n";
+        cout << "██   Station      : " << left << setw(52) << userStation[idx]       << "  ██\n";
+        }
+
+        cout << "██   Reward Points: " << left << setw(52) << userRewardPoints[idx] << "   ██\n";
+        cout << "██                                                                        ██\n";
+        cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+        cout << "██                                                                        ██\n";
+        cout << "██    [1] Change Address                                                  ██\n";
+        cout << "██    [2] Back                                                            ██\n";
+        cout << "██                                                                        ██\n";
+        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        cout << "\nChoice: ";
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice) {
+
+            case 1: { 
+                system("cls");
+                cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+                cout << "██                                                                        ██\n";
+                cout << "██                ▄▄▄▄  ▄▄▄▄   ▄▄▄  ▄▄▄▄▄ ▄▄ ▄▄    ▄▄▄▄▄                  ██\n";
+                cout << "██                ██▄█▀ ██▄█▄ ██▀██ ██▄▄  ██ ██    ██▄▄                   ██\n";
+                cout << "██                ██    ██ ██ ▀███▀ ██    ██ ██▄▄▄ ██▄▄▄                  ██\n";
+                cout << "██                                                                        ██\n";
+                cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  CHANGE ADDRESS   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+                cout << "\n";
+                cout << "           Current Address: " << userArea[idx] << "\n";
+                cout << "           Enter new address: ";
+                string newAddress;
+                getline(cin, newAddress);
+
+                if (newAddress.empty()) {
+                    cout << "Address cannot be empty. No changes made.\n";
+                    Sleep(2000);
+                    break;
+                }
+
+                userArea[idx] = newAddress;
+                saveUsersToFile();
+
+                cout << "\nAddress updated successfully!\n";
+                cout << "New Address: " << userArea[idx] << "\n";
+                Sleep(2000);
+                system("cls");
+                displayUserMenu(loggedInUserID);
+                break;
+            }
+
+            case 2:
+                system("cls");
+                displayUserMenu(loggedInUserID);
+                break;
+
+            default:
+                cout << "Invalid choice. Please try again.\n";
+                Sleep(2000);
+                break;
+        }
+    }
 }
 
 

@@ -7,10 +7,10 @@ int loginAdmin() {
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██                                                                        ██\n";
-    cout << "██                   ADMIN AUTHORITY LOGIN PORTAL                        ██\n";
-    cout << "██                   (FOR LAW ENFORCEMENT ONLY)                          ██\n";
+    cout << "██                    ADMIN AUTHORITY LOGIN PORTAL                        ██\n";
+    cout << "██                     (FOR LAW ENFORCEMENT ONLY)                         ██\n";
     cout << "██                                                                        ██\n";
-    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
 
     cout << "Employee Username: ";
@@ -27,14 +27,14 @@ int loginAdmin() {
             if (userAuthorityType[i].empty() || userAuthorityType[i] == "none") {
                 system("cls");
                 cout << "\n";
-                cout << "█████████████████████████████████████████████████████████████████████████████████████\n";
-                cout << "██                           ⚠ ACCESS DENIED ⚠                                  ██\n";
-                cout << "██                                                                            ██\n";
+                cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+                cout << "██                           ⚠ ACCESS DENIED ⚠                              ██\n";
+                cout << "██                                                                           ██\n";
                 cout << "██  You do not have the required authorization to access the admin portal.   ██\n";
-                cout << "██  Only law enforcement personnel are permitted access.                    ██\n";
-                cout << "██                                                                            ██\n";
+                cout << "██  Only law enforcement personnel are permitted access.                     ██\n";
+                cout << "██                                                                           ██\n";
                 cout << "██  Your account credentials have been logged for security purposes.         ██\n";
-                cout << "█████████████████████████████████████████████████████████████████████████████████████\n";
+                cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
                 cout << "\n";
                 Sleep(5000);
                 return 0;
@@ -44,12 +44,14 @@ int loginAdmin() {
             system("cls");
             cout << "\n";
             cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
-            cout << "██     ✓ LOGIN SUCCESSFUL ✓                                                  ██\n";
+            cout << "██                                                                        ██\n";
+            cout << "██                          LOGIN SUCCESSFUL                              ██\n";
+            cout << "██                                                                        ██\n";
             cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
             cout << "██                                                                        ██\n";
-            cout << "██  Welcome, " << userFullName[i] << "\n";
-            cout << "██  Badge/Position: " << userAuthorityType[i] << "\n";
-            cout << "██  Station: " << userStation[i] << "\n";
+            cout << "██  Welcome, " << userFullName[i] << "                                    ██\n";     
+            cout << "██  Badge/Position: " << userAuthorityType[i] << "                        ██\n";     
+            cout << "██  Station: " << userStation[i] << "                                     ██\n";                                 
             cout << "██                                                                        ██\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
             cout << "\n";
@@ -61,8 +63,13 @@ int loginAdmin() {
     system("cls");
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                                                        ██\n";
+    cout << "██                              LOGIN FAILED                              ██\n";
+    cout << "██                                                                        ██\n";
+    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
     cout << "██  ✗ INVALID CREDENTIALS ✗                                              ██\n";
-    cout << "██  Username or password is incorrect.                                   ██\n";
+    cout << "██  Username or password is incorrect.                                    ██\n";
+    cout << "██                                                                        ██\n";
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
     Sleep(5000);
@@ -100,6 +107,35 @@ void displayUserMenu(int loggedInUserID) {
     cin >> choice;
     cout << "\n";
     cout << "\n";
+    switch (choice) {
+        case 1:
+            addIncident();
+            Sleep(1000);
+            break;
+        case 2:
+            displayAllAlerts();
+            Sleep(1000);
+            break;
+        case 3:
+            submitTip(loggedInUserID, targetID);
+            Sleep(1000);
+            break;
+        case 4:
+            profileScreen();
+            Sleep(1000);
+            break;
+        case 5:
+            cout << "Logging out...\n";
+            Sleep(2000);
+            loggedInUserID = 0;
+            startMenu();
+            break;
+        default:
+            cout << "Invalid choice. Please try again.\n";
+            Sleep(5000);
+            displayUserMenu(loggedInUserID);
+            break;
+    }
 }
 
 int loginUser() {
@@ -141,6 +177,7 @@ int loginUser() {
     }
     cout << "\nInvalid username or password. Please try again.\n";
     Sleep(5000);
+    roleSelectionScreen();
     return 0;
 }
 

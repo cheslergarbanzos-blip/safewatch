@@ -101,4 +101,6 @@ void displayUserRewards(int userID);
 void roleSelectionScreen();
 void startMenu();
 
+void profileScreen();
+
 #endif 
