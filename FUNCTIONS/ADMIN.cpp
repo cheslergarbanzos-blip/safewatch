@@ -40,10 +40,7 @@ void addIncident() {
     incidentCount++;
 
     cout << "\nIncident added successfully!\n";
-
     
-
-
     // Save data right away
     saveIncidentsToFile();
 }
@@ -118,6 +115,7 @@ void addUser(){
         return;
     }
 
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     cout << "===== ADD USER =====\n";
     cout << "Full Name: ";
     getline(cin, userFullName[userCount]);
@@ -132,6 +130,7 @@ void addUser(){
     getline(cin, userRole[userCount]);
 
     // If adding an admin user, require authority type and station
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     if (userRole[userCount] == "admin") {
         cout << "\n--- AUTHORITY INFORMATION ---\n";
         cout << "Authority Type (police_officer/detective/captain/commissioner/none): ";

@@ -444,6 +444,7 @@ void submitTip(int tipUserID, int tipIncidentID) {
     // ask for tip details
     string tipType, reportedLocation;
 
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     cout << "\n--- Submit a Tip ---" << endl;
     cout << "Tip Type (sighting / photo / information): ";
     getline(cin, tipType);
@@ -469,6 +470,7 @@ void submitTip(int tipUserID, int tipIncidentID) {
     // save immediately so data isnt lost
     saveTransactionsToFile();
 
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     cout << "\nTip submitted successfully! Status: PENDING" << endl;
     cout << "Transaction ID: " << transactionCount << endl;
 }
@@ -500,7 +502,8 @@ void approveReward(int tid) {
     transactionStatus[index] = "reward-approved";
 
     // find the user and add reward points
-    int pointsAwarded = 100; // flat reward points per approved tip
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    int pointsAwarded = 100; 
     for (int i = 0; i < userCount; i++) {
         if (userID[i] == transactionUserID[index]) {
             userRewardPoints[i] += pointsAwarded;
@@ -524,6 +527,7 @@ void displayUserRewards(int uid) {
         return;
     }
 
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     cout << "\n--- Reward Summary for User ID: " << uid << " ---" << endl;
 
     // find and display all tips by this user
@@ -531,6 +535,7 @@ void displayUserRewards(int uid) {
     int tipCount     = 0;
     bool found       = false;
 
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     for (int i = 0; i < transactionCount; i++) {
         if (transactionUserID[i] == uid) {
             found = true;
@@ -606,6 +611,8 @@ void rewardMenu() {
 
 void displayAllAlerts() {
     system("cls");
+
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     cout << "\n--- Current Alerts ---" << endl;
 
     if (incidentCount == 0) {
