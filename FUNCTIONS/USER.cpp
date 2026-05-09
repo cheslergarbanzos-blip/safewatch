@@ -223,8 +223,31 @@ int registerUser() {
     cout << "Password: ";
     getline(cin, userPassword[userCount]);
 
-    cout << "Address: ";
-    getline(cin, userArea[userCount]);
+     string addresses[] = {
+        "Jaro",
+        "La Paz",
+        "Molo",
+        "Mandurriao",
+        "Villa",
+        "City Proper"
+    };
+    cout << "Select your area of residence:\n";
+    for (int i = 0; i < 6; i++) {
+        cout << "[" << (i + 1) << "] " << addresses[i] << "\n";
+    }
+
+    int areaChoice;
+    cout << "Enter your choice: ";
+    cin >> areaChoice;
+    cin.ignore(); // Ignore the newline character
+
+    if (areaChoice >= 1 && areaChoice <= 6) {
+        userArea[userCount] = addresses[areaChoice - 1];
+    } else {
+        cout << "Invalid address. Please try again.\n";
+        Sleep(2000);
+        return -1;
+    }
 
     userRole[userCount] = "user";
     userRewardPoints[userCount] = 0;
