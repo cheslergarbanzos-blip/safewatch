@@ -36,6 +36,7 @@ int choice;
 const string INCIDENTS_FILE    = resolveDataFile("incidents.csv");
 const string SUSPECTS_FILE     = resolveDataFile("suspects.csv");
 const string USERS_FILE        = resolveDataFile("users.csv");
+const string ADMINS_FILE       = resolveDataFile("admin.csv");
 const string TRANSACTIONS_FILE = resolveDataFile("transactions.csv");
 
 //Constant array sizes for storing data
@@ -147,15 +148,45 @@ void saveUsersToFile() {
     ofstream outfile (USERS_FILE);
     if (outfile.is_open()) {
         for (int i = 0; i < userCount; i++) {
-            outfile << userID[i] << "," 
-                    << userName[i] << "," 
-                    << userFullName[i] << ","
-                    << userPassword[i] << "," 
-                    << userArea[i] << "," 
-                    << userRole[i] << "," 
-                    << userRewardPoints[i] << ","
-                    << userAuthorityType[i] << ","
-                    << userStation[i] << endl;
+            if (userRole[i] == "user") {
+                outfile << userID[i] << "," 
+                        << userName[i] << "," 
+                        << userFullName[i] << ","
+                        << userPassword[i] << "," 
+                        << userArea[i] << "," 
+                        << userRole[i] << "," 
+                        << userRewardPoints[i] << ","
+                        << userAuthorityType[i] << ","
+                        << userStation[i] << endl;
+            }
+        } 
+        outfile.close();
+    } else {
+        cout << "CRITICAL ERROR: Could not save to " << USERS_FILE << ". Ensure 'DATA' folder exists.\n";
+        Sleep(2000);
+    }
+}
+
+void saveAdminsToFile() {
+    fs::path adminsPath = ADMINS_FILE;
+    if (!adminsPath.parent_path().empty() && !fs::exists(adminsPath.parent_path())) {
+        fs::create_directories(adminsPath.parent_path());
+    }
+
+    ofstream outfile (ADMINS_FILE);
+    if (outfile.is_open()) {
+        for (int i = 0; i < userCount; i++) {
+            if (userRole[i] == "admin") {
+                outfile << userID[i] << "," 
+                        << userName[i] << "," 
+                        << userFullName[i] << ","
+                        << userPassword[i] << "," 
+                        << userArea[i] << "," 
+                        << userRole[i] << "," 
+                        << userRewardPoints[i] << ","
+                        << userAuthorityType[i] << ","
+                        << userStation[i] << endl;
+            }
         } 
         outfile.close();
     } else {
@@ -246,6 +277,30 @@ void loadUsersFromFile(){
     }
 }
 
+void loadAdminsFromFile(){
+    ifstream infile (ADMINS_FILE);
+    if (infile.is_open()) {
+        string line;
+        while (getline(infile, line) && userCount < MAX_USERS) {
+            if (line.empty()) continue;
+            stringstream ss(line);
+            string temp;
+            getline(ss, temp, ','); userID[userCount] = stoi(temp);
+            getline(ss, userName[userCount], ',');
+            getline(ss, userFullName[userCount], ',');
+            getline(ss, userPassword[userCount], ',');
+            getline(ss, userArea[userCount], ',');
+            getline(ss, userRole[userCount], ',');
+            userRole[userCount] = "admin";
+            getline(ss, temp, ','); userRewardPoints[userCount] = stoi(temp);
+            getline(ss, userAuthorityType[userCount], ',');
+            getline(ss, userStation[userCount], ',');
+            userCount++;
+        }
+        infile.close();
+    }
+}
+
 void loadTransactionsFromFile(){
     ifstream infile (TRANSACTIONS_FILE);
     if (infile.is_open()) {
@@ -285,9 +340,9 @@ bool isValidUserID(int id) {
     return false;
 }
 
-bool isDuplicateUser(string username) {
+bool isDuplicateUser(string username, string role) {
     for (int i = 0; i < userCount; i++) {
-        if (userName[i] == username) {
+        if (userName[i] == username && userRole[i] == role) {
             return true;
         }
     }
@@ -604,9 +659,9 @@ void displayUserRewards(int uid) {
             break;
         }
     }
-    cout << "\nPress any key to return to the Rewards Menu..." << endl;
+    cout << "\nPress Enter to return to the Rewards Menu..." << endl;
     cin.ignore(1000, '\n'); 
-    rewardMenu();
+    cin.get();
 }
 
 void rewardMenu() {
@@ -619,22 +674,21 @@ void rewardMenu() {
         cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
         cout << "██                                               ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-        cout << "██   Reward Points: " << userRewardPoints[loggedInUserID - 1] << "                             ██\n";
+        cout << "██   Current Points Balance: " << left << setw(18) << userRewardPoints[loggedInUserID - 1] << "      ██\n";
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                               ██\n";
-        cout << "██    [1] View Rewards                           ██\n";
-        cout << "██    [2] Back                                   ██\n";
-        cout << "██                                               ██\n";
+        cout << "██    [1] View Detailed Reward History           ██\n";
+        cout << "██    [2] Back to Main Menu                      ██\n";
         cout << "██                                               ██\n";
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
-        cin.ignore();
+        cout << "\nChoice: ";
+        if (!(cin >> choice)) { cin.clear(); cin.ignore(1000, '\n'); continue; }
 
         switch (choice) {
             case 1:
                 displayUserRewards(loggedInUserID);
                 break;
             case 2:
-                displayUserMenu(loggedInUserID);
                 return;
             default:
                 cout << "Invalid choice. Try Again!" << endl;
@@ -672,9 +726,8 @@ void displayAllAlerts() {
         cout << "\n";
     }
 
-    cout << "\nPress any key to continue..." << endl;
+    cout << "\nPress Enter to return to the Menu...";
     cin.ignore(1000, '\n');
-    displayUserMenu(loggedInUserID);
     cin.get();
 }
 
@@ -729,8 +782,6 @@ void roleSelectionScreen() {
             
             if (choice == 1) {
                 loginAdmin();
-            } else {
-                roleSelectionScreen();
             }
             break;
             
@@ -784,44 +835,6 @@ void roleSelectionScreen() {
             Sleep(5000);
             roleSelectionScreen();
     }
-}
-
-void startMenu() {
-    system("cls");
-    cout << "\n";
-    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
-    cout << "██                                                                        ██\n";
-    cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
-    cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
-    cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██    [1] Select User Type                                                ██\n";
-    cout << "██    [2] Exit                                                            ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
-    cout << "\n";
-    cout << "Choice: ";
-    cin >> choice;
-    cin.ignore(); // Essential to clear buffer for next getline
-    
-    switch (choice) {
-        case 1:
-            roleSelectionScreen();
-            break;
-        case 2:
-            cout << "Exiting...\n";
-            exit(0);
-        default:
-            cout << "Invalid choice. Please try again.\n";
-            Sleep(5000);
-            startMenu();
-    }
-
-
-
 }
 
 // PROFILE MODULE
@@ -935,6 +948,7 @@ int main() {
     loadIncidentsFromFile();
     loadSuspectsFromFile();
     loadUsersFromFile();
+    loadAdminsFromFile();
     loadTransactionsFromFile();
     loadNotifications();
 

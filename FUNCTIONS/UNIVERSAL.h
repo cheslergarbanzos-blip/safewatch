@@ -14,6 +14,7 @@ extern int choice;
 extern const string INCIDENTS_FILE;
 extern const string SUSPECTS_FILE;
 extern const string USERS_FILE;
+extern const string ADMINS_FILE;
 extern const string TRANSACTIONS_FILE;
 
 extern const int MAX_INCIDENTS;
@@ -64,7 +65,7 @@ extern int userCount;
 extern int transactionCount;
 extern int loggedInUserID;
 
-bool isDuplicateUser(string username);
+bool isDuplicateUser(string username, string role);
 bool isValidIncidentID(int id);
 bool isValidUserID(int id);
 bool isAdminUser(int id);
@@ -82,10 +83,12 @@ void displayNotificationCenter(string userLocation);
 void saveIncidentsToFile();
 void saveSuspectsToFile();
 void saveUsersToFile();
+void saveAdminsToFile();
 void saveTransactionsToFile();
 void loadIncidentsFromFile();
 void loadSuspectsFromFile();
 void loadUsersFromFile();
+void loadAdminsFromFile();
 void loadTransactionsFromFile();
 
 void addIncident();

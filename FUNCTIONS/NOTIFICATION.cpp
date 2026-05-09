@@ -1,13 +1,8 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <windows.h>
+#include "UNIVERSAL.h"
 #include <thread>
 #include <chrono>
 #include <ctime>
-using namespace std;
+#include <cctype>
 
 // Notification data structure
 struct Notification {
@@ -22,22 +17,6 @@ struct Notification {
 
 // Global notification list
 vector<Notification> notifications;
-
-// External variables from FINALS.cpp (assuming linkage)
-extern string incidentCrime[];
-extern string incidentLocation[];
-extern string incidentDate[];
-extern string incidentStatus[];
-extern string suspectName[];
-extern string suspectHeight[];
-extern string suspectBuild[];
-extern string suspectClothing[];
-extern string suspectLastLocation[];
-extern int suspectIncidentID[];
-extern int incidentCount;
-extern int suspectCount;
-extern string userArea[];
-extern int loggedInUserID;
 
 // Function to create notification from incident and suspect data
 Notification createNotification(int incidentIndex, int suspectIndex) {
@@ -76,8 +55,19 @@ void loadNotifications() {
 // Filter notifications by user's location
 vector<Notification> getFilteredNotifications(string userLocation) {
     vector<Notification> filtered;
+    if (userLocation.empty()) return filtered;
+
+    // Convert user location to lowercase for case-insensitive matching
+    string lowerUserLoc = userLocation;
+    for (char &c : lowerUserLoc) c = (char)tolower((unsigned char)c);
+
     for (auto& n : notifications) {
-        if (n.lastLocation == userLocation) {
+        // Convert incident location to lowercase
+        string lowerIncLoc = n.lastLocation;
+        for (char &c : lowerIncLoc) c = (char)tolower((unsigned char)c);
+
+        // Check if the user's area keyword exists within the reported incident location
+        if (lowerIncLoc.find(lowerUserLoc) != string::npos) {
             filtered.push_back(n);
         }
     }
@@ -86,6 +76,9 @@ vector<Notification> getFilteredNotifications(string userLocation) {
 
 // Display notification center
 void displayNotificationCenter(string userLocation) {
+    loadNotifications();
+    while (true) {
+        system("cls");
     vector<Notification> filtered = getFilteredNotifications(userLocation);
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                           ██\n";
@@ -97,6 +90,7 @@ void displayNotificationCenter(string userLocation) {
         cout << "\n";
     if (filtered.empty()) {
         cout << "No notifications in your area.\n";
+        Sleep(1500);
         return;
     }
     
@@ -111,12 +105,15 @@ void displayNotificationCenter(string userLocation) {
     }
 
     // Allow viewing details
-    cout << "Enter notification number to view details (1-" << filteredCount << "), or 0 to exit: ";
+    cout << "Enter notification number to view details (1-" << filteredCount << "), or 0 to go back to main menu: ";
     cout << "\n";
-    int choice;
-    cin >> choice;
-    if (choice > 0 && choice <= filteredCount) {
-        Notification n = filtered[filteredCount - choice];
+    int localChoice;
+    if (!(cin >> localChoice)) { cin.clear(); cin.ignore(1000, '\n'); continue; }
+    
+    if (localChoice == 0) return; // Exit the notification center
+
+    if (localChoice > 0 && localChoice <= filteredCount) {
+        Notification n = filtered[filteredCount - localChoice];
         system("cls");
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                           ██\n";
@@ -131,9 +128,7 @@ void displayNotificationCenter(string userLocation) {
         cout << "Name: " << n.name << "\n";
         cout << "Appearance: " << n.appearance << "\n";
         cout << "Timestamp: " << n.timestamp << "\n";
-        cout << "\n";
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
-        n.read = true; // Mark as read
         // Update in global list
         for (auto& globalN : notifications) {
             if (globalN.id == n.id) {
@@ -141,6 +136,11 @@ void displayNotificationCenter(string userLocation) {
                 break;
             }
         }
+
+        cout << "\nPress Enter to return to the notification list...";
+        cin.ignore(1000, '\n'); // Clear buffer from localChoice input
+        cin.get();
+    }
     }
 }
 
