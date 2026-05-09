@@ -78,10 +78,15 @@ int loginAdmin() {
 }
 
 void displayUserMenu(int loggedInUserID) {
-    while (true) {
-        system("cls");
+     system("cls");
+    // report
+    // incidents/suspects
+    // reward
+    // profile
 
+    cout << "Logged in as User ID: " << loggedInUserID << "\n";
     cout << "\n";
+    // recent incidents   
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██                                                                        ██\n";
     cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
@@ -93,14 +98,22 @@ void displayUserMenu(int loggedInUserID) {
     cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
     cout << "██                                                                        ██\n";
     cout << "██    [1] List of Incidents                                               ██\n";
-    cout << "██    [2] Notifications (My Area)                                         ██\n";
-    cout << "██    [3] Reward                                                          ██\n";
-    cout << "██    [4] Profile                                                         ██\n";
-    cout << "██    [5] Logout                                                          ██\n";
+    cout << "██    [2] Reward                                                          ██\n";
+    cout << "██    [3] Profile                                                         ██\n";
+    cout << "██    [4] Logout                                                          ██\n";
+    cout << "██                                                                        ██\n";
     cout << "██                                                                        ██\n";
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
     cout << "Choice: ";
+    cout << "\n";
+    cout << "\n";
+
+    
+    for (int i = 0; i < userCount; i++) {
+            displayNotificationCenter(userArea[i]);
+      }
+    
     cin >> choice;
     cin.ignore(); 
     cout << "\n";
@@ -112,28 +125,17 @@ void displayUserMenu(int loggedInUserID) {
         case 1:
             displayAllAlerts();
             break;
-        case 2: {
-            string currentUserArea = "";
-            for (int i = 0; i < userCount; i++) {
-                if (userID[i] == loggedInUserID) {
-                    currentUserArea = userArea[i];
-                    break;
-                }
-            }
-            displayNotificationCenter(currentUserArea);
-            break;
-        }
-        case 3:
+        case 2:
             rewardMenu();
             break;
-        case 4:
+        case 3:
             profileScreen();
             break;
-        case 5:
+        case 4:
             cout << "Logging out...\n";
             Sleep(1000);
             loggedInUserID = 0;
-            roleSelectionScreen();
+            startMenu();
             break;
         default:
             cout << "Invalid choice. Please try again.\n";
@@ -143,8 +145,6 @@ void displayUserMenu(int loggedInUserID) {
     }
 
     
-}
-
 }
 
 int loginUser() {
@@ -177,6 +177,7 @@ int loginUser() {
             if (userRole[i] == "admin") {
                 displayAdminMenu();
             } else {
+                loadNotifications();
                 displayNotificationCenter(userArea[i]);
                 displayUserMenu(userID[i]);
             }
@@ -211,7 +212,7 @@ int registerUser() {
     cout << "Username: ";
     getline(cin, userName[userCount]);
 
-    if (isDuplicateUser(userName[userCount], "user")) {
+    if (isDuplicateUser(userName[userCount], userRole[userCount])) {
         cout << "Username already exists. Please choose a different username.\n";
         Sleep(2000);
         return -1;
@@ -239,10 +240,10 @@ int registerUser() {
     int areaChoice;
     cout << "Enter your choice: ";
     cin >> areaChoice;
-    cin.ignore(); // Ignore the newline character
+    cin.ignore();
 
     if (areaChoice >= 1 && areaChoice <= 6) {
-        userArea[userCount] = addresses[areaChoice - 1];
+        userArea[userCount] = addresses[areaChoice - 1] + ", Iloilo City";
     } else {
         cout << "Invalid address. Please try again.\n";
         Sleep(2000);
