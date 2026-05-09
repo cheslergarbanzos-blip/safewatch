@@ -87,7 +87,14 @@ vector<Notification> getFilteredNotifications(string userLocation) {
 // Display notification center
 void displayNotificationCenter(string userLocation) {
     vector<Notification> filtered = getFilteredNotifications(userLocation);
-    cout << "\n=== NOTIFICATION CENTER ===\n";
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "██                                           ██\n";
+        cout << "██     ▄▄  ▄▄  ▄▄▄ ▄▄▄▄▄▄ ▄▄  ▄▄▄▄ ▄▄▄▄▄     ██\n";
+        cout << "██     ███▄██ ██▀██  ██   ██ ██▀▀▀ ██▄▄      ██\n";
+        cout << "██     ██ ▀██ ▀███▀  ██   ██ ▀████ ██▄▄▄     ██\n";
+        cout << "██                                           ██\n";
+        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        cout << "\n";
     if (filtered.empty()) {
         cout << "No notifications in your area.\n";
         return;
@@ -96,24 +103,35 @@ void displayNotificationCenter(string userLocation) {
     int filteredCount = static_cast<int>(filtered.size());
     for (int i = filteredCount - 1; i >= 0; i--) { // Most recent first
         Notification n = filtered[i];
-        cout << (n.read ? "[READ] " : "[UNREAD] ") << n.crimeType << " - " << n.lastLocation << " - " << n.name << "\n";
+        cout << (n.read ? "[READ] " : "[UNREAD] ") << n.crimeType << " ▀▀▀ " << n.lastLocation << " ▀▀▀ " << n.name << "\n";
         cout << "Preview: " << n.appearance.substr(0, 50) << "...\n";
         cout << "Timestamp: " << n.timestamp << "\n";
-        cout << "------------------------\n";
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     }
 
     // Allow viewing details
     cout << "Enter notification number to view details (1-" << filteredCount << "), or 0 to exit: ";
+    cout << "\n";
     int choice;
     cin >> choice;
     if (choice > 0 && choice <= filteredCount) {
         Notification n = filtered[filteredCount - choice];
-        cout << "\n=== NOTIFICATION DETAILS ===\n";
+        system("cls");
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "██                                           ██\n";
+        cout << "██     ▄▄  ▄▄  ▄▄▄ ▄▄▄▄▄▄ ▄▄  ▄▄▄▄ ▄▄▄▄▄     ██\n";
+        cout << "██     ███▄██ ██▀██  ██   ██ ██▀▀▀ ██▄▄      ██\n";
+        cout << "██     ██ ▀██ ▀███▀  ██   ██ ▀████ ██▄▄▄     ██\n";
+        cout << "██                                           ██\n";
+        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀    DETAILS    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        cout << "\n";
         cout << "Crime Type: " << n.crimeType << "\n";
         cout << "Location: " << n.lastLocation << "\n";
         cout << "Name: " << n.name << "\n";
         cout << "Appearance: " << n.appearance << "\n";
         cout << "Timestamp: " << n.timestamp << "\n";
+        cout << "\n";
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         n.read = true; // Mark as read
         // Update in global list
         for (auto& globalN : notifications) {

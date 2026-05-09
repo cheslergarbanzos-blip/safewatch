@@ -423,6 +423,15 @@ int  searchSuspectByIncidentID(int id) {
 
 void submitTip(int tipUserID, int tipIncidentID) {
 
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "██                                               ██\n";
+        cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
+        cout << "██     ██▄█▄ ██▄▄  ██ ▄ ██ ██▀██ ██▄█▄ ██▀██     ██\n";
+        cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
+        cout << "██                                               ██\n";
+        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  SUBMIT TIP  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        cout << "\n";
+
     // check if the incident actually exists first
     if (!isValidIncidentID(tipIncidentID)) {
         cout << "Error: Incident ID " << tipIncidentID << " does not exist." << endl;
@@ -444,8 +453,6 @@ void submitTip(int tipUserID, int tipIncidentID) {
     // ask for tip details
     string tipType, reportedLocation;
 
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    cout << "\n--- Submit a Tip ---" << endl;
     cout << "Tip Type (sighting / photo / information): ";
     getline(cin, tipType);
 
@@ -470,12 +477,21 @@ void submitTip(int tipUserID, int tipIncidentID) {
     // save immediately so data isnt lost
     saveTransactionsToFile();
 
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    cout << "\n";
     cout << "\nTip submitted successfully! Status: PENDING" << endl;
     cout << "Transaction ID: " << transactionCount << endl;
 }
 
 void approveReward(int tid) {
+
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "██                                               ██\n";
+        cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
+        cout << "██     ██▄█▄ ██▄▄  ██ ▄ ██ ██▀██ ██▄█▄ ██▀██     ██\n";
+        cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
+        cout << "██                                               ██\n";
+        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  APPROVE REWARD  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        cout << "\n";
 
     // find the transaction
     int index = -1;
@@ -579,27 +595,21 @@ void rewardMenu() {
         cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
         cout << "██                                               ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+        cout << "██   Reward Points: " << userRewardPoints[loggedInUserID - 1] << "                                ██\n";
+        cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                               ██\n";
-        cout << "██    [1] Submit Tip                             ██\n";
-        cout << "██    [2] View Rewards                           ██\n";
-        cout << "██    [3] Back                                   ██\n";
+        cout << "██    [1] View Rewards                           ██\n";
+        cout << "██    [2] Back                                   ██\n";
         cout << "██                                               ██\n";
         cout << "██                                               ██\n";
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
-        cout << "\nChoice: ";
-        cin >> choice;
         cin.ignore();
 
         switch (choice) {
             case 1:
-                submitTip(loggedInUserID, targetID);
-                Sleep(2000);
+                displayUserRewards(loggedInUserID);
                 break;
             case 2:
-                displayUserRewards(loggedInUserID);
-                Sleep(2000);
-                break;
-            case 3:
                 displayUserMenu(loggedInUserID);
                 return;
             default:

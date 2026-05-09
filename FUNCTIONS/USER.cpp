@@ -28,7 +28,7 @@ int loginAdmin() {
                 system("cls");
                 cout << "\n";
                 cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-                cout << "██                           ⚠ ACCESS DENIED ⚠                              ██\n";
+                cout << "██                           ! ACCESS DENIED !                               ██\n";
                 cout << "██                                                                           ██\n";
                 cout << "██  You do not have the required authorization to access the admin portal.   ██\n";
                 cout << "██  Only law enforcement personnel are permitted access.                     ██\n";
@@ -37,6 +37,7 @@ int loginAdmin() {
                 cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
                 cout << "\n";
                 Sleep(5000);
+                roleSelectionScreen();
                 return 0;
             }
 
@@ -45,7 +46,7 @@ int loginAdmin() {
             cout << "\n";
             cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
             cout << "██                                                                        ██\n";
-            cout << "██                          LOGIN SUCCESSFUL                              ██\n";
+            cout << "██                           LOGIN SUCCESSFUL                             ██\n";
             cout << "██                                                                        ██\n";
             cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
             cout << "██                                                                        ██\n";
@@ -93,14 +94,13 @@ void displayUserMenu(int loggedInUserID) {
     cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
     cout << "██                                                                        ██\n";
     cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-    cout << "██    Logged in as USER ID: " << loggedInUserID << "                                           ██\n";
+    cout << "██    Logged in as USER ID: " << loggedInUserID << "                                             ██\n";
     cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
     cout << "██                                                                        ██\n";
-    cout << "██    [1] Report                                                          ██\n";
-    cout << "██    [2] List of Incidents                                               ██\n";
-    cout << "██    [3] Reward                                                          ██\n";
-    cout << "██    [4] Profile                                                         ██\n";
-    cout << "██    [5] Logout                                                          ██\n";
+    cout << "██    [1] List of Incidents                                               ██\n";
+    cout << "██    [2] Reward                                                          ██\n";
+    cout << "██    [3] Profile                                                         ██\n";
+    cout << "██    [4] Logout                                                          ██\n";
     cout << "██                                                                        ██\n";
     cout << "██                                                                        ██\n";
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
@@ -112,29 +112,28 @@ void displayUserMenu(int loggedInUserID) {
     cout << "\n";
     switch (choice) {
         case 1:
-            addIncident();
-            break;
-        case 2:
             displayAllAlerts();
             break;
-        case 3:
+        case 2:
             rewardMenu();
             break;
-        case 4:
+        case 3:
             profileScreen();
             break;
-        case 5:
+        case 4:
             cout << "Logging out...\n";
-            Sleep(2000);
+            Sleep(1000);
             loggedInUserID = 0;
             startMenu();
             break;
         default:
             cout << "Invalid choice. Please try again.\n";
-            Sleep(5000);
+            Sleep(1000);
             displayUserMenu(loggedInUserID);
             break;
     }
+
+    void displayNotificationCenter(string userLocation);
 }
 
 int loginUser() {
