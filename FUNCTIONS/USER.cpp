@@ -106,10 +106,21 @@ void displayUserMenu(int loggedInUserID) {
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
     cout << "Choice: ";
+    cout << "\n";
+    cout << "\n";
+
+    
+    for (int i = 0; i < userCount; i++) {
+            displayNotificationCenter(userArea[i]);
+      }
+    
     cin >> choice;
-     cin.ignore(); 
+    cin.ignore(); 
     cout << "\n";
     cout << "\n";
+    
+
+
     switch (choice) {
         case 1:
             displayAllAlerts();
@@ -133,7 +144,7 @@ void displayUserMenu(int loggedInUserID) {
             break;
     }
 
-    void displayNotificationCenter(string userLocation);
+    
 }
 
 int loginUser() {

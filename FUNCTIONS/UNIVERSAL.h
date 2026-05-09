@@ -6,6 +6,7 @@
 #include <fstream>
 #include <windows.h>
 #include <sstream>
+#include <vector>
 using namespace std;
 
 extern int choice;
@@ -76,6 +77,7 @@ int registerUser();
 
 void loadNotifications();
 void displayNotificationCenter(string userLocation);
+
 
 void saveIncidentsToFile();
 void saveSuspectsToFile();

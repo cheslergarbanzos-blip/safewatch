@@ -103,10 +103,11 @@ void displayNotificationCenter(string userLocation) {
     int filteredCount = static_cast<int>(filtered.size());
     for (int i = filteredCount - 1; i >= 0; i--) { // Most recent first
         Notification n = filtered[i];
-        cout << (n.read ? "[READ] " : "[UNREAD] ") << n.crimeType << " ▀▀▀ " << n.lastLocation << " ▀▀▀ " << n.name << "\n";
+        cout << (n.read ? "[READ] " : "[UNREAD] ") << n.crimeType << " | " << n.lastLocation << " | " << n.name << " |\n";
         cout << "Preview: " << n.appearance.substr(0, 50) << "...\n";
         cout << "Timestamp: " << n.timestamp << "\n";
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "\n";
     }
 
     // Allow viewing details

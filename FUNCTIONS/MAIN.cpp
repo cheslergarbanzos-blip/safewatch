@@ -537,6 +537,14 @@ void approveReward(int tid) {
 
 void displayUserRewards(int uid) {
 
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "██                                               ██\n";
+        cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
+        cout << "██     ██▄█▄ ██▄▄  ██ ▄ ██ ██▀██ ██▄█▄ ██▀██     ██\n";
+        cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
+        cout << "██                                               ██\n";
+        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  USER  REWARDS   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+
     // check if user exists
     if (!isValidUserID(uid)) {
         cout << "Error: User ID " << uid << " does not exist." << endl;
@@ -544,26 +552,34 @@ void displayUserRewards(int uid) {
     }
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    cout << "\n--- Reward Summary for User ID: " << uid << " ---" << endl;
+    cout << "\n";
+    cout << "\nReward Summary for User ID: " << uid << "";
+    cout << "\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀";
+
 
     // find and display all tips by this user
     int totalPoints  = 0;
     int tipCount     = 0;
     bool found       = false;
 
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     for (int i = 0; i < transactionCount; i++) {
         if (transactionUserID[i] == uid) {
             found = true;
             tipCount++;
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "\n";
 
-            cout << "\nTip #"         << tipCount                      << endl;
-            cout << "Transaction ID: " << transactionID[i]             << endl;
-            cout << "Incident ID:    " << transactionIncidentID[i]     << endl;
-            cout << "Tip Type:       " << transactionTipType[i]        << endl;
-            cout << "Submitted:      " << transactionTimestamp[i]      << endl;
-            cout << "Status:         " << transactionStatus[i]         << endl;
+            cout << "  Tip #"         << tipCount                      << endl;
+            cout << "  Transaction ID: " << transactionID[i]             << endl;
+            cout << "  Incident ID:    " << transactionIncidentID[i]     << endl;
+            cout << "  Tip Type:       " << transactionTipType[i]        << endl;
+            cout << "  Submitted:      " << transactionTimestamp[i]      << endl;
+            cout << "  Status:         " << transactionStatus[i]         << endl;
 
+            cout << "\n";
+            cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+            cout << "\n";
             if (transactionStatus[i] == "reward-approved") {
                 cout << "Points Earned:  100"                          << endl;
             } else {
@@ -579,10 +595,18 @@ void displayUserRewards(int uid) {
     // show total points from user array
     for (int i = 0; i < userCount; i++) {
         if (userID[i] == uid) {
-            cout << "\n--- Total Reward Points: " << userRewardPoints[i] << " ---" << endl;
+            cout << "\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "\n";
+            cout << "\n  Total Reward Points: " << userRewardPoints[i] << "" << endl;
+            cout << "\n";
+            cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
             break;
         }
     }
+    cout << "\nPress any key to return to the Rewards Menu..." << endl;
+    cin.ignore(1000, '\n'); 
+    rewardMenu();
 }
 
 void rewardMenu() {
@@ -595,7 +619,7 @@ void rewardMenu() {
         cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
         cout << "██                                               ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-        cout << "██   Reward Points: " << userRewardPoints[loggedInUserID - 1] << "                                ██\n";
+        cout << "██   Reward Points: " << userRewardPoints[loggedInUserID - 1] << "                             ██\n";
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                               ██\n";
         cout << "██    [1] View Rewards                           ██\n";
@@ -622,8 +646,14 @@ void rewardMenu() {
 void displayAllAlerts() {
     system("cls");
 
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    cout << "\n--- Current Alerts ---" << endl;
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                        ██\n";
+    cout << "██      ▄▄▄  ▄▄    ▄▄▄▄▄ ▄▄▄▄  ▄▄▄▄▄▄     ██\n";
+    cout << "██     ██▀██ ██    ██▄▄  ██▄█▄   ██       ██\n";
+    cout << "██     ██▀██ ██▄▄▄ ██▄▄▄ ██ ██   ██       ██\n";
+    cout << "██                                        ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
 
     if (incidentCount == 0) {
         cout << "No incidents available at this time." << endl;
@@ -637,10 +667,14 @@ void displayAllAlerts() {
         cout << "Location:    " << incidentLocation[i] << endl;
         cout << "Date:        " << incidentDate[i] << endl;
         cout << "Status:      " << incidentStatus[i] << endl;
+        cout << "\n";
+        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        cout << "\n";
     }
 
     cout << "\nPress any key to continue..." << endl;
     cin.ignore(1000, '\n');
+    displayUserMenu(loggedInUserID);
     cin.get();
 }
 
@@ -821,10 +855,10 @@ void profileScreen() {
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
         cout << "██                                                                        ██\n";
         cout << "██   User ID      : " << left << setw(52) << userID[idx]           << "   ██\n";
-        cout << "██   Username     : " << left << setw(52) << userName[idx]         << "   ██\n";
-        cout << "██   Full Name    : " << left << setw(52) << userFullName[idx]     << "   ██\n";
-        cout << "██   Area / Address: " << left << setw(51) << userArea[idx]        << "   ██\n";
-        cout << "██   Role         : " << left << setw(52) << userRole[idx]         << "   ██\n";
+        cout << "██   Username     : " << left << setw(52) << userName[idx]         << "  ██\n";
+        cout << "██   Full Name    : " << left << setw(52) << userFullName[idx]     << "  ██\n";
+        cout << "██   Area / Address: " << left << setw(51) << userArea[idx]        << "  ██\n";
+        cout << "██   Role         : " << left << setw(52) << userRole[idx]         << "  ██\n";
 
         // Only show authority fields if they are set
         if (!userAuthorityType[idx].empty() && userAuthorityType[idx] != "none") {
