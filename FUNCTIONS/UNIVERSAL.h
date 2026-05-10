@@ -72,6 +72,8 @@ bool isAdminUser(int id);
 bool isAuthorized(int userID);
 int loginAdmin();
 void displayAdminMenu();
+void admindRewardScreen();
+void viewTipsScreen();
 void displayUserMenu(int loggedInUserID);
 int loginUser();
 int registerUser();
@@ -94,6 +96,8 @@ void loadTransactionsFromFile();
 void addIncident();
 void addSuspect();
 void addUser();
+void displayUserManagement();
+void displayUsers();
 
 void displayAllAlerts();
 void displayAlertsByLocation(string area);
@@ -105,7 +109,6 @@ void approveReward();
 void displayUserRewards(int userID);
 
 void roleSelectionScreen();
-void startMenu();
 
 void profileScreen();
 

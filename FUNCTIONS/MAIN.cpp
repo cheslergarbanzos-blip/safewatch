@@ -879,13 +879,6 @@ void profileScreen() {
         cout << "██   Full Name    : " << left << setw(52) << userFullName[idx]     << "  ██\n";
         cout << "██   Area / Address: " << left << setw(51) << userArea[idx]        << "  ██\n";
         cout << "██   Role         : " << left << setw(52) << userRole[idx]         << "  ██\n";
-
-        // Only show authority fields if they are set
-        if (!userAuthorityType[idx].empty() && userAuthorityType[idx] != "none") {
-        cout << "██   Authority    : " << left << setw(52) << userAuthorityType[idx] << "  ██\n";
-        cout << "██   Station      : " << left << setw(52) << userStation[idx]       << "  ██\n";
-        }
-
         cout << "██   Reward Points: " << left << setw(52) << userRewardPoints[idx] << "   ██\n";
         cout << "██                                                                        ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";

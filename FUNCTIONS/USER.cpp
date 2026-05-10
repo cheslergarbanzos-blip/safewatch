@@ -135,7 +135,7 @@ void displayUserMenu(int loggedInUserID) {
             cout << "Logging out...\n";
             Sleep(1000);
             loggedInUserID = 0;
-            startMenu();
+            roleSelectionScreen();
             break;
         default:
             cout << "Invalid choice. Please try again.\n";
