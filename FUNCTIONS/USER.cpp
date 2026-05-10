@@ -1,4 +1,5 @@
 #include "UNIVERSAL.h"
+#include <iomanip>
 
 int loginAdmin() {
     system("cls");
@@ -77,74 +78,68 @@ int loginAdmin() {
     return 0;
 }
 
-void displayUserMenu(int loggedInUserID) {
-     system("cls");
-    // report
-    // incidents/suspects
-    // reward
-    // profile
-
-    cout << "Logged in as User ID: " << loggedInUserID << "\n";
-    cout << "\n";
-    // recent incidents   
-    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
-    cout << "██                                                                        ██\n";
-    cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
-    cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
-    cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-    cout << "██    Logged in as USER ID: " << loggedInUserID << "                                             ██\n";
-    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██    [1] List of Incidents                                               ██\n";
-    cout << "██    [2] Reward                                                          ██\n";
-    cout << "██    [3] Profile                                                         ██\n";
-    cout << "██    [4] Logout                                                          ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "██                                                                        ██\n";
-    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
-    cout << "\n";
-    cout << "Choice: ";
-    cout << "\n";
-    cout << "\n";
-
-    
+void displayUserMenu(int currentUID) {
+    string currentUserArea = "";
     for (int i = 0; i < userCount; i++) {
-            displayNotificationCenter(userArea[i]);
-      }
-    
-    cin >> choice;
-    cin.ignore(); 
-    cout << "\n";
-    cout << "\n";
-    
-
-
-    switch (choice) {
-        case 1:
-            displayAllAlerts();
+        if (userID[i] == currentUID) {
+            currentUserArea = userArea[i];
             break;
-        case 2:
-            rewardMenu();
-            break;
-        case 3:
-            profileScreen();
-            break;
-        case 4:
-            cout << "Logging out...\n";
-            Sleep(1000);
-            loggedInUserID = 0;
-            roleSelectionScreen();
-            break;
-        default:
-            cout << "Invalid choice. Please try again.\n";
-            Sleep(1000);
-            displayUserMenu(loggedInUserID);
-            break;
+        }
     }
 
-    
+    while (true) {
+        system("cls");
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "██                                                                        ██\n";
+        cout << "██     ▄█████  ▄▄▄  ▄▄▄▄▄ ▄▄▄▄▄ ██     ██ ▄████▄ ██████ ▄█████ ██  ██     ██\n";
+        cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
+        cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
+        cout << "██                                                                        ██\n";
+        cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+        cout << "██    Logged in as USER ID: " << left << setw(53) << loggedInUserID << " ██\n";
+        cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+        cout << "██                                                                        ██\n";
+        cout << "██    [1] Notification Center                                             ██\n";
+        cout << "██    [2] List of Incidents                                               ██\n";
+        cout << "██    [3] Reward                                                          ██\n";
+        cout << "██    [4] Profile                                                         ██\n";
+        cout << "██    [5] Logout                                                          ██\n";
+        cout << "██                                                                        ██\n";
+        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        cout << "\nChoice: ";
+
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue;
+        }
+        cin.ignore();
+
+        switch (choice) {
+            case 1:
+                displayNotificationCenter(currentUserArea);
+                break;
+            case 2:
+                displayAllAlerts();
+                break;
+            case 3:
+                rewardMenu();
+                break;
+            case 4:
+                profileScreen();
+                break;
+            case 5:
+                cout << "Logging out...\n";
+                Sleep(1000);
+                // Clear global session ID
+                ::loggedInUserID = 0; 
+                return;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+                Sleep(1000);
+                break;
+        }
+    }
 }
 
 int loginUser() {

@@ -921,13 +921,11 @@ void profileScreen() {
                 cout << "New Address: " << userArea[idx] << "\n";
                 Sleep(2000);
                 system("cls");
-                displayUserMenu(loggedInUserID);
                 break;
             }
 
             case 2:
-                displayUserMenu(loggedInUserID);
-                break;
+                return;
 
             default:
                 cout << "Invalid choice. Please try again.\n";

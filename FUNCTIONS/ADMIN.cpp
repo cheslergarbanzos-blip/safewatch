@@ -16,6 +16,9 @@ void adminProfile() {
         Sleep(2000);
         return;
     }
+
+    while (true) {
+        system("cls");
         cout << "\n";
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                                                        ██\n";
@@ -47,13 +50,13 @@ void adminProfile() {
         switch (choice) {
             case 1: {
                 system("cls");
-        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
-        cout << "██                                                                        ██\n";
-        cout << "██               ▄▄▄▄  ▄▄▄▄   ▄▄▄  ▄▄▄▄▄ ▄▄ ▄▄    ▄▄▄▄▄                   ██\n";
-        cout << "██               ██▄█▀ ██▄█▄ ██▀██ ██▄▄  ██ ██    ██▄▄                    ██\n";
-        cout << "██               ██    ██ ██ ▀███▀ ██    ██ ██▄▄▄ ██▄▄▄                   ██\n";
-        cout << "██                                                                        ██\n";
-        cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  CHANGE ADDRESS  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+                cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+                cout << "██                                                                        ██\n";
+                cout << "██               ▄▄▄▄  ▄▄▄▄   ▄▄▄  ▄▄▄▄▄ ▄▄ ▄▄    ▄▄▄▄▄                   ██\n";
+                cout << "██               ██▄█▀ ██▄█▄ ██▀██ ██▄▄  ██ ██    ██▄▄                    ██\n";
+                cout << "██               ██    ██ ██ ▀███▀ ██    ██ ██▄▄▄ ██▄▄▄                   ██\n";
+                cout << "██                                                                        ██\n";
+                cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  CHANGE ADDRESS  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
                 cout << "\n";
                 cout << "\nEnter new address: ";
                 getline(cin, userArea[idx]);
@@ -65,18 +68,16 @@ void adminProfile() {
                     saveUsersToFile();
                 }
                 Sleep(2000);
-                adminProfile(); // Refresh the profile display
                 break;
             }
             case 2:
-                displayAdminMenu();
-                break;
+                return;
             default:
                 cout << "Invalid choice. Please try again.\n";
                 Sleep(1000);
-                adminProfile(); // Retry
                 break;
         }
+    }
 }
 
 void viewTipsScreen() {
@@ -115,7 +116,8 @@ void viewTipsScreen() {
 }
 
 void admindRewardScreen() {
-    system("cls");
+    while (true) {
+        system("cls");
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                               ██\n";
         cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
@@ -141,18 +143,18 @@ void admindRewardScreen() {
                 approveReward();
                 break;
             case 3:
-                 displayAdminMenu();
-                 break;
+                 return;
             default:
                 cout << "Invalid choice. Please try again.\n";
                 Sleep(1000);
-                admindRewardScreen();
                 break;
         }
+    }
 }
 
 void reportScreen() {
-    system("cls");
+    while (true) {
+        system("cls");
     cout << "\n";
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
@@ -181,13 +183,12 @@ void reportScreen() {
             addSuspect();
             break;
         case 3:
-            displayAdminMenu();
-            break;
+            return;
         default:
             cout << "Invalid choice. Please try again.\n";
             Sleep(1000);
-            reportScreen();
             break;
+    }
     }
 }
 
@@ -375,7 +376,8 @@ void addUser(){
 }
 
 void displayUserManagement() {
-    system("cls");
+    while (true) {
+        system("cls");
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     cout << "██                                         ██\n";
@@ -403,13 +405,12 @@ void displayUserManagement() {
             displayUsers();
             break;
         case 3:
-            displayAdminMenu();
-            break;
+            return;
         default:
             cout << "Invalid choice. Please try again.\n";
             Sleep(1000);
-            displayUserManagement();
             break;
+    }
     }
 }
 
@@ -506,6 +507,7 @@ void displayAdminMenu() {
             case 5:
                 cout << "\nLogging out...\n";
                 Sleep(1000);
+                loggedInUserID = 0;
                 stay = false;
                 break;
             default:
