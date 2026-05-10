@@ -170,7 +170,7 @@ void realTimeAlerts(string userLocation) {
                 }
             }
         }
-        this_thread::sleep_for(chrono::seconds(10)); // Check every 10 seconds
+        this_thread::sleep_for(chrono::seconds(1500)); // Check every 10 seconds
     }
 }
 

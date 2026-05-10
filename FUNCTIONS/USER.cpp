@@ -24,20 +24,20 @@ int loginAdmin() {
 
     for (int i = 0; i < userCount; i++) {
         if (userName[i] == inputUser && userPassword[i] == inputPass) {
-            // Check if user is an authority
-            if (userAuthorityType[i].empty() || userAuthorityType[i] == "none") {
+            // Check if user role is admin
+            if (userRole[i] != "admin") {
                 system("cls");
                 cout << "\n";
                 cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
                 cout << "██                           ! ACCESS DENIED !                               ██\n";
                 cout << "██                                                                           ██\n";
                 cout << "██  You do not have the required authorization to access the admin portal.   ██\n";
-                cout << "██  Only law enforcement personnel are permitted access.                     ██\n";
+                cout << "██  Only admin personnel are permitted access.                               ██\n";
                 cout << "██                                                                           ██\n";
                 cout << "██  Your account credentials have been logged for security purposes.         ██\n";
                 cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
                 cout << "\n";
-                Sleep(5000);
+                Sleep(1500);
                 roleSelectionScreen();
                 return 0;
             }

@@ -111,7 +111,7 @@ void saveIncidentsToFile() {
         outfile.close();
     } else {
         cout << "CRITICAL ERROR: Could not save to " << INCIDENTS_FILE << ". Ensure 'DATA' folder exists.\n";
-        Sleep(2000);
+        Sleep(1500);
     }
 }
 
@@ -135,7 +135,7 @@ void saveSuspectsToFile() {
         outfile.close();
     } else {
         cout << "CRITICAL ERROR: Could not save to " << SUSPECTS_FILE << ". Ensure 'DATA' folder exists.\n";
-        Sleep(2000);
+        Sleep(1500);
     }
 }
 
@@ -163,7 +163,7 @@ void saveUsersToFile() {
         outfile.close();
     } else {
         cout << "CRITICAL ERROR: Could not save to " << USERS_FILE << ". Ensure 'DATA' folder exists.\n";
-        Sleep(2000);
+        Sleep(1500);
     }
 }
 
@@ -191,7 +191,7 @@ void saveAdminsToFile() {
         outfile.close();
     } else {
         cout << "CRITICAL ERROR: Could not save to " << USERS_FILE << ". Ensure 'DATA' folder exists.\n";
-        Sleep(2000);
+        Sleep(1500);
     }
 }
 
@@ -209,7 +209,7 @@ void saveTransactionsToFile(){
         outfile.close();
     } else {
         cout << "CRITICAL ERROR: Could not save to " << TRANSACTIONS_FILE << ". Ensure 'DATA' folder exists.\n";
-        Sleep(2000);
+        Sleep(1500);
     }
 }
 
@@ -599,7 +599,7 @@ void approveReward() {
 }
 
 void displayUserRewards(int uid) {
-
+        system("cls");
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                               ██\n";
         cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
@@ -651,7 +651,9 @@ void displayUserRewards(int uid) {
     }
 
     if (!found) {
+        cout << "\n";
         cout << "No tips submitted yet." << endl;
+        cout << "\n";
     }
 
     // show total points from user array
@@ -699,7 +701,7 @@ void rewardMenu() {
                 return;
             default:
                 cout << "Invalid choice. Try Again!" << endl;
-                Sleep(2000);
+                Sleep(1500);
         }
     }
 }
@@ -718,7 +720,7 @@ void displayAllAlerts() {
 
     if (incidentCount == 0) {
         cout << "No incidents available at this time." << endl;
-        Sleep(3000);
+        Sleep(1500);
         return;
     }
 
@@ -827,7 +829,7 @@ void roleSelectionScreen() {
                     break;
                 default:
                     cout << "Invalid choice. Please try again.\n";
-                    Sleep(5000);
+                    Sleep(1500);
                     roleSelectionScreen();
             }
             break;
@@ -839,7 +841,7 @@ void roleSelectionScreen() {
             
         default:
             cout << "Invalid choice. Please try again.\n";
-            Sleep(5000);
+            Sleep(1500);
             roleSelectionScreen();
     }
 }
@@ -859,7 +861,7 @@ void profileScreen() {
 
     if (idx == -1) {
         cout << "Error: Could not load profile. Please log in again.\n";
-        Sleep(2000);
+        Sleep(1500);
         return;
     }
 

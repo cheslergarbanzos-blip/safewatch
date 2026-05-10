@@ -13,7 +13,7 @@ void adminProfile() {
 
     if (idx == -1) {
         cout << "Error: Could not load profile. Please log in again.\n";
-        Sleep(2000);
+        Sleep(1500);
         return;
     }
 
@@ -67,14 +67,14 @@ void adminProfile() {
                 } else {
                     saveUsersToFile();
                 }
-                Sleep(2000);
+                Sleep(1500);
                 break;
             }
             case 2:
                 return;
             default:
                 cout << "Invalid choice. Please try again.\n";
-                Sleep(1000);
+                Sleep(1500);
                 break;
         }
     }
@@ -146,7 +146,7 @@ void admindRewardScreen() {
                  return;
             default:
                 cout << "Invalid choice. Please try again.\n";
-                Sleep(1000);
+                Sleep(1500);
                 break;
         }
     }
@@ -186,7 +186,7 @@ void reportScreen() {
             return;
         default:
             cout << "Invalid choice. Please try again.\n";
-            Sleep(1000);
+            Sleep(1500);
             break;
     }
     }
@@ -305,7 +305,7 @@ void addUser(){
     system("cls");
     if (userCount >= MAX_USERS) {
         cout << "Maximum user limit reached. Cannot add more users.\n";
-        Sleep(2000);
+        Sleep(1500);
         return;
     }
 
@@ -333,7 +333,7 @@ void addUser(){
 
     if (isDuplicateUser(userName[userCount], role)) {
         cout << "Username already exists. Please choose a different username.\n";
-        Sleep(2000);
+        Sleep(1500);
         return;
     }
 
@@ -372,7 +372,7 @@ void addUser(){
         saveUsersToFile();
     }
     
-    Sleep(2000);
+    Sleep(1500);
 }
 
 void displayUserManagement() {
@@ -408,7 +408,7 @@ void displayUserManagement() {
             return;
         default:
             cout << "Invalid choice. Please try again.\n";
-            Sleep(1000);
+            Sleep(1500);
             break;
     }
     }
@@ -430,27 +430,72 @@ void displayUsers() {
     if (userCount == 0) {
         cout << "No users found.\n";
     } else {
-        cout << left << setw(5) << "ID" 
-             << setw(10) << "Role"
-             << setw(18) << "Username"
-             << setw(24) << "Full Name"
-             << setw(18) << "Area"
-             << setw(16) << "Authority"
-             << setw(16) << "Station" << "\n";
-        cout << string(107, '=') << "\n";
-
+        // Display ADMINS
+        int adminCount = 0;
         for (int i = 0; i < userCount; i++) {
-            cout << left << setw(5) << userID[i]
-                 << setw(10) << userRole[i]
-                 << setw(18) << userName[i]
-                 << setw(24) << userFullName[i]
-                 << setw(18) << userArea[i]
-                 << setw(16) << userAuthorityType[i]
-                 << setw(16) << userStation[i] << "\n";
+            if (userRole[i] == "admin") adminCount++;
+        }
+
+        if (adminCount > 0) {
+            cout << "\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ADMINISTRATORS ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << left << setw(5) << "ID" 
+                 << setw(10) << "Role"
+                 << setw(18) << "Username"
+                 << setw(24) << "Full Name"
+                 << setw(18) << "Area"
+                 << setw(16) << "Authority"
+                 << setw(16) << "Station" << "\n";
+            cout << string(107, '=') << "\n";
+
+            for (int i = 0; i < userCount; i++) {
+                if (userRole[i] == "admin") {
+                    cout << left << setw(5) << userID[i]
+                         << setw(10) << userRole[i]
+                         << setw(18) << userName[i]
+                         << setw(24) << userFullName[i]
+                         << setw(18) << userArea[i]
+                         << setw(16) << userAuthorityType[i]
+                         << setw(16) << userStation[i] << "\n";
+                }
+            }
+            cout << "\n";
+        }
+
+        // Display REGULAR USERS
+        int regularUserCount = 0;
+        for (int i = 0; i < userCount; i++) {
+            if (userRole[i] == "user") regularUserCount++;
+        }
+
+        if (regularUserCount > 0) {
+            cout << "\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ REGULAR USERS ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << left << setw(5) << "ID" 
+                 << setw(10) << "Role"
+                 << setw(18) << "Username"
+                 << setw(24) << "Full Name"
+                 << setw(18) << "Area";
+            cout << string(107, '=') << "\n";
+
+            for (int i = 0; i < userCount; i++) {
+                if (userRole[i] == "user") {
+                    cout << left << setw(5) << userID[i]
+                         << setw(10) << userRole[i]
+                         << setw(18) << userName[i]
+                         << setw(24) << userFullName[i]
+                         << setw(18) << userArea[i];
+                }
+            }
+            cout << "\n";
+        }
+
+        if (adminCount == 0 && regularUserCount == 0) {
+            cout << "No users found.\n";
         }
     }
 
-    cout << "\nPress Enter to return to User Management...";
+    cout << "Press Enter to return to User Management...";
     string pause;
     getline(cin, pause);
 }
@@ -460,6 +505,13 @@ void displayAdminMenu() {
     bool stay = true;
     while (stay) {
         system("cls");
+        int adminIdx = -1;
+        for (int i = 0; i < userCount; i++) {
+            if (userID[i] == loggedInUserID) {
+                adminIdx = i;
+                break;
+            }
+        }
         cout << "\n";
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                                                        ██\n";
@@ -468,20 +520,15 @@ void displayAdminMenu() {
         cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
         cout << "██                                                                        ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   A D M I N   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-
-        // Display logged in admin info
-        for (int i = 0; i < userCount; i++) {
-            if (userID[i] == loggedInUserID) {
-                cout << "██  Logged In: " << left << setw(20) << userFullName[i] 
-                     << " | Badge: " << setw(15) << userAuthorityType[i] 
-                     << " | Station: " << setw(13) << userStation[i] << " ██\n";
-                break;
-            }
-        }
+        if (adminIdx != -1) {
+            cout << "██    Logged In As: " << left << setw(20) << userFullName[adminIdx] << "                                    ██\n";
+            cout << "██    Badge: " << setw(15) << userAuthorityType[adminIdx] << "                                              ██\n";
+            cout << "██    Station: " << setw(13) << userStation[adminIdx] << "                                                    ██\n";
+        } 
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                                                        ██\n";
         cout << "██    [1] User Management    - Manage User and Authority accounts         ██\n";
-        cout << "██    [2] Crime Database     - Register New Incidents and Suspects    1    ██\n";
+        cout << "██    [2] Crime Database     - Register New Incidents and Suspects        ██\n";
         cout << "██    [3] Reward Management  - Verify Tips and Approve Rewards            ██\n";
         cout << "██    [4] Admin Profile      - View Personnel Details                     ██\n";
         cout << "██    [5] Logout             - Return to Role Selection                   ██\n";
@@ -506,13 +553,13 @@ void displayAdminMenu() {
                 break;
             case 5:
                 cout << "\nLogging out...\n";
-                Sleep(1000);
-                loggedInUserID = 0;
+                Sleep(1500);
+                roleSelectionScreen();
                 stay = false;
                 break;
             default:
                 cout << "Invalid choice. Please try again.\n";
-                Sleep(1000);
+                Sleep(1500);
         }
     }
 }
