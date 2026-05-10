@@ -547,6 +547,9 @@ void approveReward(int tid) {
         cout << "██                                               ██\n";
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  APPROVE REWARD  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
         cout << "\n";
+        cout << "Transaction ID to approve: ";
+        cin >> tid;
+        cin.ignore(); // clear newline from input buffer
 
     // find the transaction
     int index = -1;
@@ -606,7 +609,6 @@ void displayUserRewards(int uid) {
         return;
     }
 
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     cout << "\n";
     cout << "\nReward Summary for User ID: " << uid << "";
     cout << "\n";
