@@ -939,6 +939,10 @@ void profileScreen() {
 
 
 //MAIN FUNCTION===================================================================================
+void startMenu() {
+    roleSelectionScreen();
+}
+
 int main() {
 
     // TEXT FORMATTING
