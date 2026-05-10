@@ -11,8 +11,8 @@ void admindRewardScreen() {
         cout << "██                                               ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀      ADMIN      ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
         cout << "██                                               ██\n";
-        cout << "██    [1] Approve Rewards                        ██\n";
-        cout << "██    [2] Verify Tips                            ██\n";
+        cout << "██    [1] View Tips                              ██\n";
+        cout << "██    [2] Approve Tips                           ██\n";
         cout << "██    [3] Back                                   ██\n";
         cout << "██                                               ██\n";
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
@@ -22,11 +22,10 @@ void admindRewardScreen() {
         cin.ignore();
         switch (choice) {
             case 1:
-                // approve reward 
+                viewTipsScreen();
                 break;
             case 2:
-                cout << "\n[System] Tip verification interface coming soon...\n";
-                Sleep(1500);
+                approveReward();
                 break;
             case 3:
                  displayAdminMenu();
@@ -37,6 +36,41 @@ void admindRewardScreen() {
                 admindRewardScreen();
                 break;
         }
+}
+
+void viewTipsScreen() {
+    system("cls");
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                               ██\n";
+    cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
+    cout << "██     ██▄█▄ ██▄▄  ██ ▄ ██ ██▀██ ██▄█▄ ██▀██     ██\n";
+    cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
+    cout << "██                                               ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   TIPS    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+
+    if (transactionCount == 0) {
+        cout << "No tips have been submitted yet." << endl;
+    } else {
+        for (int i = 0; i < transactionCount; i++) {
+            cout << "\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "Tip #" << (i + 1) << ":" << endl;
+            cout << "  Transaction ID: " << transactionID[i] << endl;
+            cout << "  User ID:        " << transactionUserID[i] << endl;
+            cout << "  Incident ID:    " << transactionIncidentID[i] << endl;
+            cout << "  Submitted:      " << transactionTimestamp[i] << endl;
+            cout << "  Tip Type:       " << transactionTipType[i] << endl;
+            cout << "  Status:         " << transactionStatus[i] << endl;
+            cout << "\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "\n";
+        }
+    }
+
+    cout << "\nPress Enter to return to the Reward Menu..." << endl;
+    cin.ignore(1000, '\n');
+    cin.get();
 }
 
 void reportScreen() {
