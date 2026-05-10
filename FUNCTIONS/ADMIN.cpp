@@ -1,6 +1,118 @@
 #include "UNIVERSAL.h"
 #include <iomanip>
 
+void admindRewardScreen() {
+    system("cls");
+        cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+        cout << "██                                               ██\n";
+        cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
+        cout << "██     ██▄█▄ ██▄▄  ██ ▄ ██ ██▀██ ██▄█▄ ██▀██     ██\n";
+        cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
+        cout << "██                                               ██\n";
+        cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀      ADMIN      ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+        cout << "██                                               ██\n";
+        cout << "██    [1] View Tips                              ██\n";
+        cout << "██    [2] Approve Tips                           ██\n";
+        cout << "██    [3] Back                                   ██\n";
+        cout << "██                                               ██\n";
+        cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+        cout << "\n";
+        cout << "Choice: ";
+        cin >> choice;
+        cin.ignore();
+        switch (choice) {
+            case 1:
+                viewTipsScreen();
+                break;
+            case 2:
+                approveReward();
+                break;
+            case 3:
+                 displayAdminMenu();
+                 break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+                Sleep(1000);
+                admindRewardScreen();
+                break;
+        }
+}
+
+void viewTipsScreen() {
+    system("cls");
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                               ██\n";
+    cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
+    cout << "██     ██▄█▄ ██▄▄  ██ ▄ ██ ██▀██ ██▄█▄ ██▀██     ██\n";
+    cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
+    cout << "██                                               ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   TIPS    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
+
+    if (transactionCount == 0) {
+        cout << "No tips have been submitted yet." << endl;
+    } else {
+        for (int i = 0; i < transactionCount; i++) {
+            cout << "\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "Tip #" << (i + 1) << ":" << endl;
+            cout << "  Transaction ID: " << transactionID[i] << endl;
+            cout << "  User ID:        " << transactionUserID[i] << endl;
+            cout << "  Incident ID:    " << transactionIncidentID[i] << endl;
+            cout << "  Submitted:      " << transactionTimestamp[i] << endl;
+            cout << "  Tip Type:       " << transactionTipType[i] << endl;
+            cout << "  Status:         " << transactionStatus[i] << endl;
+            cout << "\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "\n";
+        }
+    }
+
+    cout << "\nPress Enter to return to the Reward Menu..." << endl;
+    cin.ignore(1000, '\n');
+    cin.get();
+}
+
+void reportScreen() {
+    system("cls");
+    cout << "\n";
+    cout << "\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                          ██\n";
+    cout << "██   ▄▄▄   ▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄▄   ▄▄▄▄▄▄   ██\n";
+    cout << "██   ██▄█▄ ██▄▄  ██▄█▀ ██▀██ ██▄█▄   ██     ██\n";
+    cout << "██   ██ ██ ██▄▄▄ ██    ▀███▀ ██ ██   ██     ██\n";
+    cout << "██                                          ██\n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+    cout << "██                                          ██\n";
+    cout << "██     [1] Report Incident                  ██\n";
+    cout << "██     [2] Report Suspect                   ██\n";
+    cout << "██     [3] Back                             ██\n";
+    cout << "██                                          ██\n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+    
+    cout << "\n";
+    cout << "Choice: ";
+    cin >> choice;
+    cin.ignore(); // Clear the newline character from the input buffer
+    switch (choice) {
+        case 1:
+            addIncident();
+            break;
+        case 2:
+            addSuspect();
+            break;
+        case 3:
+            displayAdminMenu();
+            break;
+        default:
+            cout << "Invalid choice. Please try again.\n";
+            Sleep(1000);
+            reportScreen();
+            break;
+    }
+}
+
 void addIncident() {
      system("cls");
     if (incidentCount >= MAX_INCIDENTS) {
@@ -10,10 +122,12 @@ void addIncident() {
 
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
-    cout << "██   ▄▄▄   ▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄▄   ▄▄▄▄▄▄   ██    \n";
+    cout << "██                                          ██\n";
+    cout << "██   ▄▄▄   ▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄▄   ▄▄▄▄▄▄   ██\n";
     cout << "██   ██▄█▄ ██▄▄  ██▄█▀ ██▀██ ██▄█▄   ██     ██\n";
-    cout << "██   ██ ██ ██▄▄▄ ██    ▀███▀ ██ ██   ██     ██ \n";
-    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+    cout << "██   ██ ██ ██▄▄▄ ██    ▀███▀ ██ ██   ██     ██\n";
+    cout << "██                                          ██\n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄   INCIDENTS   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
     cout << "\n";
 
     // Auto-generate Incident ID
@@ -58,10 +172,12 @@ void addSuspect(){
 
     cout << "\n";
     cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
-    cout << "██   ▄▄▄   ▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄▄   ▄▄▄▄▄▄   ██    \n";
+    cout << "██                                          ██\n";
+    cout << "██   ▄▄▄   ▄▄▄▄▄ ▄▄▄▄   ▄▄▄  ▄▄▄   ▄▄▄▄▄▄   ██\n";
     cout << "██   ██▄█▄ ██▄▄  ██▄█▀ ██▀██ ██▄█▄   ██     ██\n";
     cout << "██   ██ ██ ██▄▄▄ ██    ▀███▀ ██ ██   ██     ██ \n";
-    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+    cout << "██                                          ██\n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄   SUSPECT   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
     cout << "\n";
 
     // Auto-generate Suspect ID
@@ -105,6 +221,45 @@ void addSuspect(){
      saveSuspectsToFile();
 }
 
+void displayUserManagement() {
+    system("cls");
+    cout << "\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                         ██\n";
+    cout << "██      ▄▄ ▄▄  ▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄   ▄▄▄▄      ██\n";
+    cout << "██      ██ ██ ███▄▄ ██▄▄  ██▄█▄ ███▄▄      ██\n";
+    cout << "██      ▀███▀ ▄▄██▀ ██▄▄▄ ██ ██ ▄▄██▀      ██\n";
+    cout << "██                                         ██\n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+    cout << "██                                         ██\n";
+    cout << "██     [1] Grant Admin                     ██\n";
+    cout << "██     [2] Show Users List                 ██\n";
+    cout << "██     [3] Back                            ██\n";
+    cout << "██                                         ██\n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
+
+    cout << "\n";  
+    cout << "Choice: ";
+    cin >> choice;
+    cin.ignore();
+    switch (choice) {
+        case 1:
+            addUser();
+            break;
+        case 2:
+            displayUsers();
+            break;
+        case 3:
+            displayAdminMenu();
+            break;
+        default:
+            cout << "Invalid choice. Please try again.\n";
+            Sleep(1000);
+            displayUserManagement();
+            break;
+    }
+}
+
 void addUser(){
     system("cls");
     if (userCount >= MAX_USERS) {
@@ -113,8 +268,15 @@ void addUser(){
         return;
     }
 
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    cout << "----ADMIN USER CREATION\n\n";
+    cout << "\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                         ██\n";
+    cout << "██      ▄▄ ▄▄  ▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄   ▄▄▄▄      ██\n";
+    cout << "██      ██ ██ ███▄▄ ██▄▄  ██▄█▄ ███▄▄      ██\n";
+    cout << "██      ▀███▀ ▄▄██▀ ██▄▄▄ ██ ██ ▄▄██▀      ██\n";
+    cout << "██                                         ██\n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄    GRANT ADMIN     ▄▄▄▄▄▄▄▄▄▄██\n";
+    cout << "\n";   
 
     string role;
     while (true) {
@@ -172,6 +334,47 @@ void addUser(){
     Sleep(2000);
 }
 
+void displayUsers() {
+    system("cls");
+    cout << "\n";
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                         ██\n";
+    cout << "██      ▄▄ ▄▄  ▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄   ▄▄▄▄      ██\n";
+    cout << "██      ██ ██ ███▄▄ ██▄▄  ██▄█▄ ███▄▄      ██\n";
+    cout << "██      ▀███▀ ▄▄██▀ ██▄▄▄ ██ ██ ▄▄██▀      ██\n";
+    cout << "██                                         ██\n";
+    cout << "██▄▄▄▄▄▄▄▄▄▄▄   USER ACCOUNTS    ▄▄▄▄▄▄▄▄▄▄██\n";
+    cout << "\n";
+
+    if (userCount == 0) {
+        cout << "No users found.\n";
+    } else {
+        cout << left << setw(5) << "ID" 
+             << setw(10) << "Role"
+             << setw(18) << "Username"
+             << setw(24) << "Full Name"
+             << setw(18) << "Area"
+             << setw(16) << "Authority"
+             << setw(16) << "Station" << "\n";
+        cout << string(107, '=') << "\n";
+
+        for (int i = 0; i < userCount; i++) {
+            cout << left << setw(5) << userID[i]
+                 << setw(10) << userRole[i]
+                 << setw(18) << userName[i]
+                 << setw(24) << userFullName[i]
+                 << setw(18) << userArea[i]
+                 << setw(16) << userAuthorityType[i]
+                 << setw(16) << userStation[i] << "\n";
+        }
+    }
+
+    cout << "\nPress Enter to return to User Management...";
+    string pause;
+    getline(cin, pause);
+}
+
+
 void displayAdminMenu() {
     bool stay = true;
     while (stay) {
@@ -209,19 +412,16 @@ void displayAdminMenu() {
 
         switch (choice) {
             case 1:
-                addUser();
+                displayUserManagement();
                 break;
             case 2:
-                addIncident();
-                addSuspect();
+                reportScreen();
                 break;
             case 3:
-                cout << "\n[System] Reward management interface coming soon...\n";
-                Sleep(1500);
+                admindRewardScreen();
                 break;
             case 4:
-                cout << "\n[System] Profile management interface coming soon...\n";
-                Sleep(1500);
+                profileScreen();
                 break;
             case 5:
                 cout << "\nLogging out...\n";

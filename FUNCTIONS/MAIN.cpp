@@ -537,7 +537,8 @@ void submitTip(int tipUserID, int tipIncidentID) {
     cout << "Transaction ID: " << transactionCount << endl;
 }
 
-void approveReward(int tid) {
+void approveReward() {
+    int transactionId = 0;
 
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                               ██\n";
@@ -547,11 +548,14 @@ void approveReward(int tid) {
         cout << "██                                               ██\n";
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  APPROVE REWARD  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
         cout << "\n";
+        cout << "Transaction ID to approve: ";
+        cin >> transactionId;
+        cin.ignore(); // clear newline from input buffer
 
     // find the transaction
     int index = -1;
     for (int i = 0; i < transactionCount; i++) {
-        if (transactionID[i] == tid) {
+        if (transactionID[i] == transactionId) {
             index = i;
             break;
         }
@@ -559,13 +563,13 @@ void approveReward(int tid) {
 
     // transaction not found
     if (index == -1) {
-        cout << "Error: Transaction ID " << tid << " not found." << endl;
+        cout << "Error: Transaction ID " << transactionId << " not found." << endl;
         return;
     }
 
     // check if already approved
     if (transactionStatus[index] == "reward-approved") {
-        cout << "Error: Transaction " << tid << " is already approved." << endl;
+        cout << "Error: Transaction " << transactionId << " is already approved." << endl;
         return;
     }
 
@@ -573,14 +577,18 @@ void approveReward(int tid) {
     transactionStatus[index] = "reward-approved";
 
     // find the user and add reward points
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    
     int pointsAwarded = 100; 
     for (int i = 0; i < userCount; i++) {
         if (userID[i] == transactionUserID[index]) {
             userRewardPoints[i] += pointsAwarded;
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "\n";
             cout << "\nReward approved for User ID: " << userID[i] << endl;
             cout << "Points awarded: "  << pointsAwarded           << endl;
             cout << "Total points now: " << userRewardPoints[i]    << endl;
+            cout << "\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
             break;
         }
     }
@@ -606,7 +614,6 @@ void displayUserRewards(int uid) {
         return;
     }
 
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     cout << "\n";
     cout << "\nReward Summary for User ID: " << uid << "";
     cout << "\n";

@@ -101,7 +101,7 @@ void displaySuspectDetails(int incidentID);
 
 void rewardMenu();
 void submitTip(int userID, int incidentID);
-void approveReward(int transactionID);
+void approveReward();
 void displayUserRewards(int userID);
 
 void roleSelectionScreen();
