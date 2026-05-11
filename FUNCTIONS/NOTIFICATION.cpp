@@ -1,8 +1,4 @@
 #include "UNIVERSAL.h"
-#include <thread>
-#include <chrono>
-#include <ctime>
-#include <cctype>
 
 // Notification data structure
 struct Notification {
@@ -42,7 +38,7 @@ void loadNotifications() {
     for (int i = 0; i < incidentCount; i++) {
         int suspectIndex = -1;
         for (int j = 0; j < suspectCount; j++) {
-            if (suspectIncidentID[j] == i) {
+            if (suspectIncidentID[j] == incidentID[i]) {
                 suspectIndex = j;
                 break;
             }

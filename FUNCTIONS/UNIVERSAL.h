@@ -1,12 +1,18 @@
 #ifndef UNIVERSAL_H
 #define UNIVERSAL_H
 
+#include <filesystem>
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <windows.h>
 #include <sstream>
 #include <vector>
+#include <thread>
+#include <chrono>
+#include <ctime>
+#include <cctype>
+#include <iomanip>
 using namespace std;
 
 extern int choice;

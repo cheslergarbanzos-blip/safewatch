@@ -1,5 +1,4 @@
 #include "UNIVERSAL.h"
-#include <filesystem>
 
 namespace fs = std::filesystem;
 
@@ -487,21 +486,33 @@ void submitTip(int tipUserID, int tipIncidentID) {
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  SUBMIT TIP  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
         cout << "\n";
 
-    // check if the incident actually exists first
+    // If no incident ID was provided (passed as 0 from the menu), ask for it
+    if (tipIncidentID <= 0) {
+        cout << "Enter Incident ID to submit tip for: ";
+        cin >> tipIncidentID;
+        cin.ignore(); // Clear newline from buffer
+    }
+
     if (!isValidIncidentID(tipIncidentID)) {
         cout << "Error: Incident ID " << tipIncidentID << " does not exist." << endl;
+        cout << "\nPress Enter to return..." << endl;
+        cin.get();
         return;
     }
 
     // check if the user actually exists
     if (!isValidUserID(tipUserID)) {
         cout << "Error: User ID " << tipUserID << " does not exist." << endl;
+        cout << "\nPress Enter to return..." << endl;
+        cin.get();
         return;
     }
 
     // check if transaction storage is full
     if (transactionCount >= MAX_TRANSACTIONS) {
         cout << "Error: Transaction storage is full." << endl;
+        cout << "\nPress Enter to return..." << endl;
+        cin.get();
         return;
     }
 
@@ -708,8 +719,7 @@ void rewardMenu() {
                 submitTip(loggedInUserID, 0); 
                 break;
             case 3:
-                displayUserMenu(loggedInUserID);
-                break;
+                return; // Return to the caller (displayUserMenu) instead of calling it again
             default:
                 cout << "Invalid choice. Try Again!" << endl;
                 Sleep(1500);
