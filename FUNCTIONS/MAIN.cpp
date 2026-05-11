@@ -477,7 +477,7 @@ int  searchSuspectByIncidentID(int id) {
 // Reward Module------------------------------------------------------
 
 void submitTip(int tipUserID, int tipIncidentID) {
-
+        system("cls");
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                               ██\n";
         cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
@@ -535,6 +535,9 @@ void submitTip(int tipUserID, int tipIncidentID) {
     cout << "\n";
     cout << "\nTip submitted successfully! Status: PENDING" << endl;
     cout << "Transaction ID: " << transactionCount << endl;
+    cout << "\nPress Enter to return to the Rewards Menu..." << endl;
+    cin.ignore(1000, '\n');
+    cin.get();
 }
 
 void approveReward() {
@@ -589,6 +592,7 @@ void approveReward() {
             cout << "Total points now: " << userRewardPoints[i]    << endl;
             cout << "\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "\n";
             break;
         }
     }
@@ -618,6 +622,7 @@ void displayUserRewards(int uid) {
     cout << "\nReward Summary for User ID: " << uid << "";
     cout << "\n";
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀";
+    cout << "\n";
 
 
     // find and display all tips by this user
@@ -683,22 +688,28 @@ void rewardMenu() {
         cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
         cout << "██                                               ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
-        cout << "██   Current Points Balance: " << left << setw(18) << userRewardPoints[loggedInUserID - 1] << "      ██\n";
+        cout << "██   Current Points Balance: " << left << setw(18) << userRewardPoints[loggedInUserID - 1] << "  ██\n";
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                               ██\n";
         cout << "██    [1] View Detailed Reward History           ██\n";
-        cout << "██    [2] Back to Main Menu                      ██\n";
+        cout << "██    [2] Submit Tip                             ██\n";
+        cout << "██    [3] Back to Main Menu                      ██\n";
         cout << "██                                               ██\n";
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
         cout << "\nChoice: ";
-        if (!(cin >> choice)) { cin.clear(); cin.ignore(1000, '\n'); continue; }
+        cin >> choice;
+        cin.ignore(); 
 
         switch (choice) {
             case 1:
                 displayUserRewards(loggedInUserID);
                 break;
             case 2:
-                return;
+                submitTip(loggedInUserID, 0); 
+                break;
+            case 3:
+                displayUserMenu(loggedInUserID);
+                break;
             default:
                 cout << "Invalid choice. Try Again!" << endl;
                 Sleep(1500);
@@ -823,6 +834,7 @@ void roleSelectionScreen() {
                     break;
                 case 2:
                     registerUser();
+                    cin.ignore(1000);
                     break;
                 case 3:
                     roleSelectionScreen();

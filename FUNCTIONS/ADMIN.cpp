@@ -288,6 +288,7 @@ void addSuspect(){
     }
     suspectID[suspectCount] = nextSID;
     cout << "[System] Generated Suspect ID: " << nextSID << "\n\n";
+    cout << "\n";
 
     cout << "Related Incident ID: ";
     cin >> suspectIncidentID[suspectCount];
@@ -319,7 +320,7 @@ void addSuspect(){
         "City Proper"
     };
 
-    cout << "Select last known location:\n";
+    cout << "Select last known location: \n";
     for (int i = 0; i < 6; i++) {
         cout << "[" << (i + 1) << "] " << addresses[i] << "\n";
     }
