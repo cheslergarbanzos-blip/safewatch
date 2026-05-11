@@ -369,31 +369,63 @@ bool isAuthorized(int id) {
 
 // Sorting & Searching-------------------------------------------------
 void sortIncidentsByID() {
-      
     for (int i = 1; i < incidentCount; i++) {
-        int key = incidentID[i];
+        // Store the current element's data
+        int keyID = incidentID[i];
+        string keyCrime = incidentCrime[i];
+        string keyLocation = incidentLocation[i];
+        string keyDate = incidentDate[i];
+        string keyStatus = incidentStatus[i];
+        
         int j = i - 1;
-
-        while (j >= 0 && incidentID[j] > key) {
+        
+        // Shift elements that are greater than key
+        while (j >= 0 && incidentID[j] > keyID) {
             incidentID[j + 1] = incidentID[j];
+            incidentCrime[j + 1] = incidentCrime[j];
+            incidentLocation[j + 1] = incidentLocation[j];
+            incidentDate[j + 1] = incidentDate[j];
+            incidentStatus[j + 1] = incidentStatus[j];
             j--;
         }
-    }     
+        
+        // Place the key in its correct position
+        incidentID[j + 1] = keyID;
+        incidentCrime[j + 1] = keyCrime;
+        incidentLocation[j + 1] = keyLocation;
+        incidentDate[j + 1] = keyDate;
+        incidentStatus[j + 1] = keyStatus;
+    }
 }
 
 void sortIncidentsByLocation() {
-
     for (int i = 1; i < incidentCount; i++) {
-        string key = incidentLocation[i];
+        // Store the current element's data
+        string keyLocation = incidentLocation[i];
+        int keyID = incidentID[i];
+        string keyCrime = incidentCrime[i];
+        string keyDate = incidentDate[i];
+        string keyStatus = incidentStatus[i];
+        
         int j = i - 1;
-
-        while (j >= 0 && incidentLocation[j] > key) {
+        
+        // Shift elements that are greater than key (lexicographically)
+        while (j >= 0 && incidentLocation[j] > keyLocation) {
             incidentLocation[j + 1] = incidentLocation[j];
+            incidentID[j + 1] = incidentID[j];
+            incidentCrime[j + 1] = incidentCrime[j];
+            incidentDate[j + 1] = incidentDate[j];
+            incidentStatus[j + 1] = incidentStatus[j];
             j--;
         }
+        
+        // Place the key in its correct position
+        incidentLocation[j + 1] = keyLocation;
+        incidentID[j + 1] = keyID;
+        incidentCrime[j + 1] = keyCrime;
+        incidentDate[j + 1] = keyDate;
+        incidentStatus[j + 1] = keyStatus;
     }
-
-     
 }
 
 int  searchIncidentByID(int id) {
