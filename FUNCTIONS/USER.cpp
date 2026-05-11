@@ -96,7 +96,7 @@ void displayUserMenu(int currentUID) {
         cout << "██                                                                        ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀     USER       ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
         cout << "██                                                                        ██\n";
-        cout << "██    USER ID: " << left << setw(53) << loggedInUserID << "               ██\n";
+        cout << "██    USER ID: " << left << setw(53) << loggedInUserID << "      ██\n";
         cout << "██                                                                        ██\n";
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                                                        ██\n";
