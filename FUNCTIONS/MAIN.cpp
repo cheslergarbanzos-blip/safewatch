@@ -906,7 +906,7 @@ void roleSelectionScreen() {
     cout << "██                                                                        ██\n";
     cout << "██    [1] Admin                                                           ██\n";
     cout << "██    [2] User                                                            ██\n";
-    cout << "██    [3] Back to Main Menu                                               ██\n";
+    cout << "██    [3] Return to Role Selection                                        ██\n";
     cout << "██                                                                        ██\n";
     cout << "██                                                                        ██\n";
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
@@ -957,10 +957,10 @@ void roleSelectionScreen() {
             cout << "██                                                                        ██\n";
             cout << "██    [1] Login                                                           ██\n";
             cout << "██    [2] Register                                                        ██\n";
-            cout << "██    [3] Return to Main Menu                                             ██\n";
+            cout << "██    [3] Return to Role Selection                                        ██\n";
             cout << "██                                                                        ██\n";
             cout << "██                                                                        ██\n";
-            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
             cout << "\n";
             cout << "Choice: ";
             cin >> choice;
