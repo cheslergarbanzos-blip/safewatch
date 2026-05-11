@@ -554,6 +554,7 @@ void submitTip(int tipUserID, int tipIncidentID) {
 void approveReward() {
     int transactionId = 0;
 
+        system("cls");
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                               ██\n";
         cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
@@ -562,9 +563,41 @@ void approveReward() {
         cout << "██                                               ██\n";
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  APPROVE REWARD  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
         cout << "\n";
-        cout << "Transaction ID to approve: ";
+
+    cout << " PENDING TIPS FOR REVIEW:\n";
+    cout << " ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+
+    bool foundPending = false;
+    for (int i = 0; i < transactionCount; i++) {
+        if (transactionStatus[i] == "pending") {
+            foundPending = true;
+            cout << "\n";
+            cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "  Tip #" << (i + 1) << ":" << endl;
+            cout << "    Transaction ID: " << transactionID[i] << endl;
+            cout << "    User ID:        " << transactionUserID[i] << endl;
+            cout << "    Incident ID:    " << transactionIncidentID[i] << endl;
+            cout << "    Submitted:      " << transactionTimestamp[i] << endl;
+            cout << "    Tip Type:       " << transactionTipType[i] << endl;
+            cout << "    Status:         " << transactionStatus[i] << endl;
+            cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        }
+    }
+    if (!foundPending) {
+        cout << "\n  [!] No pending tips available for approval.\n";
+        cout << "\n  Press Enter to return...";
+        cin.get();
+        return;
+    }
+    cout << "\n ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n\n";
+
+        cout << "Transaction ID to approve (or 0 to go back): ";
         cin >> transactionId;
         cin.ignore(); // clear newline from input buffer
+
+        if (transactionId == 0) return;
+
+        system("cls");
 
     // find the transaction
     int index = -1;
@@ -578,12 +611,16 @@ void approveReward() {
     // transaction not found
     if (index == -1) {
         cout << "Error: Transaction ID " << transactionId << " not found." << endl;
+        cout << "\nPress Enter to return...";
+        cin.get();
         return;
     }
 
     // check if already approved
     if (transactionStatus[index] == "reward-approved") {
         cout << "Error: Transaction " << transactionId << " is already approved." << endl;
+        cout << "\nPress Enter to return...";
+        cin.get();
         return;
     }
 
@@ -611,6 +648,9 @@ void approveReward() {
     // save both since both arrays changed
     saveTransactionsToFile();
     saveUsersToFile();
+
+    cout << "Press Enter to return to Reward Management...";
+    cin.get();
 }
 
 void displayUserRewards(int uid) {
