@@ -409,7 +409,7 @@ void sortIncidentsByLocation() {
         
         int j = i - 1;
         
-        // Shift elements that are greater than key (lexicographically)
+        // Shift elements that are greater than key
         while (j >= 0 && incidentLocation[j] > keyLocation) {
             incidentLocation[j + 1] = incidentLocation[j];
             incidentID[j + 1] = incidentID[j];
