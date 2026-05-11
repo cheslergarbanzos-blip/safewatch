@@ -488,10 +488,42 @@ void submitTip(int tipUserID, int tipIncidentID) {
 
     // If no incident ID was provided (passed as 0 from the menu), ask for it
     if (tipIncidentID <= 0) {
-        cout << "Enter Incident ID to submit tip for: ";
+        cout << " ACTIVE INCIDENTS FOR TIP SUBMISSION:\n";
+        cout << " ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+
+        if (incidentCount == 0) {
+            cout << "\n  [!] No incidents reported yet.\n";
+        } else {
+            for (int i = 0; i < incidentCount; i++) {
+                cout << "\n";
+                cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+                cout << "    Incident ID: " << incidentID[i] << endl;
+                cout << "    Crime:       " << incidentCrime[i] << endl;
+                cout << "    Location:    " << incidentLocation[i] << endl;
+                cout << "    Date:        " << incidentDate[i] << endl;
+                cout << "    Status:      " << incidentStatus[i] << endl;
+                cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            }
+        }
+        cout << "\n ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n\n";
+
+        cout << "Enter Incident ID to submit tip for (or 0 to go back): ";
         cin >> tipIncidentID;
         cin.ignore(); // Clear newline from buffer
     }
+
+    if (tipIncidentID == 0) return;
+
+    system("cls");
+
+    cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    cout << "██                                               ██\n";
+    cout << "██     ▄▄▄▄  ▄▄▄▄▄ ▄▄   ▄▄  ▄▄▄  ▄▄▄▄  ▄▄▄▄      ██\n";
+    cout << "██     ██▄█▄ ██▄▄  ██ ▄ ██ ██▀██ ██▄█▄ ██▀██     ██\n";
+    cout << "██     ██ ██ ██▄▄▄  ▀█▀█▀  ██▀██ ██ ██ ████▀     ██\n";
+    cout << "██                                               ██\n";
+    cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  SUBMIT TIP  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    cout << "\n";
 
     if (!isValidIncidentID(tipIncidentID)) {
         cout << "Error: Incident ID " << tipIncidentID << " does not exist." << endl;
@@ -564,8 +596,14 @@ void approveReward() {
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  APPROVE REWARD  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
         cout << "\n";
 
-    cout << " PENDING TIPS FOR REVIEW:\n";
-    cout << " ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
+    if (transactionCount == 0) {
+        cout << "  [!] No tips have been submitted yet.\n";
+        cout << "\n  Press Enter to return...";
+        cin.get();
+        return;
+    }
+
+    cout << "\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ PENDING TIPS ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
 
     bool foundPending = false;
     for (int i = 0; i < transactionCount; i++) {
@@ -585,9 +623,27 @@ void approveReward() {
     }
     if (!foundPending) {
         cout << "\n  [!] No pending tips available for approval.\n";
-        cout << "\n  Press Enter to return...";
-        cin.get();
-        return;
+    }
+   
+    cout << "\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ APPROVED TIPS ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+    bool foundApproved = false;
+    for (int i = 0; i < transactionCount; i++) {
+        if (transactionStatus[i] == "reward-approved") {
+            foundApproved = true;
+            cout << "\n";
+            cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            cout << "  Tip #" << (i + 1) << ":" << endl;
+            cout << "    Transaction ID: " << transactionID[i] << endl;
+            cout << "    User ID:        " << transactionUserID[i] << endl;
+            cout << "    Incident ID:    " << transactionIncidentID[i] << endl;
+            cout << "    Submitted:      " << transactionTimestamp[i] << endl;
+            cout << "    Tip Type:       " << transactionTipType[i] << endl;
+            cout << "    Status:         " << transactionStatus[i] << endl;
+            cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        }
+    }
+    if (!foundApproved) {
+        cout << "\n  [!] No approved tips found.\n";
     }
     cout << "\n ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n\n";
 
