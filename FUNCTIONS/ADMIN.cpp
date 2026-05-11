@@ -93,20 +93,45 @@ void viewTipsScreen() {
     if (transactionCount == 0) {
         cout << "No tips have been submitted yet." << endl;
     } else {
+        cout << "\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ PENDING TIPS ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        bool foundPending = false;
         for (int i = 0; i < transactionCount; i++) {
-            cout << "\n";
-            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
-            cout << "Tip #" << (i + 1) << ":" << endl;
-            cout << "  Transaction ID: " << transactionID[i] << endl;
-            cout << "  User ID:        " << transactionUserID[i] << endl;
-            cout << "  Incident ID:    " << transactionIncidentID[i] << endl;
-            cout << "  Submitted:      " << transactionTimestamp[i] << endl;
-            cout << "  Tip Type:       " << transactionTipType[i] << endl;
-            cout << "  Status:         " << transactionStatus[i] << endl;
-            cout << "\n";
-            cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
-            cout << "\n";
+            if (transactionStatus[i] == "pending") {
+                foundPending = true;
+                cout << "\n";
+                cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+                cout << "  Tip #" << (i + 1) << ":" << endl;
+                cout << "    Transaction ID: " << transactionID[i] << endl;
+                cout << "    User ID:        " << transactionUserID[i] << endl;
+                cout << "    Incident ID:    " << transactionIncidentID[i] << endl;
+                cout << "    Submitted:      " << transactionTimestamp[i] << endl;
+                cout << "    Tip Type:       " << transactionTipType[i] << endl;
+                cout << "    Status:         " << transactionStatus[i] << endl;
+                cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            }
         }
+        if (!foundPending) cout << "\n  [!] No pending tips.\n";
+
+        cout << "\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ APPROVED TIPS ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+        bool foundApproved = false;
+        for (int i = 0; i < transactionCount; i++) {
+            if (transactionStatus[i] == "reward-approved") {
+                foundApproved = true;
+                cout << "\n";
+                cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+                cout << "  Tip #" << (i + 1) << ":" << endl;
+                cout << "    Transaction ID: " << transactionID[i] << endl;
+                cout << "    User ID:        " << transactionUserID[i] << endl;
+                cout << "    Incident ID:    " << transactionIncidentID[i] << endl;
+                cout << "    Submitted:      " << transactionTimestamp[i] << endl;
+                cout << "    Tip Type:       " << transactionTipType[i] << endl;
+                cout << "    Status:         " << transactionStatus[i] << endl;
+                cout << "  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
+            }
+        }
+        if (!foundApproved) cout << "\n  [!] No approved tips.\n";
+
+        cout << "\n ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
     }
 
     cout << "\nPress Enter to return to the Reward Menu..." << endl;
