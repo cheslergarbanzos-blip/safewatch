@@ -929,7 +929,7 @@ void roleSelectionScreen() {
             cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ADMIN PORTAL    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
             cout << "██                                                                        ██\n";
             cout << "██    [1] Login as Admin                                                  ██\n";
-            cout << "██    [2] Back to Role Selection                                          ██\n";
+            cout << "██    [2] Return to Role Selection                                        ██\n";
             cout << "██                                                                        ██\n";
             cout << "██                                                                        ██\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
@@ -957,7 +957,7 @@ void roleSelectionScreen() {
             cout << "██                                                                        ██\n";
             cout << "██    [1] Login                                                           ██\n";
             cout << "██    [2] Register                                                        ██\n";
-            cout << "██    [3] Back                                                            ██\n";
+            cout << "██    [3] Return to Main Menu                                             ██\n";
             cout << "██                                                                        ██\n";
             cout << "██                                                                        ██\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
@@ -1036,7 +1036,7 @@ void profileScreen() {
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
         cout << "██                                                                        ██\n";
         cout << "██    [1] Change Address                                                  ██\n";
-        cout << "██    [2] Back                                                            ██\n";
+        cout << "██    [2] Return to Main Menu                                             ██\n";
         cout << "██                                                                        ██\n";
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
         cout << "\nChoice: ";
