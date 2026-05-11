@@ -50,9 +50,9 @@ int loginAdmin() {
             cout << "██                                                                        ██\n";
             cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
             cout << "██                                                                        ██\n";
-            cout << "██  Welcome, " << userFullName[i] << "                                                         ██\n";     
-            cout << "██  Badge/Position: " << userAuthorityType[i] << "                                                  ██\n";     
-            cout << "██  Station: " << userStation[i] << "                                                        ██\n";                                 
+            cout << "██  Welcome, " << userFullName[i] << "                                    ██\n";     
+            cout << "██  Badge/Position: " << userAuthorityType[i] << "                        ██\n";     
+            cout << "██  Station: " << userStation[i] << "                                     ██\n";                                 
             cout << "██                                                                        ██\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
             cout << "\n";
@@ -258,6 +258,11 @@ int registerUser() {
 
      // Save data right away
      saveUsersToFile();
+
+      Sleep(2000);
+
+    // Return to main menu
+    roleSelectionScreen();
 
     return userID[userCount - 1];
 }
