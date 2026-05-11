@@ -53,7 +53,7 @@ int loginAdmin() {
             cout << "██                                                                        ██\n";
             cout << "██  Welcome, " << userFullName[i] << "                                                         ██\n";     
             cout << "██  Badge/Position: " << userAuthorityType[i] << "                                                  ██\n";     
-            cout << "██  Station: " << userStation[i] << "                                                        ██\n";                                 
+            cout << "██  Station: " << userStation[i] << "                                                       ██\n";                                 
             cout << "██                                                                        ██\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
             cout << "\n";
@@ -241,8 +241,8 @@ int registerUser() {
         userArea[userCount] = addresses[areaChoice - 1] + ", Iloilo City";
     } else {
         cout << "Invalid address. Please try again.\n";
-        Sleep(2000);
-        return -1;
+        Sleep(1500);
+        registerUser();
     }
 
     userRole[userCount] = "user";
