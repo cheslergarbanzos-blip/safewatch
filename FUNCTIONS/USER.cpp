@@ -51,13 +51,13 @@ int loginAdmin() {
             cout << "██                                                                        ██\n";
             cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
             cout << "██                                                                        ██\n";
-            cout << "██  Welcome, " << userFullName[i] << "                                    ██\n";     
-            cout << "██  Badge/Position: " << userAuthorityType[i] << "                        ██\n";     
-            cout << "██  Station: " << userStation[i] << "                                     ██\n";                                 
+            cout << "██  Welcome, " << userFullName[i] << "                                                         ██\n";     
+            cout << "██  Badge/Position: " << userAuthorityType[i] << "                                                  ██\n";     
+            cout << "██  Station: " << userStation[i] << "                                                        ██\n";                                 
             cout << "██                                                                        ██\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
             cout << "\n";
-            Sleep(3000);
+            Sleep(2000);
             displayAdminMenu();
             return userID[i];
         }

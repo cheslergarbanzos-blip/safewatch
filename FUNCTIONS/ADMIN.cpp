@@ -26,16 +26,16 @@ void adminProfile() {
         cout << "██               ██▄█▀ ██▄█▄ ██▀██ ██▄▄  ██ ██    ██▄▄                    ██\n";
         cout << "██               ██    ██ ██ ▀███▀ ██    ██ ██▄▄▄ ██▄▄▄                   ██\n";
         cout << "██                                                                        ██\n";
-        cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+        cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀       ADMIN        ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
         cout << "██                                                                        ██\n";
-        cout << "██   User ID      : " << left << setw(52) << userID[idx]           << "   ██\n";
+        cout << "██   User ID      : " << left << setw(52) << userID[idx]           << "  ██\n";
         cout << "██   Username     : " << left << setw(52) << userName[idx]         << "  ██\n";
         cout << "██   Full Name    : " << left << setw(52) << userFullName[idx]     << "  ██\n";
         cout << "██   Area / Address: " << left << setw(51) << userArea[idx]        << "  ██\n";
         cout << "██   Role         : " << left << setw(52) << userRole[idx]         << "  ██\n";
         cout << "██   Authority    : " << left << setw(52) << userAuthorityType[idx] << "  ██\n";
         cout << "██   Station      : " << left << setw(52) << userStation[idx]       << "  ██\n";
-        cout << "██   Reward Points: " << left << setw(52) << userRewardPoints[idx] << "   ██\n";
+        cout << "██   Reward Points: " << left << setw(52) << userRewardPoints[idx] << "  ██\n";
         cout << "██                                                                        ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
         cout << "██                                                                        ██\n";
@@ -475,7 +475,8 @@ void displayUsers() {
                  << setw(10) << "Role"
                  << setw(18) << "Username"
                  << setw(24) << "Full Name"
-                 << setw(18) << "Area";
+                 << setw(18) << "Area" << "\n";
+
             cout << string(107, '=') << "\n";
 
             for (int i = 0; i < userCount; i++) {
@@ -484,7 +485,7 @@ void displayUsers() {
                          << setw(10) << userRole[i]
                          << setw(18) << userName[i]
                          << setw(24) << userFullName[i]
-                         << setw(18) << userArea[i];
+                         << setw(18) << userArea[i] << "\n";
                 }
             }
             cout << "\n";
@@ -521,9 +522,9 @@ void displayAdminMenu() {
         cout << "██                                                                        ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   A D M I N   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
         if (adminIdx != -1) {
-            cout << "██    Logged In As: " << left << setw(20) << userFullName[adminIdx] << "                                    ██\n";
+            cout << "██    Logged In As: " << left << setw(20) << userFullName[adminIdx] << "                                  ██\n";
             cout << "██    Badge: " << setw(15) << userAuthorityType[adminIdx] << "                                              ██\n";
-            cout << "██    Station: " << setw(13) << userStation[adminIdx] << "                                                    ██\n";
+            cout << "██    Station: " << setw(13) << userStation[adminIdx] << "                                              ██\n";
         } 
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                                                        ██\n";
