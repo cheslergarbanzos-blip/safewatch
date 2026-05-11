@@ -221,30 +221,8 @@ void addIncident() {
     getline(cin, incidentCrime[incidentCount]);
     cout << "\n";
 
-    string addresses[] = {
-        "Jaro",
-        "La Paz",
-        "Molo",
-        "Mandurriao",
-        "Villa",
-        "City Proper"
-    };
-
-    cout << "Choose The Area of the Incident: \n";
-    for (int i = 0; i < 6; i++) {
-        cout << "[" << (i + 1) << "] " << addresses[i] << "\n";
-    }
-    int areaChoice;
-    cout << "Enter your choice: ";
-    cin >> areaChoice;
-    cin.ignore();
-    if (areaChoice >= 1 && areaChoice <= 6) {
-        incidentLocation[incidentCount] = addresses[areaChoice - 1] + ", Iloilo City";
-    } else {
-        cout << "Invalid address. Please try again.\n";
-        Sleep(1500);
-        addIncident();
-    }
+    cout << "Area: ";
+    getline(cin, incidentLocation[incidentCount]);
     cout << "\n";
 
     cout << "Date (YYYY-MM-DD): ";
@@ -311,31 +289,8 @@ void addSuspect(){
     getline(cin, suspectClothing[suspectCount]);
     cout << "\n";
 
-    string addresses[] = {
-        "Jaro",
-        "La Paz",
-        "Molo",
-        "Mandurriao",
-        "Villa",
-        "City Proper"
-    };
-
-    cout << "Select last known location: \n";
-    for (int i = 0; i < 6; i++) {
-        cout << "[" << (i + 1) << "] " << addresses[i] << "\n";
-    }
-    cout << "Choice: ";
-    int locationChoice;
-    cin >> locationChoice;
-    cin.ignore();
-
-    if (locationChoice >= 1 && locationChoice <= 6) {
-        suspectLastLocation[suspectCount] = addresses[locationChoice - 1] + ", Iloilo City";
-    } else {
-        cout << "Invalid location choice. Suspect report cancelled.\n";
-        return;
-    }
-
+    cout << "Suspect's Last Known Location: ";
+    getline(cin, suspectLastLocation[suspectCount]);
     cout << "\n";
 
     suspectCount++;

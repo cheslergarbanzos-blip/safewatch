@@ -53,7 +53,7 @@ int loginAdmin() {
             cout << "██                                                                        ██\n";
             cout << "██  Welcome, " << userFullName[i] << "                                                         ██\n";     
             cout << "██  Badge/Position: " << userAuthorityType[i] << "                                                  ██\n";     
-            cout << "██  Station: " << userStation[i] << "                                                       ██\n";                                 
+            cout << "██  Station: " << userStation[i] << "                                                        ██\n";                                 
             cout << "██                                                                        ██\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
             cout << "\n";
@@ -95,8 +95,10 @@ void displayUserMenu(int currentUID) {
         cout << "██     ▀▀▀▄▄▄ ██▀██ ██▄▄  ██▄▄  ██ ▄█▄ ██ ██▄▄██   ██   ██     ██████     ██\n";
         cout << "██     █████▀ ██▀██ ██    ██▄▄▄  ▀██▀██▀  ██  ██   ██   ▀█████ ██  ██     ██\n";
         cout << "██                                                                        ██\n";
-        cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+        cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀     USER       ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
+        cout << "██                                                                        ██\n";
         cout << "██    USER ID: " << left << setw(53) << loggedInUserID << "      ██\n";
+        cout << "██                                                                        ██\n";
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                                                        ██\n";
         cout << "██    [1] Notification Center                                             ██\n";
@@ -241,8 +243,8 @@ int registerUser() {
         userArea[userCount] = addresses[areaChoice - 1] + ", Iloilo City";
     } else {
         cout << "Invalid address. Please try again.\n";
-        Sleep(1500);
-        registerUser();
+        Sleep(2000);
+        return -1;
     }
 
     userRole[userCount] = "user";
