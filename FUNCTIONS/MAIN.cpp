@@ -937,7 +937,7 @@ void roleSelectionScreen() {
     cout << "██                                                                        ██\n";
     cout << "██    [1] Admin                                                           ██\n";
     cout << "██    [2] User                                                            ██\n";
-    cout << "██    [3] Return to Role Selection                                        ██\n";
+    cout << "██    [3] Exit                                                            ██\n";
     cout << "██                                                                        ██\n";
     cout << "██                                                                        ██\n";
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
