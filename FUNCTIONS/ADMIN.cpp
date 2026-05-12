@@ -586,10 +586,11 @@ void displayAdminMenu() {
                 adminProfile();
                 break;
             case 5:
+                ::loggedInUserID = 0; // Clear loggedInUserID immediately on logout
                 cout << "\nLogging out...\n";
                 Sleep(1500);
                 roleSelectionScreen();
-                break;
+                return; // Exit displayAdminMenu after logout
             default:
                 cout << "Invalid choice. Please try again.\n";
                 Sleep(1500);

@@ -873,6 +873,7 @@ void displayUserRewards(int uid) {
     cout << "\nPress Enter to return to the Rewards Menu..." << endl;
     cin.ignore(1000, '\n'); 
     cin.get();
+    cin.get(); 
 }
 
 void rewardMenu() {
@@ -886,6 +887,15 @@ void rewardMenu() {
         cout << "██                                               ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
         cout << "██   Current Points Balance: " << left << setw(18) << userRewardPoints[loggedInUserID - 1] << "  ██\n";
+
+        int userIdx = -1;
+        for (int i = 0; i < userCount; i++) {
+            if (userID[i] == loggedInUserID) {
+                userIdx = i;
+                break;
+            }
+        }
+        cout << "██   Current Points Balance: " << left << setw(18) << (userIdx != -1 ? userRewardPoints[userIdx] : 0) << "  ██\n";
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                               ██\n";
         cout << "██    [1] View Detailed Reward History           ██\n";

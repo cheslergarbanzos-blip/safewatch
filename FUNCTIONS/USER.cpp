@@ -36,6 +36,7 @@ int loginAdmin() {
                 cout << "██  Your account credentials have been logged for security purposes.         ██\n";
                 cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
                 cout << "\n";
+                loggedInUserID = 0; // Clear loggedInUserID on access denied
                 Sleep(1500);
                 roleSelectionScreen();
                 return 0;
@@ -74,6 +75,7 @@ int loginAdmin() {
     cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
     cout << "\n";
     Sleep(5000);
+    loggedInUserID = 0; // Clear loggedInUserID on login failure
     return 0;
 }
 
@@ -180,6 +182,7 @@ int loginUser() {
             return userID[i];
         }
     }
+    loggedInUserID = 0; // Clear loggedInUserID on login failure
     cout << "\nInvalid username or password. Please try again.\n";
     Sleep(5000);
     roleSelectionScreen();
