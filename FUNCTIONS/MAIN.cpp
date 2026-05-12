@@ -71,7 +71,7 @@ int    userRewardPoints[MAX_USERS];
 
 // ADMIN SECURITY
 string userAuthorityType[MAX_USERS];  // Type of authority: police_officer, detective, captain, etc.
-string userStation[MAX_USERS];        // Station assignment for authorities
+string userStation[MAX_USERS];        
 
 // TRANSACTIONS 
 int    transactionID[MAX_TRANSACTIONS];
@@ -220,13 +220,17 @@ void loadIncidentsFromFile(){
             if (line.empty()) continue;
             stringstream ss(line);
             string temp;
-            if (!getline(ss, temp, ',')) continue;
-            incidentID[incidentCount] = stoi(temp);
-            getline(ss, incidentCrime[incidentCount], ',');
-            getline(ss, incidentLocation[incidentCount], ',');
-            getline(ss, incidentDate[incidentCount], ',');
-            getline(ss, incidentStatus[incidentCount], ',');
-            incidentCount++;
+            try {
+                if (!getline(ss, temp, ',')) continue;
+                incidentID[incidentCount] = stoi(temp);
+                getline(ss, incidentCrime[incidentCount], ',');
+                getline(ss, incidentLocation[incidentCount], ',');
+                getline(ss, incidentDate[incidentCount], ',');
+                getline(ss, incidentStatus[incidentCount], ',');
+                incidentCount++;
+            } catch (const std::exception&) {
+                continue;
+            }
         }
         infile.close();
     }
@@ -240,14 +244,18 @@ void loadSuspectsFromFile(){
             if (line.empty()) continue;
             stringstream ss(line);
             string temp;
-            getline(ss, temp, ','); suspectID[suspectCount] = stoi(temp);
-            getline(ss, temp, ','); suspectIncidentID[suspectCount] = stoi(temp);
-            getline(ss, suspectName[suspectCount], ',');
-            getline(ss, suspectHeight[suspectCount], ',');
-            getline(ss, suspectBuild[suspectCount], ',');
-            getline(ss, suspectClothing[suspectCount], ',');
-            getline(ss, suspectLastLocation[suspectCount], ',');
-            suspectCount++;
+            try {
+                if (!getline(ss, temp, ',')) continue; suspectID[suspectCount] = stoi(temp);
+                if (!getline(ss, temp, ',')) continue; suspectIncidentID[suspectCount] = stoi(temp);
+                getline(ss, suspectName[suspectCount], ',');
+                getline(ss, suspectHeight[suspectCount], ',');
+                getline(ss, suspectBuild[suspectCount], ',');
+                getline(ss, suspectClothing[suspectCount], ',');
+                getline(ss, suspectLastLocation[suspectCount], ',');
+                suspectCount++;
+            } catch (const std::exception&) {
+                continue;
+            }
         }
         infile.close();
     }
@@ -261,16 +269,20 @@ void loadUsersFromFile(){
             if (line.empty()) continue;
             stringstream ss(line);
             string temp;
-            getline(ss, temp, ','); userID[userCount] = stoi(temp);
-            getline(ss, userName[userCount], ',');
-            getline(ss, userFullName[userCount], ',');
-            getline(ss, userPassword[userCount], ',');
-            getline(ss, userArea[userCount], ',');
-            getline(ss, userRole[userCount], ',');
-            getline(ss, temp, ','); userRewardPoints[userCount] = stoi(temp);
-            getline(ss, userAuthorityType[userCount], ',');
-            getline(ss, userStation[userCount], ',');
-            userCount++;
+            try {
+                if (!getline(ss, temp, ',')) continue; userID[userCount] = stoi(temp);
+                getline(ss, userName[userCount], ',');
+                getline(ss, userFullName[userCount], ',');
+                getline(ss, userPassword[userCount], ',');
+                getline(ss, userArea[userCount], ',');
+                getline(ss, userRole[userCount], ',');
+                if (!getline(ss, temp, ',')) continue; userRewardPoints[userCount] = stoi(temp);
+                getline(ss, userAuthorityType[userCount], ',');
+                getline(ss, userStation[userCount], ',');
+                userCount++;
+            } catch (const std::exception&) {
+                continue;
+            }
         }
         infile.close();
     }
@@ -284,17 +296,21 @@ void loadAdminsFromFile(){
             if (line.empty()) continue;
             stringstream ss(line);
             string temp;
-            getline(ss, temp, ','); userID[userCount] = stoi(temp);
-            getline(ss, userName[userCount], ',');
-            getline(ss, userFullName[userCount], ',');
-            getline(ss, userPassword[userCount], ',');
-            getline(ss, userArea[userCount], ',');
-            getline(ss, userRole[userCount], ',');
-            userRole[userCount] = "admin";
-            getline(ss, temp, ','); userRewardPoints[userCount] = stoi(temp);
-            getline(ss, userAuthorityType[userCount], ',');
-            getline(ss, userStation[userCount], ',');
-            userCount++;
+            try {
+                if (!getline(ss, temp, ',')) continue; userID[userCount] = stoi(temp);
+                getline(ss, userName[userCount], ',');
+                getline(ss, userFullName[userCount], ',');
+                getline(ss, userPassword[userCount], ',');
+                getline(ss, userArea[userCount], ',');
+                getline(ss, userRole[userCount], ',');
+                userRole[userCount] = "admin";
+                if (!getline(ss, temp, ',')) continue; userRewardPoints[userCount] = stoi(temp);
+                getline(ss, userAuthorityType[userCount], ',');
+                getline(ss, userStation[userCount], ',');
+                userCount++;
+            } catch (const std::exception&) {
+                continue;
+            }
         }
         infile.close();
     }
@@ -308,13 +324,17 @@ void loadTransactionsFromFile(){
             if (line.empty()) continue;
             stringstream ss(line);
             string temp;
-            getline(ss, temp, ','); transactionID[transactionCount] = stoi(temp);
-            getline(ss, temp, ','); transactionUserID[transactionCount] = stoi(temp);
-            getline(ss, temp, ','); transactionIncidentID[transactionCount] = stoi(temp);
-            getline(ss, transactionTimestamp[transactionCount], ',');
-            getline(ss, transactionTipType[transactionCount], ',');
-            getline(ss, transactionStatus[transactionCount], ',');
-            transactionCount++;
+            try {
+                if (!getline(ss, temp, ',')) continue; transactionID[transactionCount] = stoi(temp);
+                if (!getline(ss, temp, ',')) continue; transactionUserID[transactionCount] = stoi(temp);
+                if (!getline(ss, temp, ',')) continue; transactionIncidentID[transactionCount] = stoi(temp);
+                getline(ss, transactionTimestamp[transactionCount], ',');
+                getline(ss, transactionTipType[transactionCount], ',');
+                getline(ss, transactionStatus[transactionCount], ',');
+                transactionCount++;
+            } catch (const std::exception&) {
+                continue;
+            }
         }
         infile.close();
     }
@@ -445,7 +465,8 @@ int  searchIncidentByID(int id) {
     }
 
     return -1;
-}           
+}    
+
 int  searchIncidentByLocation(string area) {
     // Implementation for searching incident by location
 

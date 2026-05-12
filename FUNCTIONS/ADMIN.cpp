@@ -439,7 +439,6 @@ void displayUserManagement() {
     }
 }
 
-
 void displayUsers() {
     system("cls");
     cout << "\n";

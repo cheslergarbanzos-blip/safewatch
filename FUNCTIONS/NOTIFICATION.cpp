@@ -17,7 +17,7 @@ vector<Notification> notifications;
 // Function to create notification from incident and suspect data
 Notification createNotification(int incidentIndex, int suspectIndex) {
     Notification n;
-    n.id = incidentIndex;
+    n.id = incidentID[incidentIndex];
     n.crimeType = incidentCrime[incidentIndex];
     n.lastLocation = incidentLocation[incidentIndex];
     if (suspectIndex != -1) {
@@ -34,6 +34,12 @@ Notification createNotification(int incidentIndex, int suspectIndex) {
 
 // Load notifications from current data
 void loadNotifications() {
+    // Store currently read IDs to preserve status after refresh
+    vector<int> readIds;
+    for (const auto& n : notifications) {
+        if (n.read) readIds.push_back(n.id);
+    }
+
     notifications.clear();
     for (int i = 0; i < incidentCount; i++) {
         int suspectIndex = -1;
@@ -44,6 +50,12 @@ void loadNotifications() {
             }
         }
         Notification n = createNotification(i, suspectIndex);
+        
+        // Check if this was previously marked as read
+        for (int rid : readIds) {
+            if (n.id == rid) { n.read = true; break; }
+        }
+        
         notifications.push_back(n);
     }
 }
@@ -57,13 +69,24 @@ vector<Notification> getFilteredNotifications(string userLocation) {
     string lowerUserLoc = userLocation;
     for (char &c : lowerUserLoc) c = (char)tolower((unsigned char)c);
 
+    // Extract and trim primary district name (the part before the comma)
+    string districtSearch = lowerUserLoc;
+    size_t commaPos = lowerUserLoc.find(',');
+    if (commaPos != string::npos) {
+        districtSearch = lowerUserLoc.substr(0, commaPos);
+    }
+    
+    // Trim whitespace to ensure reliable matching
+    districtSearch.erase(0, districtSearch.find_first_not_of(" \t\r\n"));
+    districtSearch.erase(districtSearch.find_last_not_of(" \t\r\n") + 1);
+
     for (auto& n : notifications) {
         // Convert incident location to lowercase
         string lowerIncLoc = n.lastLocation;
         for (char &c : lowerIncLoc) c = (char)tolower((unsigned char)c);
 
-        // Check if the user's area keyword exists within the reported incident location
-        if (lowerIncLoc.find(lowerUserLoc) != string::npos) {
+        // Check if the district name exists within the reported incident location
+        if (lowerIncLoc.find(districtSearch) != string::npos) {
             filtered.push_back(n);
         }
     }
@@ -72,10 +95,12 @@ vector<Notification> getFilteredNotifications(string userLocation) {
 
 // Display notification center
 void displayNotificationCenter(string userLocation) {
-    loadNotifications();
     while (true) {
         system("cls");
-    vector<Notification> filtered = getFilteredNotifications(userLocation);
+        // Refresh from global data so newly added incidents appear immediately
+        loadNotifications();
+        vector<Notification> filtered = getFilteredNotifications(userLocation);
+        
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "██                                           ██\n";
         cout << "██     ▄▄  ▄▄  ▄▄▄ ▄▄▄▄▄▄ ▄▄  ▄▄▄▄ ▄▄▄▄▄     ██\n";
@@ -93,8 +118,13 @@ void displayNotificationCenter(string userLocation) {
     int filteredCount = static_cast<int>(filtered.size());
     for (int i = filteredCount - 1; i >= 0; i--) { // Most recent first
         Notification n = filtered[i];
-        cout << (n.read ? "[READ] " : "[UNREAD] ") << n.crimeType << " | " << n.lastLocation << " | " << n.name << " |\n";
-        cout << "Preview: " << n.appearance.substr(0, 50) << "...\n";
+        cout << "[" << (filteredCount - i) << "] " << (n.read ? "[READ] " : "[UNREAD] ") 
+             << n.crimeType << " | " << n.lastLocation << " | " << n.name << " |\n";
+        
+        // Safe substring logic to prevent crashes if description is short
+        string preview = n.appearance;
+        if (preview.length() > 50) preview = preview.substr(0, 47) + "...";
+        cout << "Preview: " << preview << "\n";
         cout << "Timestamp: " << n.timestamp << "\n";
         cout << "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n";
         cout << "\n";
@@ -149,6 +179,7 @@ void showPopupNotification(Notification n) {
 // Simulate real-time alerts (run in background thread)
 void realTimeAlerts(string userLocation) {
     while (true) {
+        loadNotifications(); // Refresh data to detect new incidents added by admin
         // Simulate checking for new data (in real app, poll database or file)
         // For demo, assume new notifications are added externally
         // Here, just check if there are unread notifications
@@ -166,7 +197,7 @@ void realTimeAlerts(string userLocation) {
                 }
             }
         }
-        this_thread::sleep_for(chrono::seconds(1500)); // Check every 10 seconds
+        this_thread::sleep_for(chrono::seconds(10)); // Check every 10 seconds
     }
 }
 
