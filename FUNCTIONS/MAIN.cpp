@@ -226,6 +226,17 @@ void loadIncidentsFromFile(){
                 getline(ss, incidentCrime[incidentCount], ',');
                 getline(ss, incidentLocation[incidentCount], ',');
                 getline(ss, incidentDate[incidentCount], ',');
+
+                // Handle accidental comma split in location (if Date field lacks a hyphen)
+                // We also check for a minimum length to ensure we don't skip an actual date field
+                while (!incidentDate[incidentCount].empty() && 
+                       incidentDate[incidentCount].find('-') == string::npos && 
+                       !ss.eof()) {
+                    
+                    incidentLocation[incidentCount] += "," + incidentDate[incidentCount];
+                    if (!getline(ss, incidentDate[incidentCount], ',')) break;
+                }
+
                 getline(ss, incidentStatus[incidentCount], ',');
                 incidentCount++;
             } catch (const std::exception&) {
@@ -251,7 +262,13 @@ void loadSuspectsFromFile(){
                 getline(ss, suspectHeight[suspectCount], ',');
                 getline(ss, suspectBuild[suspectCount], ',');
                 getline(ss, suspectClothing[suspectCount], ',');
-                getline(ss, suspectLastLocation[suspectCount], ',');
+
+                // Handle extra commas in previous fields by capturing everything remaining into LastLocation
+                string remaining;
+                if (getline(ss, remaining)) {
+                    suspectLastLocation[suspectCount] = remaining;
+                }
+
                 suspectCount++;
             } catch (const std::exception&) {
                 continue;
@@ -571,8 +588,13 @@ void submitTip(int tipUserID, int tipIncidentID) {
         cout << "\n ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n\n";
 
         cout << "Enter Incident ID to submit tip for (or 0 to go back): ";
-        cin >> tipIncidentID;
-        cin.ignore(); // Clear newline from buffer
+        if (!(cin >> tipIncidentID)) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            tipIncidentID = -1; // Set to an invalid ID to trigger the error check below
+        } else {
+            cin.ignore(1000, '\n');
+        }
     }
 
     if (tipIncidentID == 0) return;
@@ -711,8 +733,13 @@ void approveReward() {
     cout << "\n ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n\n";
 
         cout << "Transaction ID to approve (or 0 to go back): ";
-        cin >> transactionId;
-        cin.ignore(); // clear newline from input buffer
+        if (!(cin >> transactionId)) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            transactionId = -1; // Set to an invalid ID to trigger the error check below
+        } else {
+            cin.ignore(1000, '\n');
+        }
 
         if (transactionId == 0) return;
 
@@ -867,8 +894,13 @@ void rewardMenu() {
         cout << "██                                               ██\n";
         cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
         cout << "\nChoice: ";
-        cin >> choice;
-        cin.ignore(); 
+
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue;
+        }
+        cin.ignore(1000, '\n'); 
 
         switch (choice) {
             case 1:
@@ -1090,6 +1122,7 @@ void profileScreen() {
                 cout << "           Enter new address: ";
                 string newAddress;
                 getline(cin, newAddress);
+                for (char &c : newAddress) if (c == ',') c = ' ';
 
                 if (newAddress.empty()) {
                     cout << "Address cannot be empty. No changes made.\n";

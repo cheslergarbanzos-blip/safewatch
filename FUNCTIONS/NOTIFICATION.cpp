@@ -69,16 +69,25 @@ vector<Notification> getFilteredNotifications(string userLocation) {
     string lowerUserLoc = userLocation;
     for (char &c : lowerUserLoc) c = (char)tolower((unsigned char)c);
 
-    // Extract and trim primary district name (the part before the comma)
+    // Extract and trim primary district name
     string districtSearch = lowerUserLoc;
     size_t commaPos = lowerUserLoc.find(',');
     if (commaPos != string::npos) {
         districtSearch = lowerUserLoc.substr(0, commaPos);
+    } else {
+        // Handle the " iloilo city" suffix from recent profile changes if comma is missing
+        size_t cityPos = lowerUserLoc.find(" iloilo city");
+        if (cityPos != string::npos) {
+            districtSearch = lowerUserLoc.substr(0, cityPos);
+        }
     }
     
     // Trim whitespace to ensure reliable matching
-    districtSearch.erase(0, districtSearch.find_first_not_of(" \t\r\n"));
-    districtSearch.erase(districtSearch.find_last_not_of(" \t\r\n") + 1);
+    size_t startS = districtSearch.find_first_not_of(" \t\r\n");
+    if (startS != string::npos) {
+        size_t endS = districtSearch.find_last_not_of(" \t\r\n");
+        districtSearch = districtSearch.substr(startS, endS - startS + 1);
+    }
 
     for (auto& n : notifications) {
         // Convert incident location to lowercase

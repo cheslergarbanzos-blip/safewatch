@@ -59,6 +59,7 @@ void adminProfile() {
                 cout << "\n";
                 cout << "\nEnter new address: ";
                 getline(cin, userArea[idx]);
+                for (char &c : userArea[idx]) if (c == ',') c = ' ';
                 cout << "\nAddress updated successfully!\n";
                 // Save the updated data
                 if (userRole[idx] == "admin") {
@@ -157,8 +158,12 @@ void admindRewardScreen() {
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "\n";
         cout << "Choice: ";
-        cin >> choice;
-        cin.ignore();
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue;
+        }
+        cin.ignore(1000, '\n');
         switch (choice) {
             case 1:
                 viewTipsScreen();
@@ -247,6 +252,7 @@ void addIncident() {
 
     cout << "Area: ";
     getline(cin, incidentLocation[incidentCount]);
+    for (char &c : incidentLocation[incidentCount]) if (c == ',') c = ' ';
     cout << "\n";
 
     cout << "Date (YYYY-MM-DD): ";
@@ -299,6 +305,7 @@ void addSuspect(){
 
     cout << "Name: (type N/A if not identified) ";
     getline(cin, suspectName[suspectCount]);
+    for (char &c : suspectName[suspectCount]) if (c == ',') c = ' ';
     cout << "\n";
 
     cout << "Height: ";
@@ -311,6 +318,7 @@ void addSuspect(){
 
     cout << "Clothing: ";
     getline(cin, suspectClothing[suspectCount]);
+    for (char &c : suspectClothing[suspectCount]) if (c == ',') c = ' ';
     cout << "\n";
 
     cout << "Suspect's Last Known Location: ";
@@ -370,6 +378,7 @@ void addUser(){
 
     cout << "Home Area/Address: ";
     getline(cin, userArea[userCount]);
+    for (char &c : userArea[userCount]) if (c == ',') c = ' ';
 
     if (role == "admin") {
         cout << "\n[Authority Details Required]\n";
