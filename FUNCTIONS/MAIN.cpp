@@ -276,6 +276,11 @@ void loadUsersFromFile(){
                 getline(ss, userPassword[userCount], ',');
                 getline(ss, userArea[userCount], ',');
                 getline(ss, userRole[userCount], ',');
+                // Handle accidental comma split in address (if Role field is part of the address)
+                if (userRole[userCount] != "user" && userRole[userCount] != "admin" && !userRole[userCount].empty()) {
+                    userArea[userCount] += "," + userRole[userCount];
+                    getline(ss, userRole[userCount], ',');
+                }
                 if (!getline(ss, temp, ',')) continue; userRewardPoints[userCount] = stoi(temp);
                 getline(ss, userAuthorityType[userCount], ',');
                 getline(ss, userStation[userCount], ',');
@@ -303,6 +308,11 @@ void loadAdminsFromFile(){
                 getline(ss, userPassword[userCount], ',');
                 getline(ss, userArea[userCount], ',');
                 getline(ss, userRole[userCount], ',');
+                // Handle accidental comma split in address
+                if (userRole[userCount] != "user" && userRole[userCount] != "admin" && !userRole[userCount].empty()) {
+                    userArea[userCount] += "," + userRole[userCount];
+                    getline(ss, userRole[userCount], ',');
+                }
                 userRole[userCount] = "admin";
                 if (!getline(ss, temp, ',')) continue; userRewardPoints[userCount] = stoi(temp);
                 getline(ss, userAuthorityType[userCount], ',');

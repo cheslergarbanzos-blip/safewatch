@@ -239,7 +239,8 @@ int registerUser() {
     cin.ignore();
 
     if (areaChoice >= 1 && areaChoice <= 6) {
-        userArea[userCount] = addresses[areaChoice - 1] + ", Iloilo City";
+        // Removed the comma to prevent CSV parsing errors on reload
+        userArea[userCount] = addresses[areaChoice - 1] + " Iloilo City";
     } else {
         cout << "Invalid address. Please try again.\n";
         Sleep(2000);

@@ -85,8 +85,17 @@ vector<Notification> getFilteredNotifications(string userLocation) {
         string lowerIncLoc = n.lastLocation;
         for (char &c : lowerIncLoc) c = (char)tolower((unsigned char)c);
 
-        // Check if the district name exists within the reported incident location
-        if (lowerIncLoc.find(districtSearch) != string::npos) {
+        // Trim whitespace from incident location for accurate matching
+        size_t first = lowerIncLoc.find_first_not_of(" \t\r\n");
+        if (first != string::npos) {
+            size_t last = lowerIncLoc.find_last_not_of(" \t\r\n");
+            lowerIncLoc = lowerIncLoc.substr(first, (last - first + 1));
+        }
+
+        // Bidirectional match: handles "Villa" vs "Villa Arevalo" correctly
+        // Check if district is in location OR location is in district
+        if (!districtSearch.empty() && (lowerIncLoc.find(districtSearch) != string::npos || 
+            districtSearch.find(lowerIncLoc) != string::npos)) {
             filtered.push_back(n);
         }
     }
