@@ -533,7 +533,7 @@ void displayAdminMenu() {
         system("cls");
         int adminIdx = -1;
         for (int i = 0; i < userCount; i++) {
-            if (userID[i] == loggedInUserID) {
+            if (loggedInUserID == userID[i]) {
                 adminIdx = i;
                 break;
             }
