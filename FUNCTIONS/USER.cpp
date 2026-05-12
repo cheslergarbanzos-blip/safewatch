@@ -132,9 +132,9 @@ void displayUserMenu(int currentUID) {
             case 5:
                 cout << "Logging out...\n";
                 Sleep(1000);
-                // Clear global session ID
+                roleSelectionScreen();
                 ::loggedInUserID = 0; 
-                return;
+                break;
             default:
                 cout << "Invalid choice. Please try again.\n";
                 Sleep(1000);

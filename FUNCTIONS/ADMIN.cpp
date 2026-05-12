@@ -581,7 +581,6 @@ void displayAdminMenu() {
                 cout << "\nLogging out...\n";
                 Sleep(1500);
                 roleSelectionScreen();
-                stay = false;
                 break;
             default:
                 cout << "Invalid choice. Please try again.\n";
