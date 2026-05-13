@@ -52,6 +52,7 @@ extern int userRewardPoints[];
 
 extern string userAuthorityType[];
 extern string userStation[];
+extern string userBadgeNumber[]; // New: Badge Number for admin users
 
 extern int transactionID[];
 extern int transactionUserID[];

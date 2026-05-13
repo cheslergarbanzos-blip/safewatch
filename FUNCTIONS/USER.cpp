@@ -54,6 +54,7 @@ int loginAdmin() {
             cout << "██  Welcome, " << userFullName[i] << "                                                         ██\n";     
             cout << "██  Badge/Position: " << userAuthorityType[i] << "                                                       ██\n";     
             cout << "██  Station: " << userStation[i] << "                                                         ██\n";                                 
+            cout << "██  Badge Number: " << userBadgeNumber[i] << "                                                   ██\n";
             cout << "██                                                                        ██\n";
             cout << "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
             cout << "\n";
@@ -255,6 +256,7 @@ int registerUser() {
     userID[userCount] = userCount + 1;
     userAuthorityType[userCount] = "none";
     userStation[userCount] = "none";
+    userBadgeNumber[userCount] = "none";
 
     userCount++;
 

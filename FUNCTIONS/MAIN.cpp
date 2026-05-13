@@ -71,7 +71,8 @@ int    userRewardPoints[MAX_USERS];
 
 // ADMIN SECURITY
 string userAuthorityType[MAX_USERS];  // Type of authority: police_officer, detective, captain, etc.
-string userStation[MAX_USERS];        
+string userStation[MAX_USERS];
+string userBadgeNumber[MAX_USERS]; // New: Badge Number for admin users
 
 // TRANSACTIONS 
 int    transactionID[MAX_TRANSACTIONS];
@@ -156,7 +157,8 @@ void saveUsersToFile() {
                         << userRole[i] << "," 
                         << userRewardPoints[i] << ","
                         << userAuthorityType[i] << ","
-                        << userStation[i] << endl;
+                        << userStation[i] << ","
+                        << userBadgeNumber[i] << endl; // Save new field
             }
         } 
         outfile.close();
@@ -184,12 +186,13 @@ void saveAdminsToFile() {
                         << userRole[i] << "," 
                         << userRewardPoints[i] << ","
                         << userAuthorityType[i] << ","
-                        << userStation[i] << endl;
+                        << userStation[i] << ","
+                        << userBadgeNumber[i] << endl; // Save new field
             }
         } 
         outfile.close();
     } else {
-        cout << "CRITICAL ERROR: Could not save to " << USERS_FILE << ". Ensure 'DATA' folder exists.\n";
+        cout << "CRITICAL ERROR: Could not save to " << ADMINS_FILE << ". Ensure 'DATA' folder exists.\n";
         Sleep(1500);
     }
 }
@@ -301,6 +304,7 @@ void loadUsersFromFile(){
                 if (!getline(ss, temp, ',')) continue; userRewardPoints[userCount] = stoi(temp);
                 getline(ss, userAuthorityType[userCount], ',');
                 getline(ss, userStation[userCount], ',');
+                getline(ss, userBadgeNumber[userCount], ','); // Load badge number column
                 userCount++;
             } catch (const std::exception&) {
                 continue;
@@ -334,6 +338,7 @@ void loadAdminsFromFile(){
                 if (!getline(ss, temp, ',')) continue; userRewardPoints[userCount] = stoi(temp);
                 getline(ss, userAuthorityType[userCount], ',');
                 getline(ss, userStation[userCount], ',');
+                getline(ss, userBadgeNumber[userCount], ','); // Load new field
                 userCount++;
             } catch (const std::exception&) {
                 continue;

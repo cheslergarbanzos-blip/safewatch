@@ -34,6 +34,7 @@ void adminProfile() {
         cout << "██   Role         : " << left << setw(52) << userRole[idx]         << "  ██\n";
         cout << "██   Authority    : " << left << setw(52) << userAuthorityType[idx] << "  ██\n";
         cout << "██   Station      : " << left << setw(52) << userStation[idx]       << "  ██\n";
+        cout << "██   Badge Number : " << left << setw(52) << userBadgeNumber[idx]   << "  ██\n"; // New: Display Badge Number
         cout << "██   Reward Points: " << left << setw(52) << userRewardPoints[idx] << "  ██\n";
         cout << "██                                                                        ██\n";
         cout << "██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██\n";
@@ -387,9 +388,13 @@ void addUser(){
         
         cout << "Station Assignment: ";
         getline(cin, userStation[userCount]);
+
+        cout << "Badge Number: "; // New: Prompt for Badge Number
+        getline(cin, userBadgeNumber[userCount]); // Store Badge Number
     } else {
         userAuthorityType[userCount] = "none";
         userStation[userCount] = "none";
+        userBadgeNumber[userCount] = "none"; // Initialize for non-admin users
     }
 
     userID[userCount] = userCount + 1;
@@ -478,8 +483,9 @@ void displayUsers() {
                  << setw(24) << "Full Name"
                  << setw(18) << "Area"
                  << setw(16) << "Authority"
-                 << setw(16) << "Station" << "\n";
-            cout << string(107, '=') << "\n";
+                 << setw(16) << "Station"
+                 << setw(15) << "Badge No" << "\n";
+            cout << string(122, '=') << "\n";
 
             for (int i = 0; i < userCount; i++) {
                 if (userRole[i] == "admin") {
@@ -489,7 +495,8 @@ void displayUsers() {
                          << setw(24) << userFullName[i]
                          << setw(18) << userArea[i]
                          << setw(16) << userAuthorityType[i]
-                         << setw(16) << userStation[i] << "\n";
+                         << setw(16) << userStation[i]
+                         << setw(15) << userBadgeNumber[i] << "\n";
                 }
             }
             cout << "\n";
@@ -558,6 +565,7 @@ void displayAdminMenu() {
             cout << "██    Logged In As: " << left << setw(20) << userFullName[adminIdx] << "                                  ██\n";
             cout << "██    Badge: " << setw(15) << userAuthorityType[adminIdx] << "                                              ██\n";
             cout << "██    Station: " << setw(13) << userStation[adminIdx] << "                                              ██\n";
+            cout << "██    Badge No: " << left << setw(15) << userBadgeNumber[adminIdx] << "                                         ██\n";
         } 
         cout << "██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\n";
         cout << "██                                                                        ██\n";
