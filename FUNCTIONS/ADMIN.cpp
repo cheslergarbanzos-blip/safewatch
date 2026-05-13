@@ -277,6 +277,7 @@ void addSuspect(){
      system("cls");
     if (suspectCount >= MAX_SUSPECTS) {
         cout << "Maximum suspect limit reached. Cannot add more suspects.\n";
+        Sleep(1500);
         return;
     }
 
